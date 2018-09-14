@@ -1,0 +1,85 @@
+<div>
+    <h2>Registrations</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="registration.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Register New Class
+                    </span>
+                </button>
+                <button class="btn btn-primary" ui-sref="invoice" >
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    <span >
+                        View Invoice
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="student.id"><span>Student</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mlcClass.id"><span>Class</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="registration in vm.registrations track by registration.id">
+                    <td>
+                        <a ui-sref="student-detail({id:registration.student.id})">{{registration.student.firstName+' '+registration.student.lastName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.className}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="registration-status-detail({id:registration.status.id})">{{registration.status}}</a>
+                    </td>
+
+                    <td>
+                        <button type="submit"
+                                ui-sref="registration.delete({id:registration.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-sm-down">Cancel</span>
+                        </button>
+                    </td>
+                    <!--
+                    <td class="text-right">
+
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="registration-detail({id:registration.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="registration.edit({id:registration.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="registration.delete({id:registration.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

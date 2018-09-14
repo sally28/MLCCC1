@@ -1,0 +1,82 @@
+<div>
+    <h2>Mlc Classes</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="mlc-class.new" has-authority="ROLE_ADMIN" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Mlc Class
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="className"><span>Class Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="minAge"><span>Min Age</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="tuition"><span>Tuition</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="registrationFee"><span>Registration Fee</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="classTime.id"><span>Class Time</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="teacher.id"><span>Teacher</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="classRoom.id"><span>Class Room</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.id">
+                    <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.id}}</a></td>
+                    <td>{{mlcClass.className}}</td>
+                    <td>{{mlcClass.minAge}}</td>
+                    <td>{{mlcClass.tuition}}</td>
+                    <td>{{mlcClass.registrationFee}}</td>
+                    <td>
+                        <a ui-sref="class-status-detail({id:mlcClass.status.id})">{{mlcClass.status.status}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="class-time-detail({id:mlcClass.classTime.id})">{{mlcClass.classTime.classTime}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="teacher-detail({id:mlcClass.teacher.id})">{{mlcClass.teacher.firstName}} {{mlcClass.teacher.lastName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="class-room-detail({id:mlcClass.classRoom.id})">{{mlcClass.classRoom.roomNumber}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="mlc-class-detail({id:mlcClass.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="mlc-class.edit({id:mlcClass.id})"
+                                    class="btn btn-primary btn-sm" has-authority="ROLE_ADMIN">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="mlc-class.delete({id:mlcClass.id})"
+                                    class="btn btn-danger btn-sm" has-authority="ROLE_ADMIN">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

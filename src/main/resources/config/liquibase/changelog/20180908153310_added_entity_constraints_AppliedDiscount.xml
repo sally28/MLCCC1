@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity AppliedDiscount.
+    -->
+    <changeSet id="20180908153310-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="discount_id"
+                                 baseTableName="applied_discount"
+                                 constraintName="fk_applied_discount_discount_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="discount"/>
+
+        <addForeignKeyConstraint baseColumnNames="registration_id"
+                                 baseTableName="applied_discount"
+                                 constraintName="fk_applied_discount_registration_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="registration"/>
+
+    </changeSet>
+</databaseChangeLog>

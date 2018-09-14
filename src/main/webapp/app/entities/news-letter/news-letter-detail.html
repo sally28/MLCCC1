@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>News Letter</span> {{vm.newsLetter.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.newsLetter.name}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.newsLetter.description}}</span>
+        </dd>
+        <dt><span>File Name</span></dt>
+        <dd>
+            <span>{{vm.newsLetter.fileName}}</span>
+        </dd>
+        <dt><span>Upload Date</span></dt>
+        <dd>
+            <span>{{vm.newsLetter.uploadDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Uploaded By</span></dt>
+        <dd>
+            <span>{{vm.newsLetter.uploadedBy}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="news-letter-detail.edit({id:vm.newsLetter.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

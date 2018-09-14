@@ -1,0 +1,67 @@
+
+<div>
+    <h2><span>Mlc Class</span> {{vm.mlcClass.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Class Name</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.className}}</span>
+        </dd>
+        <dt><span>Text Book</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.textBook}}</span>
+        </dd>
+        <dt><span>Size</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.size}}</span>
+        </dd>
+        <dt><span>Min Age</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.minAge}}</span>
+        </dd>
+        <dt><span>Tuition</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.tuition}}</span>
+        </dd>
+        <dt><span>Registration Fee</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.registrationFee}}</span>
+        </dd>
+        <dt><span>Seq Number</span></dt>
+        <dd>
+            <span>{{vm.mlcClass.seqNumber}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <a ui-sref="class-status-detail({id:vm.mlcClass.status.id})">{{vm.mlcClass.status.status}}</a>
+        </dd>
+        <dt><span>Class Time</span></dt>
+        <dd>
+            <a ui-sref="class-time-detail({id:vm.mlcClass.classTime.id})">{{vm.mlcClass.classTime.classTime}}</a>
+        </dd>
+        <dt><span>Teacher</span></dt>
+        <dd>
+            <a ui-sref="teacher-detail({id:vm.mlcClass.teacher.id})">{{vm.mlcClass.teacher.firstName}} {{vm.mlcClass.teacher.lastName}}</a>
+        </dd>
+        <dt><span>Class Room</span></dt>
+        <dd>
+            <a ui-sref="class-room-detail({id:vm.mlcClass.classRoom.id})">{{vm.mlcClass.classRoom.roomNumber}}</a>
+        </dd>
+        <dt><span>School Term</span></dt>
+        <dd>
+            <a ui-sref="school-term-detail({id:vm.mlcClass.schoolTerm.id})">{{vm.mlcClass.schoolTerm.term}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="mlc-class-detail.edit({id:vm.mlcClass.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

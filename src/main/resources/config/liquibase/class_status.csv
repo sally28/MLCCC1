@@ -1,0 +1,4 @@
+id;status;color_displayed
+1;OPEN;GREEN
+1;FULL;YELLOW
+3;CLOSED;RED

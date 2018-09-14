@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Discount</span> {{vm.discount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Amount</span></dt>
+        <dd>
+            <span>{{vm.discount.amount}}</span>
+        </dd>
+        <dt><span>Start Date</span></dt>
+        <dd>
+            <span>{{vm.discount.startDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>End Date</span></dt>
+        <dd>
+            <span>{{vm.discount.endDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Discount Code</span></dt>
+        <dd>
+            <a ui-sref="discount-code-detail({id:vm.discount.discountCode.id})">{{vm.discount.discountCode.id}}</a>
+        </dd>
+        <dt><span>School Term</span></dt>
+        <dd>
+            <a ui-sref="school-term-detail({id:vm.discount.schoolTerm.id})">{{vm.discount.schoolTerm.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="discount-detail.edit({id:vm.discount.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

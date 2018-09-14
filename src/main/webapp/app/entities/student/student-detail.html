@@ -1,0 +1,50 @@
+
+<div>
+    <h2><span>Student</span> {{vm.student.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{vm.student.firstName}}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{vm.student.lastName}}</span>
+        </dd>
+        <dt><span>Gender</span></dt>
+        <dd>
+            <span>{{vm.student.gender}}</span>
+        </dd>
+        <dt><span>Birth Month</span></dt>
+        <dd>
+            <span>{{vm.student.birthMonth}}</span>
+        </dd>
+        <dt><span>Birth Year</span></dt>
+        <dd>
+            <span>{{vm.student.birthYear}}</span>
+        </dd>
+        <dt><span>Associated Users</span></dt>
+        <dd>
+            <div has-authority="ROLE_ADMIN">
+                <a ui-sref="user-management-detail({login:vm.student.associatedAccounts[0].login})">
+                    {{vm.student.associatedAccounts[0].firstName + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
+            </div>
+            <div has-authority="ROLE_USER">
+                <a ui-sref="settings({id:vm.student.associatedAccounts[0].id})">
+                    {{vm.student.associatedAccounts[0].firstName + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="student-detail.edit({id:vm.student.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>
