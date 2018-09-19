@@ -22,8 +22,8 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/mlccc
-        username: mlccc
-        password:
+        username: postgres
+        password: Scala350!
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -43,7 +43,7 @@ spring:
         cache: true
 
 liquibase:
-    contexts: prod
+    contexts: dev
 
 # ===================================================================
 # To enable SSL, generate a certificate using:

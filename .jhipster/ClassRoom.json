@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "roomNumber",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "projectAvailable",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180621001232",
+    "entityTableName": "class_room",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

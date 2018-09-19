@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="wenyaohu (generated)" id="1537365086736-1">
+        <createTable tableName="invoice">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="invoicePK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="invoice_date" type="BYTEA"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-2">
+        <addColumn tableName="applied_discount">
+            <column name="invoice_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-3">
+        <addColumn tableName="payment">
+            <column name="invoice_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-4">
+        <addColumn tableName="registration">
+            <column name="invoice_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-5">
+        <addColumn tableName="registration">
+            <column name="status_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-6">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="invoice" constraintName="FK54i2mtr6rnshs2twm2pqcmlua" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-7">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="registration" constraintName="FK5iqsvbsa5h5hygkds0u79ch0o" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="registration_status"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-8">
+        <addForeignKeyConstraint baseColumnNames="invoice_id" baseTableName="registration" constraintName="FKdhayysw2v02q6fmeshiejddsr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="invoice"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-9">
+        <addForeignKeyConstraint baseColumnNames="invoice_id" baseTableName="applied_discount" constraintName="FKor7fdwgbb3jsm0m7bch2glq0g" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="invoice"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-10">
+        <addForeignKeyConstraint baseColumnNames="invoice_id" baseTableName="payment" constraintName="FKsb24p8f52refbb80qwp4gem9n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="invoice"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-11">
+        <dropForeignKeyConstraint baseTableName="student" constraintName="fk_student_account_id"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-12">
+        <dropUniqueConstraint constraintName="UniqueDiscount" tableName="discount"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-13">
+        <dropColumn columnName="account_id" tableName="student"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-14">
+        <dropColumn columnName="status" tableName="registration"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-15">
+        <addNotNullConstraint columnDataType="float8" columnName="amount" tableName="discount"/>
+    </changeSet>
+    <changeSet author="wenyaohu (generated)" id="1537365086736-16">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="code" tableName="discount_code"/>
+    </changeSet>
+</databaseChangeLog>

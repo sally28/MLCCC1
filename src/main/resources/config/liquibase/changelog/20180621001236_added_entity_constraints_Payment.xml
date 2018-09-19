@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="registration"/>
 
+        <addForeignKeyConstraint baseColumnNames="invoice_id"
+                                 baseTableName="payment"
+                                 constraintName="fk_payment_invoice_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="invoice"/>
+
     </changeSet>
 </databaseChangeLog>

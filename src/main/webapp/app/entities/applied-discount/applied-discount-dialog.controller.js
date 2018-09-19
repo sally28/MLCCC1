@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('AppliedDiscountDialogController', AppliedDiscountDialogController);
 
-    AppliedDiscountDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AppliedDiscount', 'Discount', 'Registration'];
+    AppliedDiscountDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AppliedDiscount', 'Discount', 'Registration', 'Invoice'];
 
-    function AppliedDiscountDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AppliedDiscount, Discount, Registration) {
+    function AppliedDiscountDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AppliedDiscount, Discount, Registration, Invoice) {
         var vm = this;
 
         vm.appliedDiscount = entity;
@@ -17,6 +17,7 @@
         vm.save = save;
         vm.discounts = Discount.query();
         vm.registrations = Registration.query();
+        vm.invoices = Invoice.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

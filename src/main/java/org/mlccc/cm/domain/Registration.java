@@ -29,16 +29,17 @@ public class Registration implements Serializable {
     @Column(name = "modify_date")
     private LocalDate modifyDate;
 
-    @Column(name = "status")
-    private String status;
-
     @ManyToOne
     private Student student;
 
     @ManyToOne
     private MlcClass mlcClass;
 
+    @ManyToOne
+    private RegistrationStatus status;
 
+    @ManyToOne
+    private Invoice invoice;
 
     public Long getId() {
         return id;
@@ -100,17 +101,30 @@ public class Registration implements Serializable {
         this.mlcClass = mlcClass;
     }
 
-    public String getStatus() {
+    public RegistrationStatus getStatus() {
         return status;
     }
 
-    public Registration status(String registrationStatus) {
+    public Registration status(RegistrationStatus registrationStatus) {
         this.status = registrationStatus;
         return this;
     }
 
-    public void setStatus(String registrationStatus) {
+    public void setStatus(RegistrationStatus registrationStatus) {
         this.status = registrationStatus;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public Registration invoice(Invoice invoice) {
+        this.invoice = invoice;
+        return this;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override
@@ -139,7 +153,6 @@ public class Registration implements Serializable {
             "id=" + getId() +
             ", createDate='" + getCreateDate() + "'" +
             ", modifyDate='" + getModifyDate() + "'" +
-            ", status='" + getStatus() + "'"+
             "}";
     }
 }

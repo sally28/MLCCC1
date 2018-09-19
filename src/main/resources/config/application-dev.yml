@@ -133,7 +133,7 @@ jhipster:
 # ===================================================================
 
 application:
-    newsletterUploadDir: /Users/Yu/Desktop/Documents/workspace2/GitProjects/MLCCC1/uploaded_files/newsletter/
-    mediaUploadDir: /Users/Yu/Desktop/Documents/workspace2/GitProjects/MLCCC1/uploaded_files/media/
+    newsletterUploadDir: /Users/wenyaohu/git/MLCCC1/uploaded_files/newsletter/
+    mediaUploadDir: /Users/wenyaohu/git/MLCCC1/uploaded_files/media/
 
-uploadedFileDir: /Users/Yu/Desktop/Documents/workspace2/GitProjects/MLCCC1/uploaded_files/
+uploadedFileDir: /Users/wenyaohu/git/MLCCC1/uploaded_files/

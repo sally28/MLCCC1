@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('AppliedDiscountDetailController', AppliedDiscountDetailController);
 
-    AppliedDiscountDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'AppliedDiscount', 'Discount', 'Registration'];
+    AppliedDiscountDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'AppliedDiscount', 'Discount', 'Registration', 'Invoice'];
 
-    function AppliedDiscountDetailController($scope, $rootScope, $stateParams, previousState, entity, AppliedDiscount, Discount, Registration) {
+    function AppliedDiscountDetailController($scope, $rootScope, $stateParams, previousState, entity, AppliedDiscount, Discount, Registration, Invoice) {
         var vm = this;
 
         vm.appliedDiscount = entity;

@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "contact",
+            "otherEntityName": "contact",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "mlcAccount"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180621001219",
+    "entityTableName": "mlc_account",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl"
+}

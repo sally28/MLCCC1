@@ -62,6 +62,10 @@ public class CacheConfiguration {
             cm.createCache(org.mlccc.cm.domain.DiscountCode.class.getName(), jcacheConfiguration);
             cm.createCache(org.mlccc.cm.domain.Discount.class.getName(), jcacheConfiguration);
             cm.createCache(org.mlccc.cm.domain.AppliedDiscount.class.getName(), jcacheConfiguration);
+            cm.createCache(org.mlccc.cm.domain.Invoice.class.getName(), jcacheConfiguration);
+            cm.createCache(org.mlccc.cm.domain.Invoice.class.getName() + ".registrations", jcacheConfiguration);
+            cm.createCache(org.mlccc.cm.domain.Invoice.class.getName() + ".payments", jcacheConfiguration);
+            cm.createCache(org.mlccc.cm.domain.Invoice.class.getName() + ".appliedDiscounts", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

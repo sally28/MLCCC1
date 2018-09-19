@@ -1,0 +1,42 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "account",
+            "otherEntityName": "mlcAccount",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "registration",
+            "otherEntityName": "registration",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "invoice",
+            "otherEntityName": "invoice",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001236",
+    "entityTableName": "payment",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

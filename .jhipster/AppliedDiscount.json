@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "discount",
+            "otherEntityName": "discount",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "registration",
+            "otherEntityName": "registration",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "invoice",
+            "otherEntityName": "invoice",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "modifiedDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180908153310",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "applied_discount",
+    "pagination": "no"
+}

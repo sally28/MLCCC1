@@ -35,6 +35,9 @@ public class AppliedDiscount implements Serializable {
     @ManyToOne
     private Registration registration;
 
+    @ManyToOne
+    private Invoice invoice;
+
     public Long getId() {
         return id;
     }
@@ -93,6 +96,19 @@ public class AppliedDiscount implements Serializable {
 
     public void setRegistration(Registration registration) {
         this.registration = registration;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public AppliedDiscount invoice(Invoice invoice) {
+        this.invoice = invoice;
+        return this;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override

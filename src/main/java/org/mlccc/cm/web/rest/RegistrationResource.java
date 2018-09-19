@@ -72,7 +72,7 @@ public class RegistrationResource {
         }
 
         registration.setCreateDate(LocalDate.now());
-        registration.setStatus(Constants.PENDING_STATUS);
+        //registration.setStatus(Constants.PENDING_STATUS);
         Registration result = registrationService.save(registration);
         return ResponseEntity.created(new URI("/api/registrations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

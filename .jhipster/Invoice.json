@@ -1,0 +1,50 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "invoice"
+        },
+        {
+            "relationshipName": "registration",
+            "otherEntityName": "registration",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "invoice"
+        },
+        {
+            "relationshipName": "payment",
+            "otherEntityName": "payment",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "invoice"
+        },
+        {
+            "relationshipName": "appliedDiscount",
+            "otherEntityName": "appliedDiscount",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "invoice"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "invoiceDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180919132322",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "invoice",
+    "pagination": "no"
+}

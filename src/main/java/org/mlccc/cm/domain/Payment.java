@@ -37,6 +37,9 @@ public class Payment implements Serializable {
     @ManyToOne
     private Registration registration;
 
+    @ManyToOne
+    private Invoice invoice;
+
     public Long getId() {
         return id;
     }
@@ -108,6 +111,19 @@ public class Payment implements Serializable {
 
     public void setRegistration(Registration registration) {
         this.registration = registration;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public Payment invoice(Invoice invoice) {
+        this.invoice = invoice;
+        return this;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override

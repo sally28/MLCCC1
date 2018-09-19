@@ -1,0 +1,15 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "phoneType",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001225",
+    "entityTableName": "phone_type",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

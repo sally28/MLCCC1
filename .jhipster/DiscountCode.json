@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180908143222",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "discount_code",
+    "pagination": "no"
+}

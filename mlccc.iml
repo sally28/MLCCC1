@@ -25,6 +25,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="MLCCC1 node_modules" level="project" />
     <orderEntry type="library" name="Maven: io.github.jhipster:jhipster:1.1.8" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:3.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
@@ -163,6 +164,9 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-heroku-connector:1.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-localconfig-connector:1.2.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.8" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-data:4.2.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.13.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-undertow:1.5.4.RELEASE" level="project" />

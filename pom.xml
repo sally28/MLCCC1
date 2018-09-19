@@ -360,6 +360,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cloud-connectors</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.0</version>
+        </dependency>
         <!-- security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -509,8 +524,8 @@
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://localhost:5432/mlccc</url>
                     <defaultSchemaName></defaultSchemaName>
-                    <username>mlccc</username>
-                    <password></password>
+                    <username>postgres</username>
+                    <password>Scala350!</password>
                     <referenceUrl>hibernate:spring:org.mlccc.cm.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>

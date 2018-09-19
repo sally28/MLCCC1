@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "term",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "register",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "promDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "earlyBirdDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180621001233",
+    "entityTableName": "school_term",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

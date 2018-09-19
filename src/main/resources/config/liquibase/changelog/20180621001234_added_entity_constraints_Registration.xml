@@ -7,7 +7,7 @@
         Added the constraints for entity Registration.
     -->
     <changeSet id="20180621001234-2" author="jhipster">
-
+        
         <addForeignKeyConstraint baseColumnNames="student_id"
                                  baseTableName="registration"
                                  constraintName="fk_registration_student_id"
@@ -19,6 +19,18 @@
                                  constraintName="fk_registration_mlc_class_id"
                                  referencedColumnNames="id"
                                  referencedTableName="mlc_class"/>
+
+        <addForeignKeyConstraint baseColumnNames="status_id"
+                                 baseTableName="registration"
+                                 constraintName="fk_registration_status_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="registration_status"/>
+
+        <addForeignKeyConstraint baseColumnNames="invoice_id"
+                                 baseTableName="registration"
+                                 constraintName="fk_registration_invoice_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="invoice"/>
 
     </changeSet>
 </databaseChangeLog>

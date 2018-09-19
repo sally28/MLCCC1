@@ -1,0 +1,98 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "p1PhoneType1",
+            "otherEntityName": "phoneType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "p1PhoneType2",
+            "otherEntityName": "phoneType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "p2PhoneType1",
+            "otherEntityName": "phoneType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "p2PhoneType2",
+            "otherEntityName": "phoneType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "schoolDistrict",
+            "otherEntityName": "schoolDistrict",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "zip",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fax",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p1FirstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p1LastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p2FirstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p2LastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p1Phone1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p1Phone2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p2Phone1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "p2Phone2",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001224",
+    "entityTableName": "contact",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

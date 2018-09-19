@@ -1,0 +1,15 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "classTime",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001230",
+    "entityTableName": "class_time",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}
