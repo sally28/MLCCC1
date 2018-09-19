@@ -1,7 +1,11 @@
 body {
-    background: #fafafa;
+    /*background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+    color: #333;*/
+    background: url("../images/bodybg.jpg.png") repeat;
+    color: #b0a59f;
+    font: 400 13px/17px "Droid Sans", sans-serif;
+    -webkit-text-size-adjust: none;
 }
 
 /* ==========================================================================
@@ -334,6 +338,13 @@ ui bootstrap tweaks
 .datetime-picker-dropdown > li.date-picker-menu div > table:focus,
 .uib-datepicker-popup  > li > div.uib-datepicker > table:focus {
     outline: none;
+}
+
+.modal-body{
+    background: url(../images/bodybg.jpg.png) repeat;
+    color: #b0a59f;
+    font: 400 13px/17px "Droid Sans", sans-serif;
+    -webkit-text-size-adjust: none;url("../images/hipster.png") no-repeat center top
 }
 
 
