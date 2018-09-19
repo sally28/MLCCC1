@@ -15,18 +15,16 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "status",
-            "otherEntityName": "registrationStatus",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
             "relationshipName": "invoice",
             "otherEntityName": "invoice",
             "otherEntityField": "id"
         }
     ],
     "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
         {
             "fieldName": "createDate",
             "fieldType": "LocalDate"

@@ -17,7 +17,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration,Long> {
-
+    
     @Query("SELECT r FROM Registration r WHERE r.student.id = (:studentId)")
     List<Registration> findAllWithStudentId(@Param("studentId") Long studentId);
 

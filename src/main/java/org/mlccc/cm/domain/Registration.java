@@ -23,6 +23,9 @@ public class Registration implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "create_date")
     private LocalDate createDate;
 
@@ -36,9 +39,6 @@ public class Registration implements Serializable {
     private MlcClass mlcClass;
 
     @ManyToOne
-    private RegistrationStatus status;
-
-    @ManyToOne
     private Invoice invoice;
 
     public Long getId() {
@@ -47,6 +47,19 @@ public class Registration implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Registration status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDate getCreateDate() {
@@ -101,19 +114,6 @@ public class Registration implements Serializable {
         this.mlcClass = mlcClass;
     }
 
-    public RegistrationStatus getStatus() {
-        return status;
-    }
-
-    public Registration status(RegistrationStatus registrationStatus) {
-        this.status = registrationStatus;
-        return this;
-    }
-
-    public void setStatus(RegistrationStatus registrationStatus) {
-        this.status = registrationStatus;
-    }
-
     public Invoice getInvoice() {
         return invoice;
     }
@@ -151,6 +151,7 @@ public class Registration implements Serializable {
     public String toString() {
         return "Registration{" +
             "id=" + getId() +
+            ", status='" + getStatus() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             ", modifyDate='" + getModifyDate() + "'" +
             "}";

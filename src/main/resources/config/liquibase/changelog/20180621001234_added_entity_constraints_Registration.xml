@@ -20,12 +20,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="mlc_class"/>
 
-        <addForeignKeyConstraint baseColumnNames="status_id"
-                                 baseTableName="registration"
-                                 constraintName="fk_registration_status_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="registration_status"/>
-
         <addForeignKeyConstraint baseColumnNames="invoice_id"
                                  baseTableName="registration"
                                  constraintName="fk_registration_invoice_id"

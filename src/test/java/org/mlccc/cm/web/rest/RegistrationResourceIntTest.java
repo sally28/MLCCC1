@@ -41,6 +41,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = MlcccApp.class)
 public class RegistrationResourceIntTest {
 
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
+
     private static final LocalDate DEFAULT_CREATE_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_DATE = LocalDate.now(ZoneId.systemDefault());
 
@@ -89,6 +92,7 @@ public class RegistrationResourceIntTest {
      */
     public static Registration createEntity(EntityManager em) {
         Registration registration = new Registration()
+            .status(DEFAULT_STATUS)
             .createDate(DEFAULT_CREATE_DATE)
             .modifyDate(DEFAULT_MODIFY_DATE);
         return registration;
@@ -114,6 +118,7 @@ public class RegistrationResourceIntTest {
         List<Registration> registrationList = registrationRepository.findAll();
         assertThat(registrationList).hasSize(databaseSizeBeforeCreate + 1);
         Registration testRegistration = registrationList.get(registrationList.size() - 1);
+        assertThat(testRegistration.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testRegistration.getCreateDate()).isEqualTo(DEFAULT_CREATE_DATE);
         assertThat(testRegistration.getModifyDate()).isEqualTo(DEFAULT_MODIFY_DATE);
     }
@@ -148,6 +153,7 @@ public class RegistrationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(registration.getId().intValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].createDate").value(hasItem(DEFAULT_CREATE_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifyDate").value(hasItem(DEFAULT_MODIFY_DATE.toString())));
     }
@@ -163,6 +169,7 @@ public class RegistrationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(registration.getId().intValue()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.createDate").value(DEFAULT_CREATE_DATE.toString()))
             .andExpect(jsonPath("$.modifyDate").value(DEFAULT_MODIFY_DATE.toString()));
     }
@@ -186,6 +193,7 @@ public class RegistrationResourceIntTest {
         // Update the registration
         Registration updatedRegistration = registrationRepository.findOne(registration.getId());
         updatedRegistration
+            .status(UPDATED_STATUS)
             .createDate(UPDATED_CREATE_DATE)
             .modifyDate(UPDATED_MODIFY_DATE);
 
@@ -198,6 +206,7 @@ public class RegistrationResourceIntTest {
         List<Registration> registrationList = registrationRepository.findAll();
         assertThat(registrationList).hasSize(databaseSizeBeforeUpdate);
         Registration testRegistration = registrationList.get(registrationList.size() - 1);
+        assertThat(testRegistration.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testRegistration.getCreateDate()).isEqualTo(UPDATED_CREATE_DATE);
         assertThat(testRegistration.getModifyDate()).isEqualTo(UPDATED_MODIFY_DATE);
     }
