@@ -67,4 +67,11 @@ public class InvoiceService {
         log.debug("Request to delete Invoice : {}", id);
         invoiceRepository.delete(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<Invoice> findUnpaidByUserId(Long userId) {
+        log.debug("Request to get unpaid Invoices for user : {} ", userId);
+        return invoiceRepository.findUnpaidByUserId(userId);
+    }
+
 }

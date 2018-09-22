@@ -4,7 +4,9 @@ import org.mlccc.cm.MlcccApp;
 
 import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.repository.RegistrationRepository;
+import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.RegistrationService;
+import org.mlccc.cm.service.StudentService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.web.rest.errors.ExceptionTranslator;
 
@@ -74,10 +76,15 @@ public class RegistrationResourceIntTest {
 
     private UserService userService;
 
+    private StudentService studentService;
+
+    private InvoiceService invoiceService;
+
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        RegistrationResource registrationResource = new RegistrationResource(registrationService, userService);
+        RegistrationResource registrationResource = new RegistrationResource(registrationService, userService, studentService, invoiceService);
         this.restRegistrationMockMvc = MockMvcBuilders.standaloneSetup(registrationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

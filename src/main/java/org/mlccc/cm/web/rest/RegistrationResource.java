@@ -1,13 +1,13 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.swagger.models.auth.In;
 import org.mlccc.cm.config.Constants;
-import org.mlccc.cm.domain.Authority;
-import org.mlccc.cm.domain.Registration;
-import org.mlccc.cm.domain.RegistrationStatus;
-import org.mlccc.cm.domain.User;
+import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
+import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.RegistrationService;
+import org.mlccc.cm.service.StudentService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import org.mlccc.cm.web.rest.util.PaginationUtil;
@@ -45,9 +45,16 @@ public class RegistrationResource {
 
     private final UserService userService;
 
-    public RegistrationResource(RegistrationService registrationService, UserService userService) {
+    private final StudentService studentService;
+
+    private final InvoiceService invoiceService;
+
+    public RegistrationResource(RegistrationService registrationService, UserService userService, StudentService studentService,
+                                InvoiceService invoiceService) {
         this.registrationService = registrationService;
         this.userService = userService;
+        this.studentService = studentService;
+        this.invoiceService = invoiceService;
     }
 
     /**
@@ -70,9 +77,25 @@ public class RegistrationResource {
         if(!existingRegistrations.isEmpty()){
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "registrationExists", "The student already registered this class")).body(null);
         }
+        Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
+        Set<User> associatedAccounts =student.getAssociatedAccounts();
+        User invoicedUser = associatedAccounts.iterator().next();
+        List<Invoice> invoices = invoiceService.findUnpaidByUserId(invoicedUser.getId());
+        Invoice invoice = new Invoice();
+        if(invoices == null || invoices.isEmpty()){
+            invoice.setDescription("new registration invoice");
+            invoice.setInvoiceDate(LocalDate.now());
+            invoice.setStatus("UNPAID");
+            invoice.setUser(invoicedUser);
+        }else {
+            invoice = invoices.get(0);
+            invoice.setDescription("add new registration to existing invoice");
+        }
+        invoiceService.save(invoice);
 
+        registration.setInvoice(invoice);
         registration.setCreateDate(LocalDate.now());
-        //registration.setStatus(Constants.PENDING_STATUS);
+        registration.setStatus(Constants.PENDING_STATUS);
         Registration result = registrationService.save(registration);
         return ResponseEntity.created(new URI("/api/registrations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

@@ -1,6 +1,7 @@
 package org.mlccc.cm.repository;
 
 import org.mlccc.cm.domain.Invoice;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -15,5 +16,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
 
     @Query("select invoice from Invoice invoice where invoice.user.login = ?#{principal.username}")
     List<Invoice> findByUserIsCurrentUser();
-    
+
+    @Query("SELECT invoice FROM Invoice invoice WHERE invoice.user.id = (:userId) and invoice.status = 'UNPAID' ")
+    List<Invoice> findUnpaidByUserId(@Param("userId") Long userId);
 }

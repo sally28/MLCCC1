@@ -1,12 +1,17 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.mlccc.cm.domain.Authority;
 import org.mlccc.cm.domain.Invoice;
+import org.mlccc.cm.domain.User;
+import org.mlccc.cm.security.AuthoritiesConstants;
 import org.mlccc.cm.service.InvoiceService;
+import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +20,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing Invoice.
@@ -29,8 +35,11 @@ public class InvoiceResource {
 
     private final InvoiceService invoiceService;
 
-    public InvoiceResource(InvoiceService invoiceService) {
+    private final UserService userService;
+
+    public InvoiceResource(InvoiceService invoiceService, UserService userService) {
         this.invoiceService = invoiceService;
+        this.userService = userService;
     }
 
     /**
@@ -84,7 +93,21 @@ public class InvoiceResource {
     @Timed
     public List<Invoice> getAllInvoices() {
         log.debug("REST request to get all Invoices");
-        return invoiceService.findAll();
+        User loginUser = userService.getUserWithAuthorities();
+        Set<Authority> authorities = loginUser.getAuthorities();
+        Boolean allInvoices = false;
+        for(Authority auth : authorities){
+            if(auth.getName().equals(AuthoritiesConstants.ADMIN)){
+                allInvoices = true;
+                break;
+            }
+        }
+
+        if(allInvoices) {
+            return invoiceService.findAll();
+        } else {
+            return invoiceService.findUnpaidByUserId(loginUser.getId());
+        }
     }
 
     /**
