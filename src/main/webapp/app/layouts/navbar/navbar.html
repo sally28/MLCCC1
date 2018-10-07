@@ -1,37 +1,78 @@
-<nav class="navbar navbar-default" role="navigation">
+<header id="header" class="header">
     <div class="container">
-        <div class="navbar-header">
+
+        <nav id="stuck-container" class="navbar navbar-default navbar-fixed-top stuck_container" role="navigation">
+        <div class="'row">
+            <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="vm.toggleNavbar()">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                <span>Mlccc</span> <span class="navbar-version">v{{VERSION}}</span>
-            </a>
         </div>
         <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-expand-lg navbar-light bg-light navbar-left sf-menu ">
                 <li ui-sref-active="active">
                     <a ui-sref="home" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-home"></span>
-                        <span class="hidden-sm">Home</span>
+                        <span class="hidden-sm">HOME</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="news" ng-click="vm.collapseNavbar()">
+                        <span class="hidden-sm">LATEST NEWS</span>
+                    </a>
+                </li>
+                <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
+                        <span>
+                            <span class="hidden-sm">
+                                PROGRAM
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+
+                        <li ui-sref-active="active" ng-switch-when="false">
+                            <a href="" ng-click="vm.logout()" id="logout">
+                                <span>WEEKEND SCHOOL</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="false">
+                            <a href="" ng-click="vm.login()" id="login">
+                                <span>SUMMER CAMP</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="false">
+                            <a ui-sref="register" ng-click="vm.collapseNavbar()">
+                                <span>SPEACIAL PROGRAM</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-class="{active: vm.$state.includes('registration')}">
+                    <a ui-sref="registration" ng-click="vm.collapseNavbar()">
+                        <span class="hidden-sm">REGISTRTION</span>
+                    </a>
+                </li>
+
+                <li ui-sref-active="active">
+                    <a ui-sref="gallery" ng-click="vm.collapseNavbar()">
+                        <span class="hidden-sm">GALLERY</span>
                     </a>
                 </li>
 
                 <li ng-class="{active: vm.$state.includes('registration')}">
-                    <a ui-sref="registration" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-asterisk"></span>
-                        <span class="hidden-sm">Registration</span>
+                    <a ui-sref="about" ng-click="vm.collapseNavbar()">
+                        <span class="hidden-sm">ABOUT US</span>
                     </a>
                 </li>
 
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+             <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
                         <span>
-                            <span class="glyphicon glyphicon-th-list"></span>
                             <span class="hidden-sm">
                                 Management
                             </span>
@@ -39,17 +80,14 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
-                        <!--
                         <li ui-sref-active="active">
                                 <a ui-sref="mlc-account" ng-click="vm.collapseNavbar()">
-                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span>MLCCC Account</span>
                                 </a>
                             </li>
 
                         <li ui-sref-active="active">
                                 <a ui-sref="account-flag" ng-click="vm.collapseNavbar()">
-                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span>Account Flag</span>
                                 </a>
                             </li>
@@ -103,7 +141,6 @@
                                     <span>Class Information</span>
                                 </a>
                             </li>
-                        <!--
                         <li ui-sref-active="active">
                             <a ui-sref="registration" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
@@ -111,7 +148,7 @@
                             </a>
                         </li>-->
 
-                        <li ui-sref-active="active" has-authority="ROLE_ADMIN">
+                       <li ui-sref-active="active" has-authority="ROLE_ADMIN">
                                 <a ui-sref="class-time" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span>Class Time</span>
@@ -171,7 +208,7 @@
                                     <span>Discount</span>
                                 </a>
                             </li>
-                        <!--
+
                         <li ui-sref-active="active" has-authority="ROLE_ADMIN">
                                 <a ui-sref="applied-discount" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
@@ -233,14 +270,14 @@
                             </a>
                         </li>
                         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
-                    </ul>
+                 </ul>
                 </li>
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
                         <span>
-                            <span class="glyphicon glyphicon-user"></span>
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
                             <span class="hidden-sm">
-                                Account
+                                ACCOUNT
                             </span>
                             <b class="caret"></b>
                         </span>
@@ -280,5 +317,17 @@
                 </li>
             </ul>
         </div>
-    </div>
-</nav>
+         </div><!--end container-->
+            </div>
+      </nav><!--end stuck container -->
+</header>
+<script>
+    $(window).load(function () {
+        if ($('html').hasClass('desktop')) {
+            $('#stuck_container').TMStickUp({
+            })
+        }
+    });
+
+</script>
+

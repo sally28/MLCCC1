@@ -16,6 +16,12 @@
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
+    <link rel="stylesheet" href="content/css/style.css">
+    <link rel="stylesheet" href="content/css/camera.css">
+    <link rel="stylesheet" href="content/css/animate.css">
+    <link rel="stylesheet" href="content/css/grid.css">
+    <link rel="stylesheet" href="content/css/touchTouch.css">
+
     <!-- endbuild -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.webapp" />
@@ -26,14 +32,38 @@
     <![endif]-->
     <div ui-view="navbar" ng-cloak></div>
     <div class="container">
-        <div class="well" ui-view="content">
+        <div  ui-view="content">
             <!-- Angular views -->
         </div>
 
-        <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+        <!-- <div class="footer" ng-cloak>
+             <p data-translate="footer">This is your footer</p>-->
+            <footer id="footer" class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="grid_12">
+                            <p class="info">
+                                <span id="copyright-year">2018</span> © <a href="index-6.html">Privacy Policy</a>
+                            </p>
+
+                            <ul class="inline-list">
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">FAQs</a></li>
+                                <li><a href="#">Sitemap</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul>
+                            <ul class="socials">
+                                <li><a href="#" class="fa fa-facebook">Facebook</a></li>
+                                <li><a href="#" class="fa fa-twitter">Twitter</a></li>
+                                <li><a href="#" class="fa fa-rss">RSS</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-    </div>
+        </div>
+  <!--  </div>-->
     <noscript>
         <h1>You must enable javascript to view this page.</h1>
     </noscript>
@@ -80,6 +110,11 @@
 
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
+    <script src="js/camera.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/superfish.js"></script>
+    <script src="js/jquery.simplr.smoothscroll.min.js"></script>
+    <script src="js/tmstickup.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/services/util/fileupload.service.js"></script>
     <script src="app/services/user/user.service.js"></script>
@@ -101,6 +136,8 @@
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
+    <script src="app/gallery/gallery.state.js"></script>
+    <script src="app/gallery/gallery.controller.js"></script>
     <script src="app/entities/user-agreement/user-agreement-dialog.controller.js"></script>
     <script src="app/entities/user-agreement/user-agreement-detail.controller.js"></script>
     <script src="app/entities/user-agreement/user-agreement-delete-dialog.controller.js"></script>
@@ -306,6 +343,7 @@
     <script src="app/account/activate/activate.state.js"></script>
     <script src="app/account/activate/activate.controller.js"></script>
     <script src="app/account/account.state.js"></script>
+
     <!-- endinject -->
     <!-- endbuild -->
 
