@@ -27,6 +27,8 @@
                     <th jh-sort-by="student.id"><span>Student</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="mlcClass.id"><span>Class</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Registration Fee</span></th>
+                    <th><span>Tuition</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -41,7 +43,12 @@
                     <td>
                         <a ui-sref="registration-status-detail({id:registration.status.id})">{{registration.status}}</a>
                     </td>
-
+                    <td>
+                        <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.registrationFee}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.tuition}}</a>
+                    </td>
                     <td>
                         <button type="submit"
                                 ui-sref="registration.delete({id:registration.id})"

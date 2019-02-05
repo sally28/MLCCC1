@@ -20,17 +20,27 @@
         <loadData encoding="UTF-8"
                   file="config/liquibase/registration_status.csv"
                   separator=";"
-                  tableName="registration_satus">
-            <column name="id" type="bigint"/>
-            <column name="status" type="varchar(255)"/>
+                  tableName="registration_status">
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/class_status.csv"
                   separator=";"
-                  tableName="class_satus">
-            <column name="id" type="bigint"/>
-            <column name="status" type="varchar(255)"/>
-            <column name="color_displayed" type="varchar(255)"/>
+                  tableName="class_status">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/class_time.csv"
+                  separator=";"
+                  tableName="class_time">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/school_district.csv"
+                  separator=";"
+                  tableName="school_district">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/discount_code.csv"
+                  separator=";"
+                  tableName="discount_code">
         </loadData>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

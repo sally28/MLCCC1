@@ -49,8 +49,8 @@ public class SchoolTermResourceIntTest {
     private static final Boolean DEFAULT_REGISTER = false;
     private static final Boolean UPDATED_REGISTER = true;
 
-    private static final LocalDate DEFAULT_PROM_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_PROM_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_FROM_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FROM_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final LocalDate DEFAULT_EARLY_BIRD_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EARLY_BIRD_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -98,7 +98,7 @@ public class SchoolTermResourceIntTest {
             .term(DEFAULT_TERM)
             .status(DEFAULT_STATUS)
             .register(DEFAULT_REGISTER)
-            .promDate(DEFAULT_PROM_DATE)
+            .fromDate(DEFAULT_FROM_DATE)
             .earlyBirdDate(DEFAULT_EARLY_BIRD_DATE);
         return schoolTerm;
     }
@@ -126,7 +126,7 @@ public class SchoolTermResourceIntTest {
         assertThat(testSchoolTerm.getTerm()).isEqualTo(DEFAULT_TERM);
         assertThat(testSchoolTerm.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testSchoolTerm.isRegister()).isEqualTo(DEFAULT_REGISTER);
-        assertThat(testSchoolTerm.getPromDate()).isEqualTo(DEFAULT_PROM_DATE);
+        assertThat(testSchoolTerm.getFromDate()).isEqualTo(DEFAULT_FROM_DATE);
         assertThat(testSchoolTerm.getEarlyBirdDate()).isEqualTo(DEFAULT_EARLY_BIRD_DATE);
     }
 
@@ -163,7 +163,7 @@ public class SchoolTermResourceIntTest {
             .andExpect(jsonPath("$.[*].term").value(hasItem(DEFAULT_TERM.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].register").value(hasItem(DEFAULT_REGISTER.booleanValue())))
-            .andExpect(jsonPath("$.[*].promDate").value(hasItem(DEFAULT_PROM_DATE.toString())))
+            .andExpect(jsonPath("$.[*].promDate").value(hasItem(DEFAULT_FROM_DATE.toString())))
             .andExpect(jsonPath("$.[*].earlyBirdDate").value(hasItem(DEFAULT_EARLY_BIRD_DATE.toString())));
     }
 
@@ -181,7 +181,7 @@ public class SchoolTermResourceIntTest {
             .andExpect(jsonPath("$.term").value(DEFAULT_TERM.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.register").value(DEFAULT_REGISTER.booleanValue()))
-            .andExpect(jsonPath("$.promDate").value(DEFAULT_PROM_DATE.toString()))
+            .andExpect(jsonPath("$.promDate").value(DEFAULT_FROM_DATE.toString()))
             .andExpect(jsonPath("$.earlyBirdDate").value(DEFAULT_EARLY_BIRD_DATE.toString()));
     }
 
@@ -207,7 +207,7 @@ public class SchoolTermResourceIntTest {
             .term(UPDATED_TERM)
             .status(UPDATED_STATUS)
             .register(UPDATED_REGISTER)
-            .promDate(UPDATED_PROM_DATE)
+            .fromDate(UPDATED_FROM_DATE)
             .earlyBirdDate(UPDATED_EARLY_BIRD_DATE);
 
         restSchoolTermMockMvc.perform(put("/api/school-terms")
@@ -222,7 +222,7 @@ public class SchoolTermResourceIntTest {
         assertThat(testSchoolTerm.getTerm()).isEqualTo(UPDATED_TERM);
         assertThat(testSchoolTerm.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testSchoolTerm.isRegister()).isEqualTo(UPDATED_REGISTER);
-        assertThat(testSchoolTerm.getPromDate()).isEqualTo(UPDATED_PROM_DATE);
+        assertThat(testSchoolTerm.getFromDate()).isEqualTo(UPDATED_FROM_DATE);
         assertThat(testSchoolTerm.getEarlyBirdDate()).isEqualTo(UPDATED_EARLY_BIRD_DATE);
     }
 

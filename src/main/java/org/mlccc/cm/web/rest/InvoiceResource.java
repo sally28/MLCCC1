@@ -1,12 +1,17 @@
 package org.mlccc.cm.web.rest;
 
+import com.codahale.metrics.annotation.CachedGauge;
 import com.codahale.metrics.annotation.Timed;
+import io.swagger.models.auth.In;
 import org.mlccc.cm.domain.Authority;
 import org.mlccc.cm.domain.Invoice;
+import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.domain.User;
 import org.mlccc.cm.security.AuthoritiesConstants;
 import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.UserService;
+import org.mlccc.cm.service.dto.InvoiceDTO;
+import org.mlccc.cm.service.dto.RegistrationDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -18,9 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * REST controller for managing Invoice.
@@ -91,7 +94,7 @@ public class InvoiceResource {
      */
     @GetMapping("/invoices")
     @Timed
-    public List<Invoice> getAllInvoices() {
+    public List<InvoiceDTO> getAllInvoices() {
         log.debug("REST request to get all Invoices");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -103,11 +106,32 @@ public class InvoiceResource {
             }
         }
 
+        List<Invoice> invoices = new ArrayList<>();
         if(allInvoices) {
-            return invoiceService.findAll();
+            invoices = invoiceService.findAll();
         } else {
-            return invoiceService.findUnpaidByUserId(loginUser.getId());
+            invoices = invoiceService.findUnpaidByUserId(loginUser.getId());
         }
+
+        List<InvoiceDTO> returnedInvoices = new ArrayList<>();
+
+        for(Invoice invoice : invoices){
+            InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
+            returnedInvoices.add(invoiceDTO);
+            if(invoice.getRegistrations().size() > 1){
+                invoiceDTO.setMultiClassDiscount(-30.00);
+            }
+            Date now = Calendar.getInstance().getTime();
+            if(now.before(new Date())){
+                invoiceDTO.setEarlyBirdDiscount(-0.05);
+            }
+            for(RegistrationDTO registrationDTO : invoiceDTO.getRegistrations()){
+                invoiceDTO.setRegistrationFee(registrationDTO.getRegistrationFee());
+                invoiceDTO.setTotal(invoiceDTO.getTotal() + registrationDTO.getTuition());
+            }
+            invoiceDTO.setTotal(invoiceDTO.getTotal()+invoiceDTO.getMultiClassDiscount());
+        }
+        return returnedInvoices;
     }
 
     /**

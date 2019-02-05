@@ -14,9 +14,11 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
 
+    @EntityGraph(attributePaths = "registrations")
     @Query("select invoice from Invoice invoice where invoice.user.login = ?#{principal.username}")
     List<Invoice> findByUserIsCurrentUser();
 
-    @Query("SELECT invoice FROM Invoice invoice WHERE invoice.user.id = (:userId) and invoice.status = 'UNPAID' ")
+    @EntityGraph(attributePaths = "registrations")
+    @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.user.id = (:userId) and invoice.status = 'UNPAID' ")
     List<Invoice> findUnpaidByUserId(@Param("userId") Long userId);
 }

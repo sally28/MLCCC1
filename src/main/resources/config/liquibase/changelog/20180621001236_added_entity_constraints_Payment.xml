@@ -12,7 +12,7 @@
                                  baseTableName="payment"
                                  constraintName="fk_payment_account_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="mlc_account"/>
+                                 referencedTableName="jhi_user"/>
 
         <addForeignKeyConstraint baseColumnNames="registration_id"
                                  baseTableName="payment"

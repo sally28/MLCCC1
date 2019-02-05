@@ -12,7 +12,7 @@
                                  baseTableName="teacher"
                                  constraintName="fk_teacher_account_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="mlc_account"/>
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

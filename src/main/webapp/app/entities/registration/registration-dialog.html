@@ -38,7 +38,7 @@
         <div class="form-group">
             <label for="field_student">Student</label>
             <select class="form-control" id="field_student" name="student" ng-model="vm.registration.student" ng-options="student as student.firstName+' '+student.lastName for student in vm.students track by student.id">
-                <option value=""></option>
+                <option value="">{{vm.students[0].firstName}} {{vm.students[0].lastName}}</option>
             </select>
         </div>
         <div class="form-group">

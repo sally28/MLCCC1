@@ -32,8 +32,8 @@ public class SchoolTerm implements Serializable {
     @Column(name = "register")
     private Boolean register;
 
-    @Column(name = "prom_date")
-    private LocalDate promDate;
+    @Column(name = "from_date")
+    private LocalDate fromDate;
 
     @Column(name = "early_bird_date")
     private LocalDate earlyBirdDate;
@@ -85,17 +85,17 @@ public class SchoolTerm implements Serializable {
         this.register = register;
     }
 
-    public LocalDate getPromDate() {
-        return promDate;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public SchoolTerm promDate(LocalDate promDate) {
-        this.promDate = promDate;
+    public SchoolTerm fromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
         return this;
     }
 
-    public void setPromDate(LocalDate promDate) {
-        this.promDate = promDate;
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
 
     public LocalDate getEarlyBirdDate() {
@@ -138,7 +138,7 @@ public class SchoolTerm implements Serializable {
             ", term='" + getTerm() + "'" +
             ", status='" + getStatus() + "'" +
             ", register='" + isRegister() + "'" +
-            ", promDate='" + getPromDate() + "'" +
+            ", fromDate='" + getFromDate() + "'" +
             ", earlyBirdDate='" + getEarlyBirdDate() + "'" +
             "}";
     }

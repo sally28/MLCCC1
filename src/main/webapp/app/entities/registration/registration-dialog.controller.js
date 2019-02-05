@@ -15,7 +15,16 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.students = Student.query();
+        if($stateParams.studentId){
+            vm.students = [Student.get({id : $stateParams.studentId})];
+        } else {
+            vm.students = Student.query();
+        }
+
+        if(vm.students.length == 1){
+            vm.registration.student = vm.students[0];
+        }
+
         vm.mlcclasses = MlcClass.query();
         vm.registrationstatuses = RegistrationStatus.query();
 

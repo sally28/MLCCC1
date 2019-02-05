@@ -87,16 +87,17 @@ public class RegistrationResource {
             invoice.setInvoiceDate(LocalDate.now());
             invoice.setStatus("UNPAID");
             invoice.setUser(invoicedUser);
+            invoiceService.save(invoice);
         }else {
             invoice = invoices.get(0);
             invoice.setDescription("add new registration to existing invoice");
         }
-        invoiceService.save(invoice);
 
         registration.setInvoice(invoice);
         registration.setCreateDate(LocalDate.now());
         registration.setStatus(Constants.PENDING_STATUS);
         Registration result = registrationService.save(registration);
+        invoiceService.save(invoice);
         return ResponseEntity.created(new URI("/api/registrations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

@@ -1,0 +1,133 @@
+<div>
+    <h2>Invoices</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid" has-authority="ROLE_ADMIN">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="invoice.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Invoice
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div ng-repeat="invoice in vm.invoices track by invoice.id">
+        <div>
+            <table class="jh-table table table-striped">
+                <thead>
+                    <th><span>Description</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>Invoice Date</span></th>
+                    <th><span>Multi Class Discount</span></th>
+                    <th><span>Early Bird Discount</span></th>
+                    <th><span>Registration Fee</span></th>
+                    <th><span>Total</span></th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.description}}</a></td>
+                        <td>{{invoice.status}}</td>
+                        <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
+                        <td>
+                            {{invoice.multiClassDiscount}}
+                        </td>
+                        <td>
+                            {{invoice.earlyBirdDiscount}}
+                        </td>
+                        <td>
+                            {{invoice.earlyBirdDiscount}}
+                        </td>
+                        <td>
+                            {{invoice.total}}
+                        </td>
+                        <td>
+                            <button type="button"
+                                    ui-sref="payment.new.payment({invoiceId:invoice.id})"
+                                    class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="hidden-sm-down">Pay</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-switch="invoice.registrations.length > 0">
+                <div ng-switch-when="true">
+                    <table class="jh-table table table-striped">
+                        <tbody>
+                        <tr ng-repeat="registration in invoice.registrations track by registration.id">
+                            <td>{{registration.studentName}}</a></td>
+                            <td>Class: {{registration.mlcClassName}}</a></td>
+                            <td>Time: {{registration.classTime}}</td>
+                            <td>Status: {{registration.status}}</td>
+                            <td>Tuition: {{registration.tuition}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>Description</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>Invoice Date</span></th>
+                    <th><span>Multi Class Discount</span></th>
+                    <th><span>Early Bird Discount</span></th>
+                    <th><span>Registration Fee</span></th>
+                    <th><span>Total</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="invoice in vm.invoices track by invoice.id">
+                    <td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.description}}</a></td>
+                    <td>{{invoice.status}}</td>
+                        <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
+                    <td>
+                        {{invoice.multiClassDiscount}}
+                    </td>
+                    <td>
+                        {{invoice.earlyBirdDiscount}}
+                    </td>
+                    <td>
+                        {{invoice.earlyBirdDiscount}}
+                    </td>
+                    <td>
+                        {{invoice.total}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="invoice-detail({id:invoice.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="invoice.edit({id:invoice.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="invoice.delete({id:invoice.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>-->
+</div>
