@@ -1,10 +1,9 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
         </div>
         <div class="col-md-8">
-            <h1>Welcome To MLCCC Home!</h1>
-            <p class="lead">This is your homepage</p>
+            <h1>Welcome To MLCCC Administration Page!</h1>
 
             <div ng-switch="vm.isAuthenticated()">
                 <div class="alert alert-success" ng-switch-when="true">
@@ -12,33 +11,14 @@
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+                    You can <a class="alert-link" href="" ng-click="vm.login()"><b>sign in</b></a> here.
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
                     You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
                 </div>
             </div>
-            <div class="col-md-9">
-                <iframe data-ng-src="{{vm.newsletter_url}}" style="width: 500px;height: 340px;border: none"></iframe>
-            </div>
-            <div class="col-md-3">
-                <div class="table-responsive">
-                    <table class="jh-table table table-striped">
-                        <tbody>
-                        <tr ng-repeat="newsLetter in vm.newsLetters track by newsLetter.id">
-                            <td class="text-right">
-                                <button type="submit"
-                                        ng-click="vm.changeNewsletter(newsLetter.fileName)"
-                                        class="btn btn-info">
-                                    <span class="glyphicon"></span>&nbsp;<span> {{newsLetter.name}}</span>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
             <div id="paypal-button"></div>
             <script>
                 paypal.Button.render({
@@ -65,5 +45,7 @@
                 }, '#paypal-button');
             </script>
         </div>
+        <div class="col-md-2">
     </div>
+</div>
 </div>
