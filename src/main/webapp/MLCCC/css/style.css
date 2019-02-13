@@ -9,6 +9,11 @@ body {
   color: #b0a59f;
   font: 400 13px/17px "Droid Sans", sans-serif;
   -webkit-text-size-adjust: none;
+  /*----Sally adding---*/
+  display: flex;
+  justify-content: space-around;
+  box-sizing:border-box;
+
 }
 p{
 	color:black;
@@ -21,7 +26,7 @@ img {
 h1, h2 {
   font-family: "Playball,cursive";
   color:black;
-  
+
 }
 
 h1 {
@@ -110,6 +115,25 @@ strong {
 
 .mg-add, .map, .index-list li {
   margin-top: 4px;
+  margin-right: 20px;
+}
+.mg-add{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+ transition: transform 1s ease-in;
+
+}
+.mg-add:hover{
+  width: 200px;
+ height: 200px;
+ -webkit-transform: rotate(270deg); /* Safari */
+ transform: rotate(270deg);
+
+}
+.aboutb{
+  width: 172px;
+  height: 172px;
 }
 
 a, a[data-type='lightbox'] img, a[data-type='lightbox']:after {
@@ -133,7 +157,6 @@ a {
 a:active {
   background: transparent;
 }
-
 a[href^="tel:"] {
   color: inherit;
   text-decoration: none;
@@ -142,7 +165,15 @@ a[href^="tel:"] {
 h3 a:hover, .marked-list a:hover, .news_crdts p a:hover, .isotope-list li a:hover, h4 a:hover, .btn2:hover, .addr a:hover, .terms a:hover, .info a:hover, .inline-list a:hover {
   text-decoration: underline;
 }
+.alink{
+  font:inherit;
+  transition:transform 1s ease-out;
 
+}
+.alink:hover{
+transform: scale(1.5);
+transform-origin: left;
+}
 /*====================================================
                       Main Layout
 ======================================================*/
@@ -176,6 +207,7 @@ h3 a:hover, .marked-list a:hover, .news_crdts p a:hover, .isotope-list li a:hove
 /*==================   Clearfix   ======================*/
 .sf-menu:before, .side-box:before, .box_img-wrap:before, .isotope-list:before, .sf-menu:after, .side-box:after, .box_img-wrap:after, .isotope-list:after {
   content: " ";
+
   display: table;
 }
 .sf-menu:after, .side-box:after, .box_img-wrap:after, .isotope-list:after {
@@ -296,6 +328,7 @@ a[data-type='lightbox']:hover:after {
   font-weight: 400;
   text-align: center;
   font-size: 14px;
+  border-radius: 20px;
 }
 .sub-menu:before {
   content: '';
@@ -313,7 +346,7 @@ a[data-type='lightbox']:hover:after {
 }
 .sub-menu li {
   position: relative;
-  
+
 }
 .sub-menu li + li {
   margin-top: 5px;
@@ -415,9 +448,11 @@ a[data-type='lightbox']:hover:after {
   z-index: 999;
   background: #fff;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+
+
 }
 .isStuck .nav {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 @media only screen and (max-width: 979px) {
@@ -425,6 +460,10 @@ a[data-type='lightbox']:hover:after {
     display: none !important;
   }
 }
+
+
+
+
 /*==================    Map    ======================*/
 .map {
   height: 374px;
@@ -445,11 +484,12 @@ a[data-type='lightbox']:hover:after {
 }
 
 /*========================================================
-                    HEADER Section
+  HEADER Section
 =========================================================*/
 .header {
   position: relative;
 }
+
 
 /*================== Header Brand  ======================*/
 .brand {
@@ -474,14 +514,19 @@ a[data-type='lightbox']:hover:after {
 /*==================       Nav      ======================*/
 .nav {
   text-align: center;
-  padding: 34px 0 30px;
+ padding: 34px 0 20px;
+
+
 }
+
 .header-right{
 	position:relative;
-	top:-11px;
+	top:-10px;
 	float:right;
-	text-align:right;	
+	text-align:right;
+
 }
+
 .custom-signin{
 	position:relative;
 	padding-right:0;
@@ -489,9 +534,12 @@ a[data-type='lightbox']:hover:after {
 	vertical-align:middle;
 	color: #e16f55;
 }
+div.hidden{
+  display: none;
+}
 
 /*========================================================
-                    CONTENT Section 
+                    CONTENT Section
 =========================================================*/
 .box + .side-box {
   margin-top: 28px;
@@ -507,6 +555,10 @@ a[data-type='lightbox']:hover:after {
 
 /*==================    Buttons    ======================*/
 .btn1 {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
   display: inline-block;
   max-width: 252px;
   width: 100%;
@@ -516,9 +568,16 @@ a[data-type='lightbox']:hover:after {
   text-align: center;
   color: #fff;
   background: #e16f55;
+  border-radius: 20px;
+  box-shadow: 0 6px #cca79f;
 }
 .btn1:hover {
-  background: #363837;
+  box-shadow: 0 4px #cca79f;
+  top:2px;
+}
+.btn1:active{
+  box-shadow: 0 0 #cca79f;
+  top: 6px;
 }
 .btn1 .fa {
   margin-left: 10px;
@@ -531,7 +590,34 @@ a[data-type='lightbox']:hover:after {
   font-family: "Asap", sans-serif;
   color: #363837;
 }
+/*-- calendar button--*/
+.btn3 {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  background: #fcad26;
+  font-size: 10px;
+  font-weight: 300;
+	color: white;
+  text-transform: uppercase;
+	letter-spacing: 2px;
+  padding: 10px 30px;
+  margin: 0 auto;
+	box-shadow: 0 6px #efa424;
+  border-radius: 20px;
+}
 
+.btn3:hover {
+	box-shadow: 0 4px #efa424;
+	top: 2px;
+}
+
+.btn3:active {
+	box-shadow: 0 0 #efa424;
+	top: 6px;
+}
 /*==================     Quote     ======================*/
 .quote {
   padding-right: 10px;
@@ -694,6 +780,7 @@ p.news{
 	color:black;
 }
 
+
 /*==================   Border Box  ======================*/
 /*==================    Side Box   ======================*/
 .side-box__off1 {
@@ -702,14 +789,21 @@ p.news{
 .side-box_aside {
   float: left;
 }
+.side-box_cnt1{
+  width: 700px;
+}
 .side-box_cnt {
-  padding-left: 20px;
+
+  padding-right: 120px;
   overflow: hidden;
 }
 .side-box h3 + p, .side-box .marked-list + p, .side-box .news_crdts p + p, .news_crdts .side-box p + p, .side-box .isotope-list li + p, .isotope-list .side-box li + p, .side-box .addr p:first-child + p, .addr .side-box p:first-child + p, .side-box .terms dt + p, .terms .side-box dt + p {
   margin-top: 13px;
 }
 @media (max-width: 1199px) {
+  .side-box_cnt1{
+    width: 400px;
+  }
   .side-box__noflow-lg .side-box_aside {
     float: none;
   }
@@ -721,6 +815,9 @@ p.news{
   }
 }
 @media (max-width: 979px) {
+  .side-box_cnt1{
+    width: 200px;
+  }
   .side-box__noflow-md .side-box_aside {
     float: none;
   }
@@ -788,7 +885,9 @@ h3 + .box_img-wrap, .marked-list + .box_img-wrap, .news_crdts p + .box_img-wrap,
   margin-top: 37px;
 }
 .box_cnt__ins1 {
+  overflow: scroll;
   padding-bottom: 37px;
+  height: 400px !important;
 }
 .box_img-wrap a[data-type='lightbox'] {
   width: 76px;
@@ -1036,4 +1135,56 @@ h3 + .box_img-wrap, .marked-list + .box_img-wrap, .news_crdts p + .box_img-wrap,
         width: 100%;
     }
 }
+/*==================   Programs  (add to src.style.css later) ======================*/
+ul.red{
+  color:red;
+}
+a.blue{
+  color:blue;
+}
+/*==================   About  (add to src.style.css later) ======================*/
+ul.team{
+  margin-top: 100px;
+}
+span.red{
+  color: rgb(255,0,0);
+}
+a.smile{
+  color:rgb(0,0,255);
+}
+/*==================   index  (add to src.style.css later) ======================*/
 
+.view-calendar-link{
+  color: #3771af ;
+  display: block;
+ text-align: right;
+ padding: 7px 0 22px;
+ text-decoration: none !important;
+
+}
+.img-index-program{
+  width: 200px;
+  height: 200px;
+  padding-bottom:10px;
+}
+
+/*==================    about.html ======================*/
+.preffix_1-about  {
+   margin-left: -280px;
+}
+
+/*==================    weekendProgram.html ======================*/
+.ui-tabs-vertical { width: 65em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; width: 12em; padding-right: 10px;}
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+#tabs{
+  position: relative;
+  left: 100px;
+}
+.ui-tabs-panel{
+  position: relative;
+  top:-200px;
+}

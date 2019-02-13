@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/camera.css">
     <link rel="stylesheet" href="css/touchTouch.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
     <!-- bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery-migrate-1.2.1.js"></script>
     <script src="js/jquery.equalheights.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+
     <!--[if (gt IE 9)|!(IE)]><!-->
     <script src="js/jquery.mobile.customized.min.js"></script>
     <!--<![endif]-->
@@ -51,88 +53,268 @@
         <!--========================================================
                                   HEADER
         =========================================================-->
-         <header id="header" class="header">
-            <div id="stuck_container" class="stuck_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="grid_12">
-                            <nav class="nav nav__ins1">
-                                <ul class="sf-menu">
-                                    <li >
-                                        <a href= '/MLCCC/index.html'>Home </a>
-                                    </li> <!--home -->
-                                    <li>
-                                        <a href="news.html">Latest News</a>
-                                         <ul>
-                                           <li>Newsletters</li>
-                                         </ul>
-                                    </li>
-                                    <li><a href="program.html">Program</a>
-                                     <ul>
-                                            <li><a href="#">Weekend School</a></li>
-                                            <li>
-                                                <a href="#">Summer Camps</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Special Program</a>
-                                                <ul>
-                                                    <li><a href="#">Summer STA/ACT PREP</a></li>
-                                                    <li><a href="#">Total Immersion </a></li>
-                                                    <li><a href="#">Tutoring</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li><!--program-->
-                                    <li><a href="/#/registration" target="_blank">Registration</a>
+        <header id="header" class="header">
+           <div id="stuck_container" class="stuck_container">
+               <div class="container">
+                   <div class="row">
+                       <div class="grid_12">
+                           <nav class="nav nav__ins1">
+                               <ul class="sf-menu">
+                                   <li >
+                                       <a href= './ '>Home </a>
+                                   </li> <!--home -->
+                                   <li>
+                                       <a href="news.html">Latest News</a>
                                         <ul>
-                                           <li><a href="#">Weekend School</a></li>
-                                           <li><a href="#">Summer Camps</a></li>
+                                          <li>Newsletters</li>
                                         </ul>
-                                    </li>
-                                    <li>
-                                        <a href="gallery.html">Gallery</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="about.html">About Us</a>
-                                    </li>
-                                </ul>
-                                <div class="header-right">
-                                    <div class='custom-signin'>
-                                        <a href="contact.html">Contact |</a>
-                                    </div>
-                                    <div class="custom-signin">
-                                        <a href="/#" target="_blank">Log in</a>
+                                   </li>
+                                   <li><a href="program.html">Program</a>
+                                    <ul>
+                                           <li><a href="weekendProgram.html">Weekend School</a></li>
+                                           <li>
+                                               <a href="summerProgram.html">Summer Camps</a>
+                                           </li>
+                                           <li>
+                                               <a href="specialProgram.html">Special Program</a>
+                                               <ul>
+                                                   <li><a href="#">Summer STA/ACT PREP</a></li>
+                                                   <li><a href="#">Total Immersion </a></li>
+                                                   <li><a href="#">Tutoring</a></li>
+                                               </ul>
+                                           </li>
+                                       </ul>
+                                   </li><!--program-->
+                                   <li><a href="reg.html">Registration</a>
+                                  </li>
+                                   <li>
+                                       <a href="gallery.html">Gallery</a>
+                                   </li>
+                                   <li class="active">
+                                       <a href="about.html">About Us</a>
+                                   </li>
+                               </ul>
+                               <div class="header-right">
+                                   <div class='custom-signin'>
+                                       <a href="contact.html">Contact |</a>
+                                   </div>
+                                   <div class="custom-signin">
+                                       <a  href="http://localhost:8080/#/registration"id="login">Login</a>
+                                   </div>
+                               </div>
+                           </nav>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </header>
+        <!--========================================================
+                                          CONTENT
+                =========================================================-->
+                <section id="content" class="content">
+                    <div class="container">
+                        <hr />
+                        <div class="well">
+                            <div class="row">
+                                <div class="grid_12">
+                                    <h2>About us</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="grid_8">
+                                    <div class="side-box side-box__noflow-md">
+                                        <div class="side-box_aside"><img class="mg-add" src="images/about/MlcccLogo2.png" alt="Image" /></div>
+                                        <div class="side-box_cnt1">
+                                            <h3>
+                                              About the MLCCC
+                                            </h3>
+                                            <p>
+                                              Established in 2003, the Main Line Chinese Culture Center, Inc (MLCCC or Ming Lang) is a nonprofit-501c3, nonpartisan, nonpolitical organization that serves as a catalyst to increase understanding between American and Chinese cultures. The MLCCC's mission is to provide compelling insights of China's culture to interested families within the greater Philadelphia area in order to support their educational needs and career aspirations. The vision for the group is to grow its operations such that its diversified sources of funding will enable the organization to secure its own site facility, full-time staff, and financial self-sufficiency that will lead to the most effective Chinese cultural education instruction within the state of Pennsylvania.
+                                                <br /><br />
+                                              The MLCCC provides a window to Chinese culture by offering basic language instruction (Mandarin) as well as classes in traditional Chinese dance and other art forms (Chinese painting, self-defense, etc.). Through weekend and summer classes taught at rented facilities, MLCCC instructors leverage a traditional Asian teaching style that emphasizes strong study skills and discipline. Since its inception in 2003, the MLCCC has grown from an informal group of thirty students to an enrollment of over three hundred students by the end of 2008. Currently, three part-time staff, 16 instructors, and a very considerate group of parent volunteers serve a PreK-12th grade student population of which 87% are of Chinese-American descent. Satisfied parents have confirmed the value of the program model as the MLCCC's growth has been driven primarily by word of mouth alone. Finally, global CEOs like Ethnic Technologies' Zack Wilhoit have commented, "The Main Line Chinese Culture Center reaches out to so many children and their families with valuable insights on Chinese-American culture and the significant implications for our future relationships with China".
+                                               <br /><br />
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </nav>
+                                <div class="preffix_1 grid_3 dash-vert">
+                                    <ul class="marked-list team">
+                                        <li class='alink'><a href="team.html">Adminstration Team</a></li>
+                                        <li class='alink'><a href="team.html">instructors Team</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-
-            <div class="container">
-                <div class="row">
-                    <div class="grid_12 center">
                         <hr />
-                        <div class="brand" style="display:inline;display:block;">
-                            <img src="images/mainbrandBig.png" alt="" /><br /><br />
-                            <p>
-                                Happy Learning!
-                            </p>
+
+                        <div class="row well well__ins3">
+                            <div class="grid_8-about">
+                                <h2>Support</h2>
+                                <ul class="index-list row">
+                                	<li class="grid_4 index-list__off1 maxheight1" >
+                                		<h3>Support MLCCC</a></h3>
+                                       <p><span class='red'>DONATE VIA UNITED WAY: </span>MLCCC's United Way of Southeastern Pennsylvania's Donor Choice identification number is #45966.
+                                        <br>
+                                       <span class="red">DONATE BY CHECK:</span> Payable and mail to Main Line Chinese Culture Center, Inc. P. O. Box 745, Bryn Mawr, PA 19010
+                                       <br>
+                                      <span class='red'>MATCHING-GIFT:</span> Please check out your employer's matching-gift program to maximize your donation to the MLCCC.
+                                       <br>
+                                       <span class="red">TAX INFORMATION:</span> Your donation is tax deductible. You can obtain MLCCC's financial information by calling toll free, within Pennsylvania, 1 (800) 732-0999.
+                                      <br>
+                                    <a href="https://smile.amazon.com/" class="smile"> <img src="images/about/AmazonSmile.jpg" alt="AmazonSmile" style="width:25px; height:25px;">smile.amazon.com</a>
+                                      Support MLCCC at no cost to you, within Amazon choose Main Line Chinese Culture Center as your charity.
+                                      </p>
+
+
+
+                                	</li>
+                                    <li class="grid_4 index-list__off1 maxheight1" data-index="02">
+                                        <h3><a href="#">Vestibulum Ante Ipsum Primis In Faucibus Orci Luctus Et Ultrices </a></h3>
+                                        <p>Libero, non malesuada nunc consectetur sed. Vestibulum volutpat suscipit sem, nec bibendum massa malesuada eget. Donec ultricies mattis mauris in bibendum. Vivamus sollicitudin venenatis metus.</p>
+                                    </li>
+                                    <li class="grid_4 maxheight1" data-index="03">
+                                        <h3><a href="#">Luctus Et Ultrices Posuere Cubilia Curae Suspendisse Sollicitudin Velit</a></h3>
+                                        <p>Vestibulum volutpat suscipit sem, nec bibendum massa malesuada eget. Donec ultricies mattis mauris in bibendum. Vivamus sollicitudin venenatis metus; a ullamcorper tortor dignissim a curabitur. </p>
+                                    </li>
+                                    <li class="grid_4 maxheight1" data-index="04">
+                                        <h3><a href="#">Ipsum Primis In Faucibus Orci Luctus Et Ultrices Posuere Cubilia Curae</a></h3>
+                                        <p>Dapibus libero, non malesuada nunc consectetur sed. Vestibulum volutpat suscipit sem, nec bibendum massa malesuada eget. Donec ultricies mattis mauris in bibendum. Vivamus sollicitudin.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="preffix_1-about  grid_3 dash-vert">
+                                <h2>Testimonials</h2>
+
+                                <blockquote class="quote">
+                                    <p>
+                                        “ Phasellus hendrerit dapibus libero, non malesuada nunc consectetur sed. Vestibulum volutpat suscipit sem, nec bibendum massa malesuada eget. Donec ultricies mattis mauris in bibendum. Vivamus sollicitudin venenatis metus.”
+                                    </p>
+                                    <h3><strong>John Franklin</strong></h3>
+                                    <h4><a href="#">www.demolink.org </a></h4>
+                                </blockquote>
+                                <blockquote class="quote">
+                                    <p>
+                                        “ Libero, non malesuada nunc consectetur sed. Vestibulum volutpat suscipit sem, nec bibendum massa malesuada eget. Donec ultricies mattis mauris in bibendum. Vivamus sollicitudin venenatis metus; a ullamcorper tortor dignissim a. Curabitur non orci sit amet magna scelerisque.”
+                                    </p>
+                                    <h3><strong>Andrew Parker</strong></h3>
+                                    <h4><a href="#">www.demolink.org </a></h4>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="well">
+                            <div class="row">
+                                <div class="grid_12">
+                                    <h2>MLCCC Board of Directors</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                            	<div class="grid_2">
+                            		<div class="box box__center-sm">
+                            			<img  class='aboutb'src="images/about/SueC.JPG" alt="Image">
+                            			<h3>Sun Cheng</h3>
+                                  <li> Founder, ABD International, LLC, an international business development company</li>
+                                  <li>Owner and President, Easternwise Medical Inc., a global company dedicated to providing World-Class service to hospitals, diagnostic imaging centers and private clinics in the United States and around the world</li>
+                                  <li>10+ years of experience in IT project management, Software Engineering, Mechanical Engineering at Siemens, Baja Systems and Huazhong Optoelectronic Technology Institute</li>
+                                  <li>MS in Computer Science, West Chester University of Pennsylvania</li>
+                                  <li>MS in Mechanical Engineering, University of Massachusetts at Amherst</li>
+                                  <li>B.S in Mechanical Engineering, Sichuan University</li>
+                            		</div>
+                            	</div>
+                            	<div class="grid_2">
+                                    <div class="box box__center-sm">
+                                        <img  class='aboutb' src="images/about/TerryC.jpg" alt="Image">
+                                        <h3>Terry Cooke</h3>
+                                        <li>Current 2010 Public Policy Scholar with the Woodrow Wilson International Center in Washington DC, researching policy implications of US-China clean energy cooperation/competition</li>
+                                        <li>Founder of GC3 Strategy, which works with US companies seeking to partner in Greater China</li>
+                                        <li>Director of the World Economic Forum (2006-2008), responsible for Asian Corporate Partnerships</li>
+                                        <li>Career member of the US Senior Foreign Commercial Service (1988-2002)</li>
+                                        <li>UC Berkeley, PhD and MA; Princeton University, BA</li>
+                                        <li>Diplomatic fluency in Mandarin Chinese, Japanese, Hindi, German and French</li>
+                                    </div>
+                            	</div>
+                            	<div class="grid_2">
+                                    <div class="box box__center-sm">
+                                        <img class="aboutb" src="images/about/JoeP.jpg" alt="Image">
+                                        <h3>Sandra Bullock</h3>
+                                        <li>17 years experience in media and communications, including broadcasting, newspapers, public relations and online publishing</li>
+                                        <li> Award-winning journalist</li>
+                                        <li>Director of Marketing and Business Development, JPM Catering and Events</li>
+                                        <li> Founder of Ardmore Accordion Academy</li>
+                                        <li> East Stroudsburg University, BA in Communication Studies</li>
+                                    </div>
+                            	</div>
+                            	<div class="grid_2">
+                                    <div class="box box__center-sm">
+                                        <img class="aboutb" src="images/about/MelanieQ.jpg" alt="Image">
+                                        <h3>Melanie Quackenbush</h3>
+                                        <li>12+ years at The Glenmede Trust Company, Friends Select School, W.E.B. DuBois College House, Tokyo Classified Magazine, Knight-Ridder Newspapers, Computing Japan / J@Pan, Inc., and The Philadelphia Daily News</li>
+                                        <li>Drexel University LeBow College of Business, MBA</li>
+                                        <li>University of Pennsylvania, BA</li>
+                                    </div>
+                            	</div>
+                            	<div class="grid_2">
+                                    <div class="box box__center-sm">
+                                        <img class="aboutb" src="images/about/SonyaW.jpg" alt="Image">
+                                        <h3>Sonya Weigle</h3>
+                                        <li>Co-founding partner at ESmith Legacy, a commercial real estate development and acquisition company</li>
+                                        <li>President of Axum Partners, a comprehensive business consulting firm</li>
+                                        <li>Carnegie Mellon University, MS in Management</li>
+                                        <li>University of Pittsburgh, degrees in Political Science, Psychology and English Composition</li>
+                                        <li>Co-founder of the Urban Community Economic Development Initiative</li>
+                                    </div>
+                            	</div>
+                            	<div class="grid_2">
+                                    <div class="box box__center-sm">
+                                        <img class="aboutb" src="images/about/JennieW.jpg" alt="Image">
+                                        <h3>Jennie Wu</h3>
+                                          <li>Deputy Chief of Strategic Planning and Implementation, School District of Philadelphia</li>
+                                          <li>Special Assistant to the Superintendent, School District of Philadelphia</li>
+                                          <li>Columbia University, Urban Education Leadership Program, PhD</li>
+                                          <li>Stanford University, BS</li>
+                                    </div>
+                            	</div>
+                            </div>
+                        </div>
+
+                        <hr />
+                    </div>
+
+                </section>
+
+                <!--========================================================
+                                          FOOTER
+                =========================================================-->
+                <footer id="footer" class="footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="grid_12">
+                                <p class="info">
+                                    <span id="copyright-year"></span> © <a href="index-6.html">Privacy Policy</a>
+                                </p>
+
+                                <ul class="inline-list">
+                                    <li><a href="#">Support</a></li>
+                                    <li><a href="#">FAQs</a></li>
+                                    <li><a href="#">Sitemap</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul>
+                                <ul class="socials">
+                                    <li><a href="#" class="fa fa-facebook">Facebook</a></li>
+                                    <li><a href="#" class="fa fa-twitter">Twitter</a></li>
+                                    <li><a href="#" class="fa fa-rss">RSS</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </footer>
             </div>
 
-        </header>
-
-
-
-
-
-        <script src="js/script.js"></script>
-    <script type="text/javascript">
+      <script src="js/script.js"></script>
+      <script type="text/javascript">
      var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-7078796-5']);
       _gaq.push(['_trackPageview']);

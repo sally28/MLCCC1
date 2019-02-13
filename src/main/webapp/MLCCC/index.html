@@ -6,21 +6,25 @@
     <meta charset="utf-8">
     <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <!--css--->
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/camera.css">
     <link rel="stylesheet" href="css/touchTouch.css">
+    <link rel="stylesheet" href="css/jquery-ui-human.min.css">
+
+    <!--<link rel="stylesheet" href="css/jquery-ui.min.css">
     <!-- bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery-migrate-1.2.1.js"></script>
     <script src="js/jquery.equalheights.js"></script>
-    <!--[if (gt IE 9)|!(IE)]><!-->
+    <script src="js/jquery-ui-human.min.js">  </script>
+   <!--<script src="js/jquery-ui.min.js"></script>
+    <!--[if (gt IE 9)|!(IE)]>
     <script src="js/jquery.mobile.customized.min.js"></script>
     <!--<![endif]-->
     <script src="js/camera.js"></script>
     <script src="js/touchTouch.js"></script>
-
     <!--[if lt IE 9]>
     <html class="lt-ie9">
     <div id="ie6-alert" style="width: 100%; text-align:center; background: #232323;">
@@ -60,9 +64,9 @@
                             <nav class="nav nav__ins1">
                                 <ul class="sf-menu">
                                     <li class="active">
-                                        <a href= '/MLCCC/index.html '>Home </a>
+                                        <a href= './index.html '>Home </a>
                                     </li> <!--home -->
-                                    <li>
+                                 <li>
                                         <a href="news.html">Latest News</a>
                                          <ul>
                                            <li>Newsletters</li>
@@ -70,12 +74,12 @@
                                     </li>
                                     <li><a href="program.html">Program</a>
                                      <ul>
-                                            <li><a href="#">Weekend School</a></li>
+                                            <li><a href="weekendProgram.html">Weekend School</a></li>
                                             <li>
-                                                <a href="#">Summer Camps</a>
+                                                <a href="summerProgram.html">Summer Camps</a>
                                             </li>
                                             <li>
-                                                <a href="#">Special Program</a>
+                                                <a href="specialProgram.html">Special Program</a>
                                                 <ul>
                                                     <li><a href="#">Summer STA/ACT PREP</a></li>
                                                     <li><a href="#">Total Immersion </a></li>
@@ -85,11 +89,7 @@
                                         </ul>
                                     </li><!--program-->
                                     <li><a href="/#/registration" target="_blank">Registration</a>
-                                        <ul>
-                                           <li><a href="#">Weekend School</a></li>
-                                           <li><a href="#">Summer Camps</a></li>
-                                        </ul>
-                                    </li>
+                                   </li>
                                     <li>
                                         <a href="gallery.html">Gallery</a>
                                     </li>
@@ -102,7 +102,7 @@
                                         <a href="contact.html">Contact |</a>
                                     </div>
                                     <div class="custom-signin">
-                                        <a href="/#" target="_blank">Log in</a>
+                                        <a  href="/#/"id="login" target="_blank">Login</a>
                                     </div>
                                 </div>
                             </nav>
@@ -110,23 +110,9 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="container">
-                <div class="row">
-                    <div class="grid_12 center">
-                        <hr />
-                        <div class="brand" style="display:inline;display:block;">
-                            <img src="images/mainbrandBig.png" alt="" /><br /><br />
-                            <p>
-                                Happy Learning!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </header>
+
+
         <!--========================================================
                                   CONTENT
         =========================================================-->
@@ -137,12 +123,15 @@
                 <div data-src="images/index_slide03.jpg"></div>
             </div>
 
-            <div class="container">
+
+            <div class="container"  >
                 <div class="row well__ins1">
                     <div class="grid_3 dash-vert">
-                        <h2> School Calendar</h2>
+                        <h2> Upcoming Events</h2>
+                          <div id="accordion">
                         <ul class="events-list">
                             <li data-day="20" data-month="may">
+
                                 <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
                                 <p>
                                     Lorem ipsum dolor sit am nc <br />
@@ -166,11 +155,24 @@
                                 </p>
                                 <a href="#" class="btn2">more info</a>
                             </li>
+                            <li data-day="06" data-month="may">
+                                <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, conc <br />
+                                    tetur adipi scing. Praesent ibuum.
+                                </p>
+                                <a href="#" class="btn2">more info</a>
+                            </li>
                         </ul>
+                      </div>
+                        <br><hr>
+                        <a class='view-calendar-link btn2' href="/mlcccCalendar/calendar.html"><button class="btn3">View School Calendar</button></a>
+                        </li>
                     </div>
+
                     <div class="preffix_1 grid_4 dash-vert">
                       <h2 style='margin-bottom:0;'>2018 Summer Camp</h2> <br />
-                       <img src="images/pgm05.jpg" alt="Image 1" style="width:300px;height:200px; padding-bottom:10px;" />
+                       <img src="images/pgm05.jpg" alt="Image 1" class='img-index-program' />
                         <div class="box">
                             <p>
                                 Lorem ipsum dolor sit amet, conc tetur adipi scing. Praesent vestibuum molstie lacuiirhs. Aenean non ummy dreriauris. Phasellllus. porta. Fusce suscipit variusium sociis totdnatibus et magis dis parturient montes, nasceidiculus mus. Nulla dui. Fusce feugiatle. suada odio. Morbi nunc odio, gravida at.
@@ -182,7 +184,7 @@
                             <br />
                           <h2 style='margin-bottom:0;'>Special Program</h2> <br />
 
-                            <img src="images/pgm07.jpg" alt="Image 1" style="width:300px;height:200px;" />
+                            <img src="images/pgm07.jpg" alt="Image 1" class='img-index-program' />
                             <p>
                                 Lorem ipsum dolor sit amet, conc tetur adipi scing. Praesent vestibuum molstie lacuiirhs. Aenean non ummy dreriauris. Phasellllus. porta. Fusce suscipit variusium sociis totdnatibus et magis dis parturient montes, nasceidiculus mus. Nulla dui. Fusce feugiatle. suada odio. Morbi nunc odio, gravida at.
                              <a href="#" class="btn2">more info</a>
@@ -193,7 +195,7 @@
                     </div>
                     <div class="preffix_1 grid_3 dash-vert">
                         <h2>Weekend School</h2>
-                        <img src="images/pgm02.jpg" alt="Image 1" style="width:300px;height:200px; padding-bottom:10px;" />
+                        <img src="images/pgm02.jpg" alt="Image 1" class='img-index-program' />
                         <div class="box">
                             <h3><a href="#">Lorem ipsum dolor sit amet, consec teer adipiscent vestibulum.</a></h3>
                             <p>
@@ -204,7 +206,7 @@
 
                         <div class="side-box">
                             <h2>Community</h2>
-                            <div class="side-box_aside"><img src="images/pgm01.jpg" alt="Image"></div>
+                            <div class="side-box_aside"><img src="images/pgm01.jpg" alt="Image" class='img-index-program'></div>
                             <div class="side-box_cnt">
                                 <h3>
                                     <a href="#">
@@ -239,7 +241,7 @@
                         </div>
                         <a href="#" class="btn2">more info</a>
                     </div>
-                </div>
+
 
                 <div class="row">
                 	<div class="grid_12">
@@ -254,7 +256,7 @@
 
                 <div class="row well__ins2">
                 	<div class="grid_12">
-                        <h2>News & Events</h2>
+                        <h2>News & Highligts</h2>
                         <div class="row">
                             <div class="grid_3">
                                 <div class="box">
@@ -329,7 +331,7 @@
         </footer>
     </div>
 
-    <script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 <script type="text/javascript">
  var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-7078796-5']);

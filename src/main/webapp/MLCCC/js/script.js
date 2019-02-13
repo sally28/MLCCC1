@@ -92,13 +92,13 @@ $(document).ready(function () {
 });
 
 /* Google Map
- ========================================================*/
+ ========================================================
 $(window).load()
 {
     if ($('#google-map').length > 0) {
         var mapOptions = {
             zoom: 14,
-            center: new google.maps.LatLng(parseFloat(40.646197), parseFloat(-73.9724068, 14)),
+            center: new google.maps.LatLng(parseFloat(39.855893), parseFloat(-75.061802)),
             scrollwheel: false
         }
         new google.maps.Map(document.getElementById("google-map"), mapOptions);
@@ -153,10 +153,10 @@ if (!result) {
 }
 document.write('<meta name="viewport" content="width=device-width,initial-scale=1.0' + userScale + '">')
 
-(document).ready(function () {
+$(document).ready(function () {
 
     var obj;
-	
+
     if ((obj = $('#camera')).length > 0) {
         obj.camera({
             autoAdvance: true,
@@ -173,7 +173,7 @@ document.write('<meta name="viewport" content="width=device-width,initial-scale=
             fx: 'simpleFade'
         })
     }
-    
+
   if ((obj = $('a[data-type="lightbox"]')).length > 0) {
         obj.touchTouch();
     }
@@ -198,51 +198,48 @@ document.write('<meta name="viewport" content="width=device-width,initial-scale=
             return false;
         });
     }
-    
+
 })
 
-/* NavBar Router
-========================================================*/
-var app = angular.module("mlccc", ["ngRoute"])
-.config(['$routeProvider', function($routeProvider,){
-	
-	
-	$routeProvider
-	  .when('/main',{
-		templateUrl:"main.html",
-		
-	}).
-	  when('/news',{
-		templateUrl:"news.html",
-		
-	}).
-	when('/program',{
-		templateUrl:"program.html",
-		
-	}).
-	when('/gallery',{
-		templateUrl:"gallery.html",
-		controller:'VideoCtrl',
-		
-		
-	}).
-	when('/about',{
-		templateUrl:"about.html",
-		
-	}).
-	when('/registration',{
-		templateUrl:"registration.html",
-		
-	}).
-	when('/contact',{
-		templateUrl:"contact.html",
-		
-	}).
-	when('/login',{
-		templateUrl:"login.html",
-		
-	}).
+/* loginform========================================================*/
+$(document).ready(function(){
+	 $("#login").click(function () {
+	 	$("#form").dialog();
+	 });
+});
 
-	otherwise({redirectTo:'/main'});
-}])
+/* news========================================================
+$('.hit').data('count', 0);
+$('.btn2').click(function(){
+    $('.hit').html(function(){
+        var $this = $(this),
+        count = $this.data('count') + 1;
+        $this.data('count', count);
+        return count;
+    });
+});
+$('.hit').data('count', 0);
+$('.btn2').click(function(){
+    $('.hit').html(function(){
+        var $this = $(this),
+        count = $this.data('count') + 1;
+        $this.data('count', count);
+        return count;
+    });
+});
+localStorage.clicks = +(localStorage.clicks || 0) + 1;*/
 
+/*  weekend program========================================================*/
+$( function() {
+	$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+	$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+	$( "#tabs" ).tabs({
+		event: "mouseover"
+	});
+$( "#tabs" ).tabs({ show: { effect: "blind", duration: 800 } });
+} );
+$( function() {
+    $( "#accordion" ).accordion({
+      heightStyle: "content"
+    });
+  } );

@@ -28,7 +28,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/mlccc
         username: postgres
-        password: Scala350!
+        password: sally28
         #type: ${datasource.type}
         #url: ${datasource.url}
         #username: ${datasource.username}
@@ -137,7 +137,7 @@ jhipster:
 # ===================================================================
 
 application:
-    newsletterUploadDir: /Users/wenyaohu/git/MLCCC1/uploaded_files/newsletter/
-    mediaUploadDir: /Users/wenyaohu/git/MLCCC1/uploaded_files/media/
+    newsletterUploadDir: /Users/Yu/Document/MLCCC/uploaded_files/newsletter/
+    mediaUploadDir: /Users/Yu/Document/MLCCC/uploaded_files/media/
 
-uploadedFileDir: /Users/wenyaohu/git/MLCCC1/uploaded_files/
+uploadedFileDir: /Users/Yu/Document/MLCCC/uploaded_files/
