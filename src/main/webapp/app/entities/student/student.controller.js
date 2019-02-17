@@ -17,6 +17,7 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.showRegistrations = true;
+        vm.searchUser = searchUser;
 
         if(loginUser.authorities && loginUser.authorities.indexOf('ROLE_ADMIN') !== -1){
             vm.showRegistrations = false;
@@ -60,6 +61,10 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+
+        function searchUser(){
+            alert("Search User");
         }
     }
 })();

@@ -28,11 +28,11 @@
         <dd>
             <div has-authority="ROLE_ADMIN">
                 <a ui-sref="user-management-detail({login:vm.student.associatedAccounts[0].login})">
-                    {{vm.student.associatedAccounts[0].firstName + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
+                    {{vm.student.associatedAccounts[0].login + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
             </div>
             <div has-authority="ROLE_USER">
                 <a ui-sref="settings({id:vm.student.associatedAccounts[0].id})">
-                    {{vm.student.associatedAccounts[0].firstName + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
+                    {{vm.student.associatedAccounts[0].login + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
             </div>
         </dd>
     </dl>

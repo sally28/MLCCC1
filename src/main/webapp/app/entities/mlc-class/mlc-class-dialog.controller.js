@@ -15,7 +15,11 @@
         vm.save = save;
         vm.classstatuses = ClassStatus.query();
         vm.classtimes = ClassTime.query();
-        vm.teachers = Teacher.query();
+        vm.teachers = Teacher.query({
+            page: 0,
+            size: 1000,
+            sort: 'asc'
+        });
         vm.classrooms = ClassRoom.query();
         vm.schoolterms = SchoolTerm.query();
 

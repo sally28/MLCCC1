@@ -37,7 +37,7 @@ public class Teacher implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private MlcAccount account;
+    private User account;
 
     public Long getId() {
         return id;
@@ -99,17 +99,12 @@ public class Teacher implements Serializable {
         this.payRate = payRate;
     }
 
-    public MlcAccount getAccount() {
+    public User getAccount() {
         return account;
     }
 
-    public Teacher account(MlcAccount mlcAccount) {
-        this.account = mlcAccount;
-        return this;
-    }
-
-    public void setAccount(MlcAccount mlcAccount) {
-        this.account = mlcAccount;
+    public void setAccount(User account) {
+        this.account = account;
     }
 
     @Override
