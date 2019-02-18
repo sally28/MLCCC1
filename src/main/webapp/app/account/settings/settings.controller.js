@@ -30,7 +30,8 @@
                 city: account.city,
                 state: account.state,
                 zip: account.zip,
-                phone: account.phone
+                phone: account.phone,
+                schoolDistrict: account.schoolDistrict
             };
         };
 

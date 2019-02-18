@@ -41,13 +41,13 @@
                         <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.className}}</a>
                     </td>
                     <td>
-                        <a ui-sref="registration-status-detail({id:registration.status.id})">{{registration.status}}</a>
+                        {{registration.status}}
                     </td>
                     <td>
-                        <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.registrationFee}}</a>
+                        {{registration.mlcClass.registrationFee}}
                     </td>
                     <td>
-                        <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.tuition}}</a>
+                        {{registration.mlcClass.tuition}}
                     </td>
                     <td>
                         <button type="submit"

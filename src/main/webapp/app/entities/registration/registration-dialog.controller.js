@@ -21,7 +21,7 @@
             vm.students = Student.query();
         }
 
-        if(vm.students.length == 1){
+        if(vm.students.length >= 1){
             vm.registration.student = vm.students[0];
         }
 
@@ -38,6 +38,9 @@
 
         function save () {
             vm.isSaving = true;
+            if(vm.registration.student == null){
+                vm.registration.student = vm.students[0];
+            }
             if (vm.registration.id !== null) {
                 Registration.update(vm.registration, onSaveSuccess, onSaveError);
             } else {

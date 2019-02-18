@@ -351,3 +351,86 @@ ui bootstrap tweaks
 
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+.footer {
+    padding: 53px 0 49px;
+    font-size: 11px;
+}
+.footer .info {
+    float: left;
+}
+.footer .inline-list, .footer .socials {
+    float: right;
+}
+.footer .inline-list + .socials {
+    margin-right: 10px;
+}
+@media (max-width: 767px) {
+    .footer {
+        text-align: center;
+    }
+    .footer .info, .footer .inline-list, .footer .socials {
+        float: none;
+        margin: 10px 0;
+    }
+}
+/*====================   Socials   =======================*/
+.socials {
+    display: inline-block;
+}
+.socials li {
+    float: left;
+}
+.socials li + li {
+    margin-left: 8px;
+}
+.socials .fa {
+    font: 0/0 a;
+    text-shadow: none;
+    color: transparent;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #fff;
+    background: #666;
+    text-align: center;
+}
+.socials .fa:before {
+    font: 400 16px/24px "FontAwesome";
+}
+.socials .fa:hover {
+    background: #e16f55;
+}
+.socials .fa-facebook {
+    background: #4264ab;
+}
+.socials .fa-twitter {
+    background: #46e3ee;
+}
+.socials .fa-rss {
+    background: #ff9124;
+}
+
+/*=================  InlineList   =====================*/
+.inline-list {
+    text-transform: uppercase;
+    color: #e16f55;
+}
+.inline-list li {
+    display: inline-block;
+}
+.inline-list li + li {
+    position: relative;
+    margin-left: 15px;
+}
+.inline-list li + li:before {
+    content: '\f111';
+    position: absolute;
+    top: 0;
+    left: -10px;
+    display: inline-block;
+    font: 400 4px "FontAwesome";
+    line-height: inherit;
+    color: #d6cec9;
+}
+
