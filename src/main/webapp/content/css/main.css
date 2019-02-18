@@ -434,3 +434,14 @@ ui bootstrap tweaks
     color: #d6cec9;
 }
 
+.container {
+    display: grid;
+}
+
+.left-half {
+    grid-column: 1;
+}
+
+.right-half {
+    grid-column: 2;
+}
