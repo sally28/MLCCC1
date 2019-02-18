@@ -26,7 +26,7 @@
         loadAll();
 
         function loadAll () {
-            Student.query({
+            Student.query( {
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
                 sort: sort()
@@ -38,16 +38,7 @@
                 }
                 return result;
             }
-            function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.students = data;
-                vm.page = pagingParams.page;
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
+
         }
 
         function loadPage(page) {
@@ -62,9 +53,22 @@
                 search: vm.currentSearch
             });
         }
-
+        function onSuccess(data, headers) {
+            vm.links = ParseLinks.parse(headers('link'));
+            vm.totalItems = headers('X-Total-Count');
+            vm.queryCount = vm.totalItems;
+            vm.students = data;
+            vm.page = pagingParams.page;
+        }
+        function onError(error) {
+            AlertService.error(error.data.message);
+        }
         function searchUser(){
-            alert("Search User");
+            Student.query({param: vm.searchTerm}, {
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'firstName, asc'
+            }, onSuccess, onError);
         }
     }
 })();

@@ -22,7 +22,6 @@
                     <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="hireDate"><span>Hire Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="payRate"><span>Pay Rate</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="account.id"><span>Account</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -33,7 +32,6 @@
                     <td>{{teacher.firstName}}</td>
                     <td>{{teacher.lastName}}</td>
                         <td>{{teacher.hireDate | date:'mediumDate'}}</td>
-                    <td>{{teacher.payRate}}</td>
                     <td>
                         <a ui-sref="mlc-account-detail({id:teacher.account.id})">{{teacher.account.id}}</a>
                     </td>

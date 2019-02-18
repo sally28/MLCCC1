@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -122,7 +123,7 @@ public class StudentResource {
      */
     @GetMapping("/students")
     @Timed
-    public ResponseEntity<List<Student>> getAllStudents(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<Student>> getAllStudents(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
         log.debug("REST request to get a page of Students");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -136,8 +137,11 @@ public class StudentResource {
 
         Page<Student> page = null;
         if(allStudents){
-            page = studentService.findAll(pageable);
-
+            if(StringUtils.isEmpty(searchTerm)){
+                page = studentService.findAll(pageable);
+            } else {
+                page = studentService.findAllWithSearchTerm(pageable, searchTerm);
+            }
         } else {
             // if normal user getting student list, attach registration information
             page = studentService.findStudentsAssociatedWith(pageable, loginUser.getId());
@@ -177,4 +181,5 @@ public class StudentResource {
         studentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

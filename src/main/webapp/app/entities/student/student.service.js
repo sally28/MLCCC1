@@ -7,9 +7,9 @@
     Student.$inject = ['$resource'];
 
     function Student ($resource) {
-        var resourceUrl =  'api/students/:id';
+        var resourceUrl =  'api/students/:id?searchTerm=:param';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {param: '@param'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

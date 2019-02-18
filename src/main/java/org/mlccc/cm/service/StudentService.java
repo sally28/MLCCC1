@@ -28,6 +28,8 @@ public interface StudentService {
      */
     Page<Student> findAll(Pageable pageable);
 
+    Page<Student> findAllWithSearchTerm(Pageable pageable, String searchTerm);
+
     Page<Student> findStudentsAssociatedWith(Pageable pageable, Long userId);
 
     /**
