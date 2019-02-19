@@ -64,7 +64,7 @@
         </div>
         <div class="form-group">
             <label for="field_classTime">Class Time</label>
-            <select class="form-control" id="field_classTime" name="classTime" ng-model="vm.mlcClass.classTime" ng-options="classTime as classTime.id for classTime in vm.classtimes track by classTime.id">
+            <select class="form-control" id="field_classTime" name="classTime" ng-model="vm.mlcClass.classTime" ng-options="classTime as classTime.classTime for classTime in vm.classtimes track by classTime.id">
                 <option value=""></option>
             </select>
         </div>
