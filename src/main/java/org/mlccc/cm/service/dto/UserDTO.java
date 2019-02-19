@@ -3,6 +3,7 @@ package org.mlccc.cm.service.dto;
 import org.mlccc.cm.config.Constants;
 
 import org.mlccc.cm.domain.Authority;
+import org.mlccc.cm.domain.SchoolDistrict;
 import org.mlccc.cm.domain.User;
 
 import org.hibernate.validator.constraints.Email;
@@ -63,17 +64,20 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private String schoolDistrict;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
 
     public UserDTO(User user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
-            user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
-            user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-            user.getAddress(), user.getCity(), user.getState(), user.getZip(), user.getPhone(),
-            user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+                    user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
+                    user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
+                    user.getAddress(), user.getCity(), user.getState(), user.getZip(), user.getPhone(),
+                    user.getAuthorities().stream().map(Authority::getName)
+                            .collect(Collectors.toSet()), user.getSchoolDistrict());
+
     }
 
 
@@ -121,6 +125,35 @@ public class UserDTO {
         this.zip = zip;
         this.phone = phone;
         this.authorities = authorities;
+    }
+
+    public UserDTO(Long id, String login, String firstName, String lastName,
+                   String email, boolean activated, String imageUrl, String langKey,
+                   String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+                   String address, String city, String state, String zip, String phone,
+                   Set<String> authorities, SchoolDistrict schoolDistrict) {
+
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.activated = activated;
+        this.imageUrl = imageUrl;
+        this.langKey = langKey;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
+        this.authorities = authorities;
+        if(schoolDistrict != null){
+            this.schoolDistrict = schoolDistrict.getName();
+        }
     }
 
     public Long getId() {
@@ -207,6 +240,14 @@ public class UserDTO {
         return authorities;
     }
 
+    public String getSchoolDistrict() {
+        return schoolDistrict;
+    }
+
+    public void setSchoolDistrict(String schoolDistrict) {
+        this.schoolDistrict = schoolDistrict;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -221,6 +262,7 @@ public class UserDTO {
             ", createdDate=" + createdDate +
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
+            ", schoolDistrict=" + schoolDistrict +
             ", authorities=" + authorities +
             "}";
     }
