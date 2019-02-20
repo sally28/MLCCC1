@@ -1,8 +1,12 @@
 package org.mlccc.cm.service;
 
+import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.Teacher;
+import org.mlccc.cm.service.dto.TeacherDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * Service Interface for managing Teacher.
@@ -23,7 +27,7 @@ public interface TeacherService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<Teacher> findAll(Pageable pageable);
+    Page<TeacherDTO> findAll(Pageable pageable);
 
     /**
      *  Get the "id" teacher.
@@ -40,5 +44,5 @@ public interface TeacherService {
      */
     void delete(Long id);
 
-    Page<Teacher> findAllWithSearchTerm(Pageable pageable, String searchTerm);
+    Page<TeacherDTO> findAllWithSearchTerm(Pageable pageable, String searchTerm);
 }

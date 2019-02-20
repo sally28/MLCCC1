@@ -19,9 +19,8 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="className"><span>Class Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mlcClassCategory"><span>Category</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="minAge"><span>Min Age</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="tuition"><span>Tuition</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="registrationFee"><span>Registration Fee</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="classTime.id"><span>Class Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="teacher.id"><span>Teacher</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -32,9 +31,8 @@
             <tbody>
                 <tr ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.id">
                     <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
+                    <td><a ui-sref="mlc-class-category-detail({id:mlcClass.mlcClassCategory.id})">{{mlcClass.mlcClassCategory.name}}</a></td>
                     <td>{{mlcClass.minAge}}</td>
-                    <td>{{mlcClass.tuition}}</td>
-                    <td>{{mlcClass.registrationFee}}</td>
                     <td>
                         <a ui-sref="class-status-detail({id:mlcClass.status.id})">{{mlcClass.status.status}}</a>
                     </td>

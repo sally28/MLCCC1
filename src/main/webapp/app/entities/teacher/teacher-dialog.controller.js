@@ -5,25 +5,29 @@
         .module('mlcccApp')
         .controller('TeacherDialogController', TeacherDialogController);
 
-    TeacherDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Teacher', 'MlcAccount'];
+    TeacherDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Teacher', 'User'];
 
-    function TeacherDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Teacher, MlcAccount) {
+    function TeacherDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Teacher, User) {
         var vm = this;
 
+        vm.searchUser = searchUser;
         vm.teacher = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.accounts = MlcAccount.query({filter: 'teacher-is-null'});
-        $q.all([vm.teacher.$promise, vm.accounts.$promise]).then(function() {
+        vm.accounts = []
+        vm.accounts.push(vm.teacher.account);
+        /*vm.accounts = User.query({filter: 'teacher-is-null'});*/
+
+        /*$q.all([vm.teacher.$promise]).then(function() {
             if (!vm.teacher.account || !vm.teacher.account.id) {
                 return $q.reject();
             }
-            return MlcAccount.get({id : vm.teacher.account.id}).$promise;
+            vm.accounts.push(vm.teacher.account);
         }).then(function(account) {
             vm.accounts.push(account);
-        });
+        });*/
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -56,6 +60,17 @@
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;
+        }
+
+        function searchUser(){
+            User.search({search:vm.searchTerm}, onSuccess, onError);
+            function onSuccess(data, headers) {
+                vm.queryCount = vm.totalItems;
+                vm.accounts = data;
+            }
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
         }
     }
 })();

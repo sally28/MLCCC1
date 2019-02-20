@@ -43,8 +43,8 @@
         </div>
 
         <div class="form-group">
-            <label for="field_account">Account</label>
-            <select class="form-control" id="field_account" name="account" ng-model="vm.teacher.account" ng-options="mlcAccount as mlcAccount.id for mlcAccount in vm.accounts | orderBy:'id' track by mlcAccount.id">
+            <label for="field_account">User Account</label>
+            <select class="form-control" id="field_account" name="account" ng-model="vm.teacher.account" ng-options="mlcAccount as mlcAccount.firstName+ ' '+mlcAccount.lastName + ' '+ mlcAccount.login for mlcAccount in vm.accounts | orderBy:'id' track by mlcAccount.id">
                 <option value=""></option>
             </select>
         </div>
@@ -56,5 +56,13 @@
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
         </button>
+    </div>
+</form>
+
+<form name="searchForm" role="form" novalidate ng-submit="vm.searchUser()" has-authority="ROLE_ADMIN">
+    <div class="form-group has-feedback">
+        <input type="search" class="form-control" placeholder="User Name" name="searchTerm" id="searchTerm"
+               ng-model="vm.searchTerm"/>
+        <i class="glyphicon glyphicon-user form-control-feedback"></i>
     </div>
 </form>

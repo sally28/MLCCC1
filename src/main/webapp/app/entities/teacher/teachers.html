@@ -28,9 +28,9 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <!--<th jh-sort-by="hireDate"><span>Hire Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="account.id"><span>Account</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    -->
+                    <!--<th jh-sort-by="hireDate"><span>Hire Date</span> <span class="glyphicon glyphicon-sort"></span></th>-->
+                    <th jh-sort-by="account.id"><span>User Account</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Class Categories</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,11 +39,11 @@
                     <td><a ui-sref="teacher-detail({id:teacher.id})">{{teacher.firstName}}</a></td>
                     <td><a ui-sref="teacher-detail({id:teacher.id})">{{teacher.lastName}}</a></td>
                     <!--
-                    <td>{{teacher.hireDate | date:'mediumDate'}}</td>
+                    <td>{{teacher.hireDate | date:'mediumDate'}}</td> -->
                     <td>
-                        <a ui-sref="mlc-account-detail({id:teacher.account.id})">{{teacher.account.id}}</a>
+                        <a ui-sref="mlc-account-detail({id:teacher.account.id})">{{teacher.account.login}}</a>
                     </td>
-                    -->
+                    <td>{{teacher.classCategories}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

@@ -20,9 +20,9 @@
         <dd>
             <span>{{vm.teacher.payRate}}</span>
         </dd>
-        <dt><span>Account</span></dt>
+        <dt><span>User Account</span></dt>
         <dd>
-            <a ui-sref="mlc-account-detail({id:vm.teacher.account.id})">{{vm.teacher.account.id}}</a>
+            <a ui-sref="user-management-detail({id:vm.teacher.account.id})">{{vm.teacher.account.firstName}} {{vm.teacher.account.lastName}} {{vm.teacher.account.login}}</a>
         </dd>
     </dl>
 

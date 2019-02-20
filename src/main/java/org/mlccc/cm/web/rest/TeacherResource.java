@@ -1,8 +1,11 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.Teacher;
+import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.TeacherService;
+import org.mlccc.cm.service.dto.TeacherDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import org.mlccc.cm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -20,8 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing Teacher.
@@ -36,8 +41,11 @@ public class TeacherResource {
 
     private final TeacherService teacherService;
 
-    public TeacherResource(TeacherService teacherService) {
+    private final MlcClassService classService;
+
+    public TeacherResource(TeacherService teacherService, MlcClassService classService) {
         this.teacherService = teacherService;
+        this.classService = classService;
     }
 
     /**
@@ -90,14 +98,24 @@ public class TeacherResource {
      */
     @GetMapping("/teachers")
     @Timed
-    public ResponseEntity<List<Teacher>> getAllTeachers(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
+    public ResponseEntity<List<TeacherDTO>> getAllTeachers(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
         log.debug("REST request to get a page of Teachers");
-        Page<Teacher> page = null;
+        Page<TeacherDTO> page = null;
         if(StringUtils.isEmpty(searchTerm)) {
             page = teacherService.findAll(pageable);
         } else {
             page = teacherService.findAllWithSearchTerm(pageable, searchTerm);
         }
+        page.forEach(teacherDto -> {
+            Set<String> categories = new HashSet<>();
+            List<MlcClass> classes =  classService.findAllWithTeacherId(teacherDto.getId());
+            classes.forEach(mlcClass ->{
+                if(mlcClass.getMlcClassCategory() != null){
+                    categories.add(mlcClass.getMlcClassCategory().getName());
+                }
+            });
+            teacherDto.setClassCategories(categories.toString().replaceAll("\\[","").replaceAll("]",""));
+        });
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teachers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

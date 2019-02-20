@@ -4,6 +4,7 @@ import org.mlccc.cm.MlcccApp;
 
 import org.mlccc.cm.domain.Teacher;
 import org.mlccc.cm.repository.TeacherRepository;
+import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.TeacherService;
 import org.mlccc.cm.web.rest.errors.ExceptionTranslator;
 
@@ -59,6 +60,9 @@ public class TeacherResourceIntTest {
     private TeacherService teacherService;
 
     @Autowired
+    private MlcClassService mlcClassService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -77,7 +81,7 @@ public class TeacherResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        TeacherResource teacherResource = new TeacherResource(teacherService);
+        TeacherResource teacherResource = new TeacherResource(teacherService, mlcClassService);
         this.restTeacherMockMvc = MockMvcBuilders.standaloneSetup(teacherResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

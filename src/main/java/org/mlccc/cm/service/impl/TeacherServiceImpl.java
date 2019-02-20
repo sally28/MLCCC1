@@ -3,6 +3,7 @@ package org.mlccc.cm.service.impl;
 import org.mlccc.cm.service.TeacherService;
 import org.mlccc.cm.domain.Teacher;
 import org.mlccc.cm.repository.TeacherRepository;
+import org.mlccc.cm.service.dto.TeacherDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -46,9 +47,9 @@ public class TeacherServiceImpl implements TeacherService{
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Teacher> findAll(Pageable pageable) {
+    public Page<TeacherDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Teachers");
-        return teacherRepository.findAll(pageable);
+        return teacherRepository.findAll(pageable).map(TeacherDTO::new);
     }
 
     /**
@@ -77,8 +78,8 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Teacher> findAllWithSearchTerm(Pageable pageable, String searchTerm) {
+    public Page<TeacherDTO> findAllWithSearchTerm(Pageable pageable, String searchTerm) {
         log.debug("Request to get all Teachers with searchTerm: {}", searchTerm);
-        return teacherRepository.findAllWithSearchTerm(pageable, searchTerm.toLowerCase()+"%");
+        return teacherRepository.findAllWithSearchTerm(pageable, searchTerm.toLowerCase()+"%").map(TeacherDTO::new);
     }
 }

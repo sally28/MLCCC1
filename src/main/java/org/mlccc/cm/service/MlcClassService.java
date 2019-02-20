@@ -4,6 +4,8 @@ import org.mlccc.cm.domain.MlcClass;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Service Interface for managing MlcClass.
  */
@@ -39,4 +41,6 @@ public interface MlcClassService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    public List<MlcClass> findAllWithTeacherId(Long teacherId);
 }

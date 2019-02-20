@@ -17,7 +17,7 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.showRegistrations = true;
-        vm.searchUser = searchUser;
+        vm.searchStudent = searchStudent;
 
         if(loginUser.authorities && loginUser.authorities.indexOf('ROLE_ADMIN') !== -1){
             vm.showRegistrations = false;
@@ -63,7 +63,7 @@
         function onError(error) {
             AlertService.error(error.data.message);
         }
-        function searchUser(){
+        function searchStudent(){
             Student.query({param: vm.searchTerm}, {
                 page: 0,
                 size: vm.itemsPerPage,
