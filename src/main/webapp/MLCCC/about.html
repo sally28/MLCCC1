@@ -45,6 +45,12 @@
     <script src="js/html5shiv.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
     <![endif]-->
+    <script>
+        $(function(){
+            $("#header1").load("header.html");
+            $("#footer1").load("footer.html");
+        });
+    </script>
 </head>
 
 <body>
@@ -53,61 +59,7 @@
         <!--========================================================
                                   HEADER
         =========================================================-->
-        <header id="header" class="header">
-           <div id="stuck_container" class="stuck_container">
-               <div class="container">
-                   <div class="row">
-                       <div class="grid_12">
-                           <nav class="nav nav__ins1">
-                               <ul class="sf-menu">
-                                   <li >
-                                       <a href="./index.html">Home </a>
-                                   </li> <!--home -->
-                                   <li>
-                                       <a href="news.html">Latest News</a>
-                                        <ul>
-                                          <li>Newsletters</li>
-                                        </ul>
-                                   </li>
-                                   <li><a href="program.html">Program</a>
-                                    <ul>
-                                           <li><a href="weekendProgram.html">Weekend School</a></li>
-                                           <li>
-                                               <a href="summerProgram.html">Summer Camps</a>
-                                           </li>
-                                           <li>
-                                               <a href="specialProgram.html">Special Program</a>
-                                               <ul>
-                                                   <li><a href="#">Summer STA/ACT PREP</a></li>
-                                                   <li><a href="#">Total Immersion </a></li>
-                                                   <li><a href="#">Tutoring</a></li>
-                                               </ul>
-                                           </li>
-                                       </ul>
-                                   </li><!--program-->
-                                   <li><a href="/#/registration" target="_blank">Registration</a>
-                                  </li>
-                                   <li>
-                                       <a href="gallery.html">Gallery</a>
-                                   </li>
-                                   <li class="active">
-                                       <a href="about.html">About Us</a>
-                                   </li>
-                               </ul>
-                               <div class="header-right">
-                                   <div class='custom-signin'>
-                                       <a href="contact.html">Contact |</a>
-                                   </div>
-                                   <div class="custom-signin">
-                                       <a  href="/#/"id="login" target="_blank">Login</a>
-                                   </div>
-                               </div>
-                           </nav>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </header>
+       <div id="header1"></div>
         <!--========================================================
                                           CONTENT
                 =========================================================-->
@@ -288,29 +240,7 @@
                 <!--========================================================
                                           FOOTER
                 =========================================================-->
-                <footer id="footer" class="footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="grid_12">
-                                <p class="info">
-                                    <span id="copyright-year"></span> © <a href="index-6.html">Privacy Policy</a>
-                                </p>
-
-                                <ul class="inline-list">
-                                    <li><a href="#">Support</a></li>
-                                    <li><a href="#">FAQs</a></li>
-                                    <li><a href="#">Sitemap</a></li>
-                                    <li><a href="#">Help</a></li>
-                                </ul>
-                                <ul class="socials">
-                                    <li><a href="#" class="fa fa-facebook">Facebook</a></li>
-                                    <li><a href="#" class="fa fa-twitter">Twitter</a></li>
-                                    <li><a href="#" class="fa fa-rss">RSS</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+             <div id="footer1"></div>
             </div>
 
       <script src="js/script.js"></script>
