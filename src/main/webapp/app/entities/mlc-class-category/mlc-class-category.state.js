@@ -51,7 +51,7 @@
             url: '/mlc-class-category/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'mlcccApp.mlcClassCategory.detail.title'
+                pageTitle: 'MlcClassCategory'
             },
             views: {
                 'content@': {
@@ -61,10 +61,6 @@
                 }
             },
             resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('mlcClassCategory');
-                    return $translate.refresh();
-                }],
                 entity: ['$stateParams', 'MlcClassCategory', function($stateParams, MlcClassCategory) {
                     return MlcClassCategory.get({id : $stateParams.id}).$promise;
                 }],

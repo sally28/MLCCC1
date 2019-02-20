@@ -75,6 +75,12 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="field_classCategory">Category</label>
+            <select class="form-control" id="field_classCategory" name="category" ng-model="vm.mlcClass.mlcClassCategory" ng-options="category as category.name for category in vm.categories track by category.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="field_classRoom">Class Room</label>
             <select class="form-control" id="field_classRoom" name="classRoom" ng-model="vm.mlcClass.classRoom" ng-options="classRoom as classRoom.roomNumber for classRoom in vm.classrooms track by classRoom.id">
                 <option value=""></option>
