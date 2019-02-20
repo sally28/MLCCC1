@@ -1005,7 +1005,8 @@ h3 + .box_img-wrap, .marked-list + .box_img-wrap, .news_crdts p + .box_img-wrap,
                      FOOTER Section
 =========================================================*/
 .footer {
-  padding: 53px 0 49px;
+  padding: 0px 0px 49px;
+
   font-size: 11px;
 }
 .footer .info {
