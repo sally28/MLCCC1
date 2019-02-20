@@ -179,7 +179,7 @@ transform-origin: left;
 ======================================================*/
 .page {
   overflow: hidden;
-  min-height: 500px;
+  min-height: 0px;
 }
 .lt-ie9 .page {
   min-width: 1400px;

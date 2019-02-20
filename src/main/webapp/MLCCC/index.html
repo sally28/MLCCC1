@@ -48,15 +48,21 @@
     <script src="js/html5shiv.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
     <![endif]-->
+    <script>
+        $(function(){
+            $("#header1").load("header.html");
+        });
+    </script>
 </head>
 
 <body>
 
-    <div class="page">
-        <!--========================================================
-                                  HEADER
-        =========================================================-->
-         <header id="header" class="header">
+<div class="page">
+    <!--========================================================
+                              HEADER
+    =========================================================-->
+    <div id="header1"></div>
+       <!--  <header id="header" class="header">
             <div id="stuck_container" class="stuck_container">
                 <div class="container">
                     <div class="row">
@@ -66,7 +72,7 @@
                                     <li class="active">
                                         <a href="./index.html">Home </a>
                                     </li> <!--home -->
-                                 <li>
+                                <!-- <li>
                                         <a href="news.html">Latest News</a>
                                          <ul>
                                            <li>Newsletters</li>
@@ -88,7 +94,7 @@
                                             </li>
                                         </ul>
                                     </li><!--program-->
-                                    <li><a href="/#/registration" target="_blank">Registration</a>
+                                   <!-- <li><a href="/#/registration" target="_blank">Registration</a>
                                    </li>
                                     <li>
                                         <a href="gallery.html">Gallery</a>
