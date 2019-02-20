@@ -18,7 +18,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="className"><span>Class Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="minAge"><span>Min Age</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="tuition"><span>Tuition</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -32,8 +31,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.id">
-                    <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.id}}</a></td>
-                    <td>{{mlcClass.className}}</td>
+                    <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
                     <td>{{mlcClass.minAge}}</td>
                     <td>{{mlcClass.tuition}}</td>
                     <td>{{mlcClass.registrationFee}}</td>

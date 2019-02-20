@@ -39,4 +39,6 @@ public interface TeacherService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    Page<Teacher> findAllWithSearchTerm(Pageable pageable, String searchTerm);
 }

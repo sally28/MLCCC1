@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -89,9 +90,14 @@ public class TeacherResource {
      */
     @GetMapping("/teachers")
     @Timed
-    public ResponseEntity<List<Teacher>> getAllTeachers(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<Teacher>> getAllTeachers(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
         log.debug("REST request to get a page of Teachers");
-        Page<Teacher> page = teacherService.findAll(pageable);
+        Page<Teacher> page = null;
+        if(StringUtils.isEmpty(searchTerm)) {
+            page = teacherService.findAll(pageable);
+        } else {
+            page = teacherService.findAllWithSearchTerm(pageable, searchTerm);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teachers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
