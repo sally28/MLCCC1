@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "mlcClass",
+            "otherEntityName": "mlcClass",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "mlcClassCategory"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20190219210358",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "mlc_class_category",
+    "pagination": "no"
+}

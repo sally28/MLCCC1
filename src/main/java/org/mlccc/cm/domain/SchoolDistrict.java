@@ -5,7 +5,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A SchoolDistrict.
@@ -27,6 +29,12 @@ public class SchoolDistrict implements Serializable {
 
     @Column(name = "county")
     private String county;
+
+    @OneToMany(
+            mappedBy = "schoolDistrict",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<User> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -60,6 +68,14 @@ public class SchoolDistrict implements Serializable {
 
     public void setCounty(String county) {
         this.county = county;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override

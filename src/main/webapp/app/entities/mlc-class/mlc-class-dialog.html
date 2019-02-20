@@ -64,13 +64,19 @@
         </div>
         <div class="form-group">
             <label for="field_classTime">Class Time</label>
-            <select class="form-control" id="field_classTime" name="classTime" ng-model="vm.mlcClass.classTime" ng-options="classTime as classTime.id for classTime in vm.classtimes track by classTime.id">
+            <select class="form-control" id="field_classTime" name="classTime" ng-model="vm.mlcClass.classTime" ng-options="classTime as classTime.classTime for classTime in vm.classtimes track by classTime.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label for="field_teacher">Teacher</label>
             <select class="form-control" id="field_teacher" name="teacher" ng-model="vm.mlcClass.teacher" ng-options="teacher as teacher.lastName+','+teacher.firstName for teacher in vm.teachers track by teacher.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_classCategory">Category</label>
+            <select class="form-control" id="field_classCategory" name="category" ng-model="vm.mlcClass.mlcClassCategory" ng-options="category as category.name for category in vm.categories track by category.id">
                 <option value=""></option>
             </select>
         </div>

@@ -110,6 +110,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @ManyToOne
+    private SchoolDistrict schoolDistrict;
+
     public Long getId() {
         return id;
     }
@@ -252,6 +255,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public SchoolDistrict getSchoolDistrict() {
+        return schoolDistrict;
+    }
+
+    public void setSchoolDistrict(SchoolDistrict schoolDistrict) {
+        this.schoolDistrict = schoolDistrict;
     }
 
     @Override

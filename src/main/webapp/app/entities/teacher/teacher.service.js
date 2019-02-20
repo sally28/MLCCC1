@@ -7,9 +7,9 @@
     Teacher.$inject = ['$resource', 'DateUtils'];
 
     function Teacher ($resource, DateUtils) {
-        var resourceUrl =  'api/teachers/:id';
+        var resourceUrl =  'api/teachers/:id?searchTerm=:param';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {param: '@param'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

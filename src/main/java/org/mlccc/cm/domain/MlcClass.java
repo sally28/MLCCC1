@@ -58,6 +58,9 @@ public class MlcClass implements Serializable {
     @ManyToOne
     private SchoolTerm schoolTerm;
 
+    @ManyToOne
+    private MlcClassCategory mlcClassCategory;
+
     public Long getId() {
         return id;
     }
@@ -220,6 +223,14 @@ public class MlcClass implements Serializable {
 
     public void setSchoolTerm(SchoolTerm schoolTerm) {
         this.schoolTerm = schoolTerm;
+    }
+
+    public MlcClassCategory getMlcClassCategory() {
+        return mlcClassCategory;
+    }
+
+    public void setMlcClassCategory(MlcClassCategory mlcClassCategory) {
+        this.mlcClassCategory = mlcClassCategory;
     }
 
     @Override

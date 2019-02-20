@@ -16,6 +16,7 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.searchTeacher = searchTeacher;
 
         loadAll();
 
@@ -55,16 +56,6 @@
                 }
                 return result;
             }
-            function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.teachers = data;
-                vm.page = pagingParams.page;
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
         }
 
         function loadPage(page) {
@@ -78,6 +69,25 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+
+        function searchTeacher(){
+            Teacher.query({param: vm.searchTerm}, {
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'firstName, asc'
+            }, onSuccess, onError);
+        }
+
+        function onSuccess(data, headers) {
+            vm.links = ParseLinks.parse(headers('link'));
+            vm.totalItems = headers('X-Total-Count');
+            vm.queryCount = vm.totalItems;
+            vm.teachers = data;
+            vm.page = pagingParams.page;
+        }
+        function onError(error) {
+            AlertService.error(error.data.message);
         }
     }
 })();

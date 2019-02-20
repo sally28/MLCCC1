@@ -24,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -164,7 +165,7 @@ public class UserResource {
         }
         if(allUsers){
             Page<UserDTO> page = null;
-            if(search != null && search.length()>0){
+            if(!StringUtils.isEmpty(search)){
                 page = userService.searchUsers(pageable, ("%"+search+"%").toLowerCase());
             } else {
                 page = userService.getAllManagedUsers(pageable);

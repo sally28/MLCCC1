@@ -25,6 +25,7 @@
         vm.reverse = pagingParams.ascending;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.transition = transition;
+        vm.searchUser = searchUser;
 
         vm.loadAll();
         Principal.identity().then(function(account) {
@@ -87,6 +88,10 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+
+        function searchUser(){
+            User.search({search:vm.searchTerm}, onSuccess, onError);
         }
     }
 })();

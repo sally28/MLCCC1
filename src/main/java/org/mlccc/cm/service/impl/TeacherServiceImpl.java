@@ -74,4 +74,11 @@ public class TeacherServiceImpl implements TeacherService{
         log.debug("Request to delete Teacher : {}", id);
         teacherRepository.delete(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Teacher> findAllWithSearchTerm(Pageable pageable, String searchTerm) {
+        log.debug("Request to get all Teachers with searchTerm: {}", searchTerm);
+        return teacherRepository.findAllWithSearchTerm(pageable, searchTerm.toLowerCase()+"%");
+    }
 }

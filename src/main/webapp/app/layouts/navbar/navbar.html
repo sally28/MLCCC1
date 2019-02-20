@@ -7,11 +7,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo" href="/MLCCC/index.html" ng-click="vm.collapseNavbar()">
-                <span><img class="logo-img" src="content/images/Logo.jpg"> </span>
-            </a>
         </div>
-        <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
+        <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()"
+             style="height: 0px;padding-bottom: 5px;padding-top: 5px;">
+            <ul class="nav navbar-nav navbar-left">
+                <a class="navbar-brand logo" href="/MLCCC/index.html" ng-click="vm.collapseNavbar()">
+                    <span><img class="logo-img" src="content/images/Logo.jpg"> </span>
+                </a>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active">
                     <a ui-sref="home" ng-click="vm.collapseNavbar()">
@@ -96,13 +99,19 @@
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span>Teacher List</span>
                                 </a>
-                            </li>
+                        </li>
                         <li ui-sref-active="active">
                                 <a ui-sref="mlc-class" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span>Class Information</span>
                                 </a>
-                            </li>
+                        </li>
+                        <li ui-sref-active="active" has-authority="ROLE_ADMIN">
+                            <a ui-sref="mlc-class-category" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span>Class Category</span>
+                            </a>
+                        </li>
                         <!--
                         <li ui-sref-active="active">
                             <a ui-sref="registration" ng-click="vm.collapseNavbar()">
