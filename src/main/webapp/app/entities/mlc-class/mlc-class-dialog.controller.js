@@ -18,7 +18,7 @@
         vm.teachers = Teacher.query({
             page: 0,
             size: 1000,
-            sort: 'asc'
+            sort: 'lastName'
         });
         vm.classrooms = ClassRoom.query();
         vm.schoolterms = SchoolTerm.query();

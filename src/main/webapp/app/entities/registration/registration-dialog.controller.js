@@ -15,25 +15,27 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
+        vm.searchStudent = searchStudent;
+        vm.searchClasses = searchClasses;
+
         if($stateParams.studentId){
             vm.students = [Student.get({id : $stateParams.studentId})];
         } else {
-            vm.students = Student.query();
-        }
-
-        if(vm.students.length >= 1){
-            vm.registration.student = vm.students[0];
+            vm.students = Student.query({}, function(data){
+                vm.registration.student = data[0];
+            });
         }
 
         vm.mlcClassCategories = MlcClassCategory.query({}, onSuccess);
+
         function onSuccess(data) {
             if(vm.mlcClassCategory == null){
                 vm.mlcClassCategory = data[0];
             }
-            vm.mlcclasses = MlcClass.search({category: vm.mlcClassCategory.id});
+            vm.mlcclasses = MlcClass.search({category: vm.mlcClassCategory.id}, function(data){
+                vm.registration.mlcClass = data[0];
+            });
         }
-
-        //vm.mlcclasses = MlcClass.query();
 
         vm.registrationstatuses = RegistrationStatus.query();
 
@@ -73,5 +75,23 @@
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;
         }
+
+        function searchClasses (){
+            vm.mlcclasses = MlcClass.search({category: vm.mlcClassCategory.id}, function(data){
+                vm.registration.mlcClass = data[0];
+            });
+        }
+
+        function searchStudent (){
+            vm.students = Student.query({param: vm.searchTerm,
+                page: 0,
+                size: 50,
+                sort: 'firstName'
+            }, function(data){
+                vm.students = data;
+                vm.registration.student = data[0];
+            });
+        }
+
     }
 })();
