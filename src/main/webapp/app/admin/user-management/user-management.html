@@ -2,17 +2,18 @@
     <h2>Users</h2>
     <jhi-alert></jhi-alert>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
           <button class="btn btn-primary" ui-sref="user-management.new">
               <span class="glyphicon glyphicon-flash"></span> <span>Create a new User</span>
           </button>
 
-
+          </div>
+        <div class="col-md-4">
         <form name="searchForm" role="form" novalidate ng-submit="vm.searchUser()">
             <div class="form-group has-feedback">
-                <input type="search" class="form-control" placeholder="User Name" name="searchTerm" id="searchTerm"
+                <input type="search" class="form-control" placeholder="Search User by Name" name="searchTerm" id="searchTerm"
                        ng-model="vm.searchTerm"/>
-                <i class="glyphicon glyphicon-user form-control-feedback"></i>
+                <i class="glyphicon glyphicon-search form-control-feedback"></i>
             </div>
         </form>
       </div>
