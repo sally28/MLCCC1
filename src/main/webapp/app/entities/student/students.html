@@ -3,7 +3,27 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-sm-6">
+                <button class="btn btn-primary mb-2" ui-sref="student.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Student
+                    </span>
+                </button>
+            </div>
+            <div class="col-sm-4">
+            <form name="searchForm" role="form" novalidate ng-submit="vm.searchStudent()" has-authority="ROLE_ADMIN">
+                    <div class="form-group mx-sm-3 has-feedback">
+                        <input type="search" class="form-control" placeholder="Student Name" name="searchTerm" id="searchTerm"
+                               ng-model="vm.searchTerm"/>
+                        <i class="glyphicon glyphicon-user form-control-feedback"></i>
+                        </div>
+            </form>
+        </div>
+    </div>
+   <!-- <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-right">
                 <button class="btn btn-primary" ui-sref="student.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
@@ -20,7 +40,7 @@
 
             </div>
         </div>
-    </div>
+    </div>-->
     <br/>
     <div class="table-responsive">
         <div ng-switch="vm.showRegistrations">
