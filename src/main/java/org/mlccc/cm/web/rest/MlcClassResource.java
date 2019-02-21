@@ -89,9 +89,10 @@ public class MlcClassResource {
      */
     @GetMapping("/mlc-classes")
     @Timed
-    public ResponseEntity<List<MlcClass>> getAllMlcClasses(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<MlcClass>> getAllMlcClasses(@ApiParam Pageable pageable, @ApiParam String search, @ApiParam Long category,
+                                                           @ApiParam Long teacher) {
         log.debug("REST request to get a page of MlcClasses");
-        Page<MlcClass> page = mlcClassService.findAll(pageable);
+        Page<MlcClass> page = mlcClassService.findAllWithSearchTerm(pageable, search, category, teacher);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/mlc-classes");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

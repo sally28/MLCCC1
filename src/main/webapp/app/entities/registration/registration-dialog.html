@@ -13,47 +13,27 @@
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.registration.id" readonly />
         </div>
-        <!--
-        <div class="form-group">
-            <label class="control-label" for="field_createDate">Create Date</label>
-                <div class="input-group">
-                    <input id="field_createDate" type="text" class="form-control" name="createDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.registration.createDate" is-open="vm.datePickerOpenStatus.createDate"
-                    />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createDate')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_modifyDate">Modify Date</label>
-                <div class="input-group">
-                    <input id="field_modifyDate" type="text" class="form-control" name="modifyDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.registration.modifyDate" is-open="vm.datePickerOpenStatus.modifyDate"
-                    />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('modifyDate')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-        </div>
-        -->
         <div class="form-group">
             <label for="field_student">Student</label>
             <select class="form-control" id="field_student" name="student" ng-model="vm.registration.student" ng-options="student as student.firstName+' '+student.lastName for student in vm.students track by student.id">
                 <option value="">{{vm.students[0].firstName}} {{vm.students[0].lastName}}</option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="field_mlcClassCategory">Class Category</label>
+            <select class="form-control" id="field_mlcClassCategory" name="mlcClassCategory" ng-model="vm.mlcClassCategory" ng-options="mlcClassCategory as mlcClassCategory.name for mlcClassCategory in vm.mlcClassCategories track by mlcClassCategory.id">
+                <option value=""></option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label for="field_mlcClass">Class</label>
             <select class="form-control" id="field_mlcClass" name="mlcClass" ng-model="vm.registration.mlcClass" ng-options="mlcClass as mlcClass.className for mlcClass in vm.mlcclasses track by mlcClass.id">
                 <option value=""></option>
             </select>
         </div>
-        <!--
-        <div class="form-group">
-            <label for="field_status">Status</label>
-            <select class="form-control" id="field_status" name="status" ng-model="vm.registration.status" ng-options="registrationStatus as registrationStatus.id for registrationStatus in vm.registrationstatuses track by registrationStatus.id">
-                <option value=""></option>
-            </select>
-        </div>-->
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

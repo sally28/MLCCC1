@@ -20,7 +20,15 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'search': {
+                method: 'GET',
+                isArray: true,
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    return data;
+                }
+            },
         });
     }
 })();

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -82,4 +83,20 @@ public class MlcClassServiceImpl implements MlcClassService{
         log.debug("Request to findAllWithTeacherId: {}", teacherId);
         return mlcClassRepository.findAllWithTeacherId(teacherId);
     }
+
+    @Override
+    public Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId){
+        log.debug("Request to findAllWithSearchTerm: {}, {}, {}, {}", searchTerm, categoryId, teacherId);
+        if(!StringUtils.isEmpty(searchTerm)){
+            searchTerm = "%"+searchTerm.toLowerCase()+"%";
+            return mlcClassRepository.findAllWithSearchTerm(pageable, searchTerm);
+        } else if (categoryId != null){
+            return mlcClassRepository.findAllWithCategory(pageable, categoryId);
+        } else if (teacherId != null){
+            return mlcClassRepository.findAllWithTeacher(pageable, categoryId);
+        } else {
+            return mlcClassRepository.findAll(pageable);
+        }
+    }
+
 }

@@ -42,5 +42,7 @@ public interface MlcClassService {
      */
     void delete(Long id);
 
-    public List<MlcClass> findAllWithTeacherId(Long teacherId);
+    List<MlcClass> findAllWithTeacherId(Long teacherId);
+
+    Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId);
 }

@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('RegistrationDialogController', RegistrationDialogController);
 
-    RegistrationDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Registration', 'Student', 'MlcClass', 'RegistrationStatus'];
+    RegistrationDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Registration', 'Student', 'MlcClass', 'RegistrationStatus', 'MlcClassCategory'];
 
-    function RegistrationDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Registration, Student, MlcClass, RegistrationStatus) {
+    function RegistrationDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Registration, Student, MlcClass, RegistrationStatus, MlcClassCategory) {
         var vm = this;
 
         vm.registration = entity;
@@ -25,7 +25,16 @@
             vm.registration.student = vm.students[0];
         }
 
-        vm.mlcclasses = MlcClass.query();
+        vm.mlcClassCategories = MlcClassCategory.query({}, onSuccess);
+        function onSuccess(data) {
+            if(vm.mlcClassCategory == null){
+                vm.mlcClassCategory = data[0];
+            }
+            vm.mlcclasses = MlcClass.search({category: vm.mlcClassCategory.id});
+        }
+
+        //vm.mlcclasses = MlcClass.query();
+
         vm.registrationstatuses = RegistrationStatus.query();
 
         $timeout(function (){
