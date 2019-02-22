@@ -15,6 +15,11 @@
 
     <!--<link rel="stylesheet" href="css/jquery-ui.min.css">
     <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery-migrate-1.2.1.js"></script>
     <script src="js/jquery.equalheights.js"></script>
@@ -68,10 +73,72 @@
                                   CONTENT
         =========================================================-->
         <section id="content" class="content">
-            <div id="camera" class="camera-wrap">
-                <div data-src="images/index_slide01.jpg"></div>
-                <div data-src="images/index_slide02.jpg"></div>
-                <div data-src="images/index_slide03.jpg"></div>
+            <div class="container">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="sliderImg" src="images/index_slide01.jpg">
+                            <div class="carousel-caption">
+                                <h3>
+                                    Headline1</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem
+                                    ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                            </div>
+                        </div>
+                        <!-- End Item -->
+                        <div class="item">
+                            <img class="sliderImg" src="images/index_slide02.jpg">
+                            <div class="carousel-caption">
+                                <h3>
+                                    Headline2</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem
+                                    ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                            </div>
+                        </div>
+                        <!-- End Item -->
+                        <div class="item">
+                            <img class="sliderImg"  src="images/index_slide03.jpg">
+                            <div class="carousel-caption">
+                                <h3>
+                                    Headline3</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem
+                                    ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                            </div>
+                        </div>
+                        <!-- End Item -->
+                        <div class="item">
+                            <img class="sliderImg" src="images/index_slide01.jpg">
+                            <div class="carousel-caption">
+                                <h3>
+                                    Headline4</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem
+                                    ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                            </div>
+                        </div>
+                        <!-- End Item -->
+                    </div>
+                    <!-- End Carousel Inner -->
+                    <ul class="nav nav-pills nav-justified">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"><a href="#">Headline1<small>Lorem
+                            ipsum dolor sit</small></a></li>
+                        <li data-target="#myCarousel" data-slide-to="1" class="active"><a href="#">Headline2<small>Lorem ipsum
+                            dolor sit</small></a></li>
+                        <li data-target="#myCarousel" data-slide-to="2" class="active"><a href="#">Headline3<small>Lorem ipsum
+                            dolor sit</small></a></li>
+                        <li data-target="#myCarousel" data-slide-to="3" class="active"><a href="#">Headline4<small>Lorem ipsum
+                            dolor sit</small></a></li>
+                    </ul>
+                </div>
+                <!-- End Carousel -->
             </div>
 
 
