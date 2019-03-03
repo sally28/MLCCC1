@@ -33,6 +33,8 @@ public class StudentDTO {
 
     private Set<UserDTO> associatedAccounts;
 
+    private Set<String> classesTaken;
+
     public StudentDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -109,6 +111,13 @@ public class StudentDTO {
         this.associatedAccounts = associatedAccounts;
     }
 
+    public Set<String> getClassesTaken() {
+        return classesTaken;
+    }
+
+    public void setClassesTaken(Set<String> classesTaken) {
+        this.classesTaken = classesTaken;
+    }
 
     @Override
     public String toString() {

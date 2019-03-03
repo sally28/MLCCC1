@@ -1,5 +1,6 @@
 package org.mlccc.cm.service.impl;
 
+import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.domain.User;
 import org.mlccc.cm.repository.UserRepository;
 import org.mlccc.cm.service.StudentService;
@@ -119,9 +120,47 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public StudentDTO map(Student student, Set<String> fields) {
+        StudentDTO studentDto = new StudentDTO();
+        studentDto.setBirthMonth(student.getBirthMonth());
+        studentDto.setBirthYear(student.getBirthYear());
+        studentDto.setFirstName(student.getFirstName());
+        studentDto.setLastName(student.getLastName());
+        studentDto.setGender(student.getGender());
+        studentDto.setId(student.getId());
+
+        if(fields.contains("associatedAccounts")){
+            Set<UserDTO> associatedAccounts = new HashSet<>();
+            for(User user : student.getAssociatedAccounts()){
+                UserDTO userDto = new UserDTO(user);
+                associatedAccounts.add(userDto);
+            }
+            studentDto.setAssociatedAccounts(associatedAccounts);
+        }
+
+        if(fields.contains("classesTaken")){
+            Set<String> classesTaken = new HashSet<>();
+            for(Registration registration : student.getRegistrations()){
+                classesTaken.add(registration.getMlcClass().getClassName());
+            }
+            studentDto.setClassesTaken(classesTaken);
+        }
+
+        return studentDto;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Page<Student> findAllWithSearchTerm(Pageable pageable, String searchTerm) {
         log.debug("Request to get all Students with searchTerm: {}", searchTerm);
         return studentRepository.findAllWithSearchTerm(pageable, searchTerm.toLowerCase()+"%");
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Student> findStudentsInClassTaughtBy(Pageable pageable, Long userId) {
+        log.debug("Request to get all Students in classes taught by {}", userId);
+        return studentRepository.findStudentsInClassTaughtBy(pageable, userId);
     }
 }

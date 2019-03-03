@@ -29,4 +29,7 @@ public interface RegistrationRepository extends JpaRepository<Registration,Long>
 
     @Query("SELECT r FROM Registration r join r.student.associatedAccounts sa WHERE sa.id = (:userId)")
     Page<Registration> findAllWithAssociatedUserId(Pageable var1, @Param("userId") Long userId);
+
+    @Query("SELECT r FROM Registration r join r.mlcClass c join c.teacher t join t.account cta WHERE cta.id = (:userId)")
+    Page<Registration> findAllWithTeacherUserId(Pageable var1, @Param("userId") Long userId);
 }

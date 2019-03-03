@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span>Mlc Class</span> {{vm.mlcClass.id}}</h2>
+    <h2><span>Class</span> {{vm.mlcClass.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
@@ -64,7 +64,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="mlc-class-detail.edit({id:vm.mlcClass.id})" class="btn btn-primary">
+    <button type="button" ui-sref="mlc-class-detail.edit({id:vm.mlcClass.id})" class="btn btn-primary" has-authority="ROLE_ADMIN">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>
     </button>

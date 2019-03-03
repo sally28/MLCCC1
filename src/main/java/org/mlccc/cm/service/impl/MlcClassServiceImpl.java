@@ -93,7 +93,7 @@ public class MlcClassServiceImpl implements MlcClassService{
         } else if (categoryId != null){
             return mlcClassRepository.findAllWithCategory(pageable, categoryId);
         } else if (teacherId != null){
-            return mlcClassRepository.findAllWithTeacher(pageable, categoryId);
+            return mlcClassRepository.findAllWithTeacher(pageable, teacherId);
         } else {
             return mlcClassRepository.findAll(pageable);
         }

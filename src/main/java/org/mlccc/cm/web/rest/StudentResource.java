@@ -124,14 +124,16 @@ public class StudentResource {
     @GetMapping("/students")
     @Timed
     public ResponseEntity<List<Student>> getAllStudents(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
-        log.debug("REST request to get a page of Students");
+        log.debug("REST request to get a page of Students with search: {}", searchTerm);
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
         Boolean allStudents = false;
+        Boolean isTeacher = false;
         for(Authority auth : authorities){
             if(auth.getName().equals(AuthoritiesConstants.ADMIN)){
                 allStudents = true;
-                break;
+            } else if(auth.getName().equals(AuthoritiesConstants.TEACHER)){
+                isTeacher = true;
             }
         }
 
@@ -143,12 +145,17 @@ public class StudentResource {
                 page = studentService.findAllWithSearchTerm(pageable, searchTerm);
             }
         } else {
-            // if normal user getting student list, attach registration information
-            page = studentService.findStudentsAssociatedWith(pageable, loginUser.getId());
-            page.forEach(student -> {
-                List<Registration> registrations =  registrationService.findAllWithStudentId(student.getId());
-                student.setRegistrations(new HashSet<>(registrations));
-            });
+            if(searchTerm.equalsIgnoreCase("inClass") && isTeacher){
+                // find students in the classes taught bye login user
+                page = studentService.findStudentsInClassTaughtBy(pageable, loginUser.getId());
+            } else {
+                // if normal user getting student list, attach registration information
+                page = studentService.findStudentsAssociatedWith(pageable, loginUser.getId());
+                page.forEach(student -> {
+                    List<Registration> registrations =  registrationService.findAllWithStudentId(student.getId());
+                    student.setRegistrations(new HashSet<>(registrations));
+                });
+            }
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/students");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

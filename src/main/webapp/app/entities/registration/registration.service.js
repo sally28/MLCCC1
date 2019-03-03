@@ -7,9 +7,9 @@
     Registration.$inject = ['$resource', 'DateUtils'];
 
     function Registration ($resource, DateUtils) {
-        var resourceUrl =  'api/registrations/:id';
+        var resourceUrl =  'api/registrations/:id?searchTerm=:param';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {param: '@param'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

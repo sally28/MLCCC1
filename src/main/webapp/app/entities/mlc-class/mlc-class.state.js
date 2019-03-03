@@ -46,6 +46,43 @@
                 }],
             }
         })
+        .state('my-mlc-class', {
+            parent: 'entity',
+            url: '/my-class?page&sort&search',
+            data: {
+                authorities: ['ROLE_TEACHER'],
+                pageTitle: 'MyMlcClasses'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/mlc-class/my-mlc-classes.html',
+                    controller: 'MyMlcClassController',
+                    controllerAs: 'vm'
+                }
+            },
+            params: {
+                page: {
+                    value: '1',
+                    squash: true
+                },
+                sort: {
+                    value: 'id,asc',
+                    squash: true
+                },
+                search: null
+            },
+            resolve: {
+                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    return {
+                        page: PaginationUtil.parsePage($stateParams.page),
+                        sort: $stateParams.sort,
+                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
+                        ascending: PaginationUtil.parseAscending($stateParams.sort),
+                        search: $stateParams.search
+                    };
+                }],
+            }
+        })
         .state('mlc-class-detail', {
             parent: 'mlc-class',
             url: '/mlc-class/{id}',

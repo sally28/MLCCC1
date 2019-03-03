@@ -43,6 +43,8 @@ public interface RegistrationService {
     List<Registration> findAllWithClassId(Long mlcClassId);
 
     Page<Registration> findAllWithAssociatedUserId(Pageable pageable, Long userId);
+
+    Page<Registration> findAllWithTeacherUserId(Pageable pageable, Long userId);
     /**
      *  Delete the "id" registration.
      *

@@ -102,4 +102,11 @@ public class RegistrationServiceImpl implements RegistrationService{
         return registrationRepository.findAllWithAssociatedUserId(pageable, userId);
     }
 
+    @Override
+    public Page<Registration> findAllWithTeacherUserId(Pageable pageable, Long userId){
+        log.debug("Request to findAllWithTeacherUserId: {}", userId);
+        return registrationRepository.findAllWithTeacherUserId(pageable, userId);
+    }
+
+
 }

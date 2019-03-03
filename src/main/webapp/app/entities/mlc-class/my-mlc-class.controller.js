@@ -3,11 +3,11 @@
 
     angular
         .module('mlcccApp')
-        .controller('MlcClassController', MlcClassController);
+        .controller('MyMlcClassController', MyMlcClassController);
 
-    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    MyMlcClassController.$inject = ['$state', 'Principal', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function MyMlcClassController($state, Principal, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -16,15 +16,19 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.searchClass = searchClass;
 
-        loadAll();
+        Principal.identity().then(function(account) {
+            vm.account = account;
+            vm.isAuthenticated = Principal.isAuthenticated;
+            loadAll();
+        });
 
         function loadAll () {
             MlcClass.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                teacher: vm.account.id,
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -57,14 +61,6 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
-        }
-
-        function searchClass(){
-            MlcClass.query({search: vm.searchTerm,
-                page: 0,
-                size: vm.itemsPerPage,
-                sort: 'className'
-            }, onSuccess, onError);
         }
     }
 })();

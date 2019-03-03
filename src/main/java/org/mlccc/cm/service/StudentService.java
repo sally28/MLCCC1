@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service Interface for managing Student.
@@ -50,4 +51,8 @@ public interface StudentService {
     void delete(Long id);
 
     Student map(StudentDTO studentDto);
+
+    StudentDTO map(Student student, Set<String> fields);
+
+    Page<Student> findStudentsInClassTaughtBy(Pageable pageable, Long userId);
 }

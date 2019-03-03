@@ -24,42 +24,95 @@
                     </a>
                 </li>-->
 
-                <li ui-sref-active="active">
-                    <a ui-sref="student" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;
-                        <span>My Students</span>
+                <li ng-switch-when="true" uib-dropdown class="dropdown pointer"
+                        ng-class="{active: vm.$state.includes('student') || vm.$state.includes('student-in-class')}">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="student-entity-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                Student Information
+                            </span>
+                            <b class="caret"></b>
+                        </span>
                     </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active">
+                            <a ui-sref="student" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                <span>My Students</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" has-authority="ROLE_TEACHER">
+                            <a ui-sref="student-in-class" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                <span>Students in My Class</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
-                <li ui-sref-active="active" has-authority="ROLE_TEACHER">
-                    <a ui-sref="student" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;
-                        <span>Students in My Class</span>
-                    </a>
-                </li>
-
-                <li ng-class="{active: vm.$state.includes('registration')}">
+                <li ng-switch-when="true" ng-class="{active: vm.$state.includes('registration')}">
                     <a ui-sref="registration" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-tasks"></span>
                         <span class="hidden-sm">Registration</span>
                     </a>
                 </li>
 
-                <li ui-sref-active="active">
-                    <a ui-sref="teacher" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;
-                        <span>Teacher List</span>
+                <li ng-switch-when="true" uib-dropdown class="dropdown pointer" ng-class="{active: vm.$state.includes('teacher','my-teacher')}">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="teacher-entity-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                Teacher Information
+                            </span>
+                            <b class="caret"></b>
+                        </span>
                     </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active"  has-authority="ROLE_USER">
+                            <a ui-sref="teacher" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                <span>Teacher List</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active"  has-authority="ROLE_USER">
+                            <a ui-sref="my-teacher" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                <span>My Teachers</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
-                <li ui-sref-active="active">
-                    <a ui-sref="mlc-class" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-th-list"></span>&nbsp;
-                        <span>Class Information</span>
+                <li ng-switch-when="true" uib-dropdown class="dropdown pointer"
+                        ng-class="{active: vm.$state.includes('mlc-class') || vm.$state.includes('my-mlc-class')}">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="class-entity-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="hidden-sm">
+                                Class Information
+                            </span>
+                            <b class="caret"></b>
+                        </span>
                     </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active" has-authority="ROLE_USER">
+                            <a ui-sref="mlc-class" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-th-list"></span>&nbsp;
+                                <span>All Classes</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" has-authority="ROLE_TEACHER">
+                            <a ui-sref="my-mlc-class" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-th-list"></span>&nbsp;
+                                <span>My Classes</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
-                <li ui-sref-active="active">
+
+                <li ng-switch-when="true" ui-sref-active="active" ng-class="{active: vm.$state.includes('invoice')}">
                     <a ui-sref="invoice" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-usd"></span>&nbsp;
                         <span>Invoice</span>
@@ -68,7 +121,8 @@
 
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
                 <!--<li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">-->
-                <li ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                <li ng-switch-when="true" uib-dropdown class="dropdown pointer"
+                    ng-class="{active: vm.$state.includes('mlc-class-category','class-time','class-status','class-room')}">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>

@@ -25,4 +25,8 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
 
     @Query("select s from Student s where lower(firstName) like (:searchTerm) or lower(lastName) like (:searchTerm) ")
     Page<Student> findAllWithSearchTerm(Pageable var1, @Param("searchTerm")String searchTerm);
+
+    @Query("select s from Student s join s.registrations r join r.mlcClass c join c.teacher t join t.account a where a.id = (:userId) ")
+    Page<Student> findStudentsInClassTaughtBy(Pageable var1, @Param("userId")Long userId);
+
 }
