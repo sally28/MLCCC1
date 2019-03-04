@@ -13,6 +13,15 @@
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
 
+        vm.showMyTeachers = true;
+
+        Principal.hasAuthority('ROLE_ADMIN').then(function(response){
+            if(response==true){
+                vm.showMyTeachers=false;
+            }
+        });
+
+
         ProfileService.getProfileInfo().then(function(response) {
             vm.inProduction = response.inProduction;
             vm.swaggerEnabled = response.swaggerEnabled;

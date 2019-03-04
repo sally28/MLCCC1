@@ -108,13 +108,16 @@ public class TeacherResource {
         }
         page.forEach(teacherDto -> {
             Set<String> categories = new HashSet<>();
+            Set<String> classesString = new HashSet<>();
             List<MlcClass> classes =  classService.findAllWithTeacherId(teacherDto.getId());
             classes.forEach(mlcClass ->{
                 if(mlcClass.getMlcClassCategory() != null){
                     categories.add(mlcClass.getMlcClassCategory().getName());
                 }
+                classesString.add(mlcClass.getClassName());
             });
             teacherDto.setClassCategories(categories.toString().replaceAll("\\[","").replaceAll("]",""));
+            teacherDto.setClasses(classesString.toString().replaceAll("\\[","").replaceAll("]",""));
         });
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teachers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

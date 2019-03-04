@@ -30,7 +30,6 @@
                     <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <!--<th jh-sort-by="hireDate"><span>Hire Date</span> <span class="glyphicon glyphicon-sort"></span></th>-->
-                    <th jh-sort-by="account.id" has-authority="ROLE_ADMIN"><span>User Account</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th><span>Class Categories</span></th>
                     <th><span>Classes</span></th>
                     <th></th>
@@ -42,11 +41,8 @@
                     <td><a ui-sref="teacher-detail({id:teacher.id})">{{teacher.lastName}}</a></td>
                     <!--
                     <td>{{teacher.hireDate | date:'mediumDate'}}</td> -->
-                    <td has-authority="ROLE_ADMIN">
-                        <a ui-sref="mlc-account-detail({id:teacher.account.id})">{{teacher.account.login}}</a>
-                    </td>
                     <td>{{teacher.classCategories}}</td>
-                    <td>classes</td>
+                    <td>{{teacher.classes}}</td>
                     <td class="text-right" has-authority="ROLE_ADMIN">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

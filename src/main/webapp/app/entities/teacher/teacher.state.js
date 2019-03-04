@@ -44,6 +44,49 @@
                         search: $stateParams.search
                     };
                 }],
+                loginUser:['Principal', function(Principal){
+                    return Principal.identity (false);
+                }]
+            }
+        })
+        .state('my-teacher', {
+            parent: 'entity',
+            url: '/my-teacher?page&sort&search',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'My Teachers'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/teacher/my-teachers.html',
+                    controller: 'MyTeacherController',
+                    controllerAs: 'vm'
+                }
+            },
+            params: {
+                page: {
+                    value: '1',
+                    squash: true
+                },
+                sort: {
+                    value: 'id,asc',
+                    squash: true
+                },
+                search: null
+            },
+            resolve: {
+                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    return {
+                        page: PaginationUtil.parsePage($stateParams.page),
+                        sort: $stateParams.sort,
+                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
+                        ascending: PaginationUtil.parseAscending($stateParams.sort),
+                        search: $stateParams.search
+                    };
+                }],
+                loginUser:['Principal', function(Principal){
+                    return Principal.identity (false);
+                }]
             }
         })
         .state('teacher-detail', {

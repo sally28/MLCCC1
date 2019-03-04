@@ -29,6 +29,8 @@ public class TeacherDTO{
 
     private String classCategories;
 
+    private String classes;
+
     public TeacherDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -103,6 +105,14 @@ public class TeacherDTO{
 
     public void setClassCategories(String classCategories) {
         this.classCategories = classCategories;
+    }
+
+    public String getClasses() {
+        return classes;
+    }
+
+    public void setClasses(String classes) {
+        this.classes = classes;
     }
 
     @Override

@@ -3,11 +3,11 @@
 
     angular
         .module('mlcccApp')
-        .controller('TeacherController', TeacherController);
+        .controller('MyTeacherController', MyTeacherController);
 
-    TeacherController.$inject = ['$state', 'loginUser', 'Teacher', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    MyTeacherController.$inject = ['$state', 'loginUser', 'Teacher', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function TeacherController($state, loginUser, Teacher, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function MyTeacherController($state, loginUser, Teacher, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 

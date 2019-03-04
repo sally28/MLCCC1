@@ -30,7 +30,7 @@
                         <span>
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="hidden-sm">
-                                Student Information
+                                Students
                             </span>
                             <b class="caret"></b>
                         </span>
@@ -54,7 +54,7 @@
                 <li ng-switch-when="true" ng-class="{active: vm.$state.includes('registration')}">
                     <a ui-sref="registration" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-tasks"></span>
-                        <span class="hidden-sm">Registration</span>
+                        <span class="hidden-sm">Registrations</span>
                     </a>
                 </li>
 
@@ -63,7 +63,7 @@
                         <span>
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="hidden-sm">
-                                Teacher Information
+                                Teachers
                             </span>
                             <b class="caret"></b>
                         </span>
@@ -72,11 +72,11 @@
                         <li ui-sref-active="active"  has-authority="ROLE_USER">
                             <a ui-sref="teacher" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-user"></span>&nbsp;
-                                <span>Teacher List</span>
+                                <span>All Teachers</span>
                             </a>
                         </li>
-                        <li ui-sref-active="active"  has-authority="ROLE_USER">
-                            <a ui-sref="my-teacher" ng-click="vm.collapseNavbar()">
+                        <li ui-sref-active="active" ng-switch="vm.showMyTeachers">
+                            <a ui-sref="my-teacher" ng-click="vm.collapseNavbar()" ng-switch-when="true">
                                 <span class="glyphicon glyphicon-user"></span>&nbsp;
                                 <span>My Teachers</span>
                             </a>
@@ -90,7 +90,7 @@
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>
                             <span class="hidden-sm">
-                                Class Information
+                                Classes
                             </span>
                             <b class="caret"></b>
                         </span>
@@ -111,11 +111,10 @@
                     </ul>
                 </li>
 
-
                 <li ng-switch-when="true" ui-sref-active="active" ng-class="{active: vm.$state.includes('invoice')}">
                     <a ui-sref="invoice" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-usd"></span>&nbsp;
-                        <span>Invoice</span>
+                        <span>Invoices</span>
                     </a>
                 </li>
 
