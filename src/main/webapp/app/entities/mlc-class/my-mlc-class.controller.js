@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('MyMlcClassController', MyMlcClassController);
 
-    MyMlcClassController.$inject = ['$state', 'Principal', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    MyMlcClassController.$inject = ['$state', 'loginUser', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function MyMlcClassController($state, Principal, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function MyMlcClassController($state, loginUser, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -16,12 +16,9 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-
-        Principal.identity().then(function(account) {
-            vm.account = account;
-            vm.isAuthenticated = Principal.isAuthenticated;
-            loadAll();
-        });
+        vm.account = loginUser;
+        
+        loadAll();
 
         function loadAll () {
             MlcClass.query({

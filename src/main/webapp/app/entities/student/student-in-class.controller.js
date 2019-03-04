@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('StudentInClassController', StudentInClassController);
 
-    StudentInClassController.$inject = ['$state', 'loginUser', 'Student', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'Registration'];
+    StudentInClassController.$inject = ['$state', 'loginUser', 'Student', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'Registration', 'MlcClass'];
 
-    function StudentInClassController($state, loginUser, Student, ParseLinks, AlertService, paginationConstants, pagingParams, Registration) {
+    function StudentInClassController($state, loginUser, Student, ParseLinks, AlertService, paginationConstants, pagingParams, Registration, MlcClass) {
 
         var vm = this;
 
@@ -18,18 +18,19 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.showRegistrations = true;
         vm.searchStudent = searchStudent;
-
-        if(loginUser.authorities && loginUser.authorities.indexOf('ROLE_ADMIN') !== -1){
-            vm.showRegistrations = false;
-        }
+        vm.account = loginUser;
+        vm.mlcClasses = [];
 
         loadAll();
 
         function loadAll () {
-            Registration.query({
-                param: 'studentsInClass'
+            /*MlcClass.query({
+                page: pagingParams.page - 1,
+                size: vm.itemsPerPage,
+                sort: sort(),
+                teacher: vm.account.id,
             }, onSuccess, onError);
-            /*
+            */
             Student.query( {
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
@@ -42,7 +43,7 @@
                     result.push('id');
                 }
                 return result;
-            }*/
+            }
         }
 
         function loadPage(page) {
@@ -63,6 +64,23 @@
             vm.queryCount = vm.totalItems;
             vm.students = data;
             vm.page = pagingParams.page;
+            vm.students.forEach(function(student){
+                student.registrations.forEach(function(registration){
+                    var data = vm.mlcClasses.find( function( ele ) {
+                        return ele.name === registration.mlcClass.className;
+                    } );
+                    if(data == null){
+                        var classItem = {
+                            name: registration.mlcClass.className,
+                            students: []
+                        }
+                        classItem.students.push(student);
+                        vm.mlcClasses.push(classItem);
+                    } else {
+                        data.students.push(student);
+                    }
+                });
+            });
         }
         function onError(error) {
             AlertService.error(error.data.message);

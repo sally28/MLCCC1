@@ -4,6 +4,7 @@ import org.mlccc.cm.MlcccApp;
 
 import org.mlccc.cm.domain.Student;
 import org.mlccc.cm.repository.StudentRepository;
+import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.RegistrationService;
 import org.mlccc.cm.service.StudentService;
 import org.mlccc.cm.service.UserService;
@@ -68,6 +69,9 @@ public class StudentResourceIntTest {
     private RegistrationService registrationService;
 
     @Autowired
+    private MlcClassService mlcClassService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -86,7 +90,7 @@ public class StudentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        StudentResource studentResource = new StudentResource(studentService, userService, registrationService);
+        StudentResource studentResource = new StudentResource(studentService, userService, registrationService, mlcClassService);
         this.restStudentMockMvc = MockMvcBuilders.standaloneSetup(studentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

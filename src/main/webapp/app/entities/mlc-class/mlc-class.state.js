@@ -44,6 +44,10 @@
                         search: $stateParams.search
                     };
                 }],
+
+                loginUser:['Principal', function(Principal){
+                    return Principal.identity (false);
+                }]
             }
         })
         .state('my-mlc-class', {
@@ -81,6 +85,9 @@
                         search: $stateParams.search
                     };
                 }],
+                loginUser:['Principal', function(Principal){
+                    return Principal.identity (false);
+                }]
             }
         })
         .state('mlc-class-detail', {

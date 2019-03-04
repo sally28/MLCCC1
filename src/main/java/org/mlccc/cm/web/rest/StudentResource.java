@@ -1,11 +1,9 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import org.mlccc.cm.domain.Authority;
-import org.mlccc.cm.domain.Registration;
-import org.mlccc.cm.domain.Student;
-import org.mlccc.cm.domain.User;
+import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
+import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.RegistrationService;
 import org.mlccc.cm.service.StudentService;
 import org.mlccc.cm.service.UserService;
@@ -27,10 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * REST controller for managing Student.
@@ -49,10 +44,14 @@ public class StudentResource {
 
     private final RegistrationService registrationService;
 
-    public StudentResource(StudentService studentService, UserService userService, RegistrationService registrationService) {
+    private final MlcClassService mlcClassService;
+
+    public StudentResource(StudentService studentService, UserService userService, RegistrationService registrationService,
+                           MlcClassService mlcClassService) {
         this.studentService = studentService;
         this.userService = userService;
         this.registrationService = registrationService;
+        this.mlcClassService = mlcClassService;
     }
 
     /**
@@ -147,7 +146,15 @@ public class StudentResource {
         } else {
             if(searchTerm.equalsIgnoreCase("inClass") && isTeacher){
                 // find students in the classes taught bye login user
+                List<MlcClass> classes = mlcClassService.findAllWithTeacherUserId(loginUser.getId());
                 page = studentService.findStudentsInClassTaughtBy(pageable, loginUser.getId());
+                page.forEach(student -> {
+                    List<Registration> registrations = new ArrayList<>();
+                    classes.forEach(mlcClass->{
+                        registrations.addAll(registrationService.findAllWithStudentIdClassId(student.getId(), mlcClass.getId()));
+                    });
+                    student.setRegistrations(new HashSet<>(registrations));
+                });
             } else {
                 // if normal user getting student list, attach registration information
                 page = studentService.findStudentsAssociatedWith(pageable, loginUser.getId());

@@ -4,64 +4,30 @@
     <div class="table-responsive">
         <div ng-switch="vm.showRegistrations">
             <div ng-switch-when="true">
-                <div ng-repeat="student in vm.students track by student.id">
+                <div ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.name">
                     <div>
-                        <a ui-sref="student-detail({id:student.id})">
-                            <h3><span>{{student.firstName}}</span> <span>{{student.lastName}}</span></h3>
-                        </a>
+                        <h3><span>{{mlcClass.name}}</span></h3>
+                    </div>
+                    <div>
+                        <table class="jh-table table table-striped">
+                            <thead>
+                            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                                <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th jh-sort-by="gender"><span>Gender</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="student in mlcClass.students track by student.id">
+                                <td><a ui-sref="student-detail({id:student.id})">{{student.firstName}}</a></td>
+                                <td><a ui-sref="student-detail({id:student.id})">{{student.lastName}}</a></td>
+                                <td>{{student.gender}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-            <div ng-switch-when="false">
-                <table class="jh-table table table-striped">
-                    <thead>
-                    <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                        <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="gender"><span>Gender</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="birthMonth"><span>Birth Month</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="birthYear"><span>Birth Year</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <!--<th jh-sort-by="account.id"><span>Account</span> <span class="glyphicon glyphicon-sort"></span></th>-->
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="student in vm.students track by student.id">
-                        <td><a ui-sref="student-detail({id:student.id})">{{student.id}}</a></td>
-                        <td>{{student.firstName}}</td>
-                        <td>{{student.lastName}}</td>
-                        <td>{{student.gender}}</td>
-                        <td>{{student.birthMonth}}</td>
-                        <td>{{student.birthYear}}</td>
-                        <!--<td>
-                            <a ui-sref="mlc-account-detail({id:student.associatedAccounts[0].id})">{{student.associatedAccounts[0].id}}</a>
-                        </td>-->
-                        <td class="text-right">
-                            <div class="btn-group flex-btn-group-container">
-                                <button type="submit"
-                                        ui-sref="student-detail({id:student.id})"
-                                        class="btn btn-info btn-sm">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                    <span class="hidden-sm-down"></span>
-                                </button>
-                                <button type="submit"
-                                        ui-sref="student.edit({id:student.id})"
-                                        class="btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                    <span class="hidden-sm-down"></span>
-                                </button>
-                                <button type="submit"
-                                        ui-sref="student.delete({id:student.id})"
-                                        class="btn btn-danger btn-sm">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                    <span class="hidden-sm-down"></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
