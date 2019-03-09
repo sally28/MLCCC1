@@ -16,18 +16,18 @@ public class MlcccApplicationListener implements ApplicationListener<Application
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event){
         ConfigurableEnvironment environment = event.getEnvironment();
         Properties props = new Properties();
-        String dbPassword = environment.getProperty("spring.datasource.password");
-        String dePassword;
+        String dbPassword;
+        String mailPassword;
         try {
             MlcccCipher.init(environment.getProperty("keyFilePath"),environment.getProperty("ivFilePath"));
-            dePassword = MlcccCipher.decrypt(dbPassword);
+            dbPassword = MlcccCipher.decrypt(environment.getProperty("spring.datasource.password"));
+            mailPassword = MlcccCipher.decrypt(environment.getProperty("spring.mail.password"));
         }catch (Exception e){
             throw new RuntimeException(e);
         }
 
-        if(!StringUtils.isEmpty(dePassword)){
-            props.put("spring.datasource.password", dePassword);
-            environment.getPropertySources().addFirst(new PropertiesPropertySource("mlcccProps", props));
-        }
+        props.put("spring.datasource.password", dbPassword);
+        props.put("spring.mail.password", mailPassword);
+        environment.getPropertySources().addFirst(new PropertiesPropertySource("mlcccProps", props));
     }
 }
