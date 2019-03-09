@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +58,7 @@ public class TeacherResource {
      */
     @PostMapping("/teachers")
     @Timed
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         log.debug("REST request to save Teacher : {}", teacher);
         if (teacher.getId() != null) {
@@ -79,6 +81,7 @@ public class TeacherResource {
      */
     @PutMapping("/teachers")
     @Timed
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         log.debug("REST request to update Teacher : {}", teacher);
         if (teacher.getId() == null) {
@@ -145,6 +148,7 @@ public class TeacherResource {
      */
     @DeleteMapping("/teachers/{id}")
     @Timed
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
         log.debug("REST request to delete Teacher : {}", id);
         teacherService.delete(id);

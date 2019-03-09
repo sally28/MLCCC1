@@ -17,6 +17,10 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.searchClass = searchClass;
+        vm.getCHLClasses = getCHLClasses;
+        vm.getCSLClasses = getCSLClasses;
+        vm.getNonLangClasses = getNonLangClasses;
+        vm.getAllClasses = loadAll;
 
         loadAll();
 
@@ -61,6 +65,30 @@
 
         function searchClass(){
             MlcClass.query({search: vm.searchTerm,
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'className'
+            }, onSuccess, onError);
+        }
+
+        function getCHLClasses(){
+            MlcClass.query({category: 12611,
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'className'
+            }, onSuccess, onError);
+        }
+
+        function getCSLClasses(){
+            MlcClass.query({category: 12582,
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'className'
+            }, onSuccess, onError);
+        }
+
+        function getNonLangClasses(){
+            MlcClass.query({category: 12612,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
