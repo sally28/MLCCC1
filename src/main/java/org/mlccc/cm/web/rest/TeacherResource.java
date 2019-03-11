@@ -134,10 +134,10 @@ public class TeacherResource {
      */
     @GetMapping("/teachers/{id}")
     @Timed
-    public ResponseEntity<Teacher> getTeacher(@PathVariable Long id) {
+    public ResponseEntity<TeacherDTO> getTeacher(@PathVariable Long id) {
         log.debug("REST request to get Teacher : {}", id);
-        Teacher teacher = teacherService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(teacher));
+        Teacher teacher = teacherService.getTeacherWithClasses(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(new TeacherDTO(teacher)));
     }
 
     /**
