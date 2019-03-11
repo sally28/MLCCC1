@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('MlcClassController', MlcClassController);
 
-    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory'];
 
-    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory) {
 
         var vm = this;
 
@@ -21,6 +21,23 @@
         vm.getCSLClasses = getCSLClasses;
         vm.getNonLangClasses = getNonLangClasses;
         vm.getAllClasses = loadAll;
+        vm.mlcClassCategories = [];
+        vm.CHLCategoryId;
+        vm.CSLCategoryId;
+        vm.NonLangCategoryId;
+
+        MlcClassCategory.query(null,function(data){
+            vm.mlcClassCategories = data;
+            vm.mlcClassCategories.forEach(function(cat){
+                if(cat.name == 'CSL Chinese'){
+                    vm.CSLCategoryId = cat.id;
+                } else if(cat.name == 'CHL Chinese'){
+                    vm.CHLCategoryId = cat.id;
+                } else if(cat.name == 'NonLanguage'){
+                    vm.NonLangCategoryId = cat.id;
+                }
+            });
+        });
 
         loadAll();
 
@@ -72,7 +89,7 @@
         }
 
         function getCHLClasses(){
-            MlcClass.query({category: 12611,
+            MlcClass.query({category: vm.CHLCategoryId,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
@@ -80,7 +97,7 @@
         }
 
         function getCSLClasses(){
-            MlcClass.query({category: 12582,
+            MlcClass.query({category: vm.CSLCategoryId,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
@@ -88,7 +105,7 @@
         }
 
         function getNonLangClasses(){
-            MlcClass.query({category: 12612,
+            MlcClass.query({category: vm.NonLangCategoryId,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
