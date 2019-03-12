@@ -17,6 +17,50 @@
             <a ui-sref="user-management-detail({id:vm.teacher.account.id})">{{vm.teacher.account.firstName}} {{vm.teacher.account.lastName}} {{vm.teacher.account.login}}</a>
         </dd>
     </dl>
+    </br>
+    <div ng-switch="vm.teacher.mlcClasses.length > 0">
+        <div ng-switch-when="true">
+            <div class="row">
+                <div class="col-sm-1">
+                    <h4>Classes</h4>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" ui-sref="teacher-detail.edit({id:vm.teacher.id})" class="btn btn-primary btn-sm" has-authority="ROLE_ADMIN">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="hidden-sm-down"> Add </span>
+                    </button>
+                </div>
+            </div>
+
+            <table class="jh-table table table-striped">
+                <tbody>
+                <tr ng-repeat="mlcClass in vm.teacher.mlcClasses track by mlcClass.id">
+                    <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
+                    <td>Category: {{mlcClass.mlcClassCategory}}</td>
+                    <td>Status: {{mlcClass.status}}</td>
+                    <td>Tuition: {{mlcClass.tuition}}</td>
+                    <td>Time: {{mlcClass.classTime}}</td>
+                    <td has-authority="ROLE_USER">
+                        <button type="submit"
+                                ui-sref="vm.registerClass()"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="hidden-sm-down">Register</span>
+                        </button>
+                    </td>
+                    <td has-authority="ROLE_ADMIN">
+                        <button type="submit"
+                                ui-sref="vm.removeClass()"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-sm-down">Remove</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
@@ -28,4 +72,5 @@
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>
     </button>
+
 </div>
