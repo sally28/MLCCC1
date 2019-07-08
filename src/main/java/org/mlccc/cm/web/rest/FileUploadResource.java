@@ -2,7 +2,6 @@ package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.mlccc.cm.config.ApplicationProperties;
-import org.mlccc.cm.config.WebConfigurer;
 import org.mlccc.cm.domain.NewsLetter;
 import org.mlccc.cm.domain.User;
 import org.mlccc.cm.service.NewsLetterService;
@@ -20,7 +19,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
 import java.time.LocalDate;
 
 
@@ -85,12 +83,12 @@ public class FileUploadResource {
                 stream.write(bytes);
                 stream.close();
 
-                // create a newsletter
+                // create a newsletter database entry
                 if(type.equals("NewsLetter")){
                     // create a newsletter
                     NewsLetter newsLetter = new NewsLetter();
                     newsLetter.setName(newFileName);
-                    newsLetter.setFileName(newFileName);
+                    newsLetter.setFileName(directory+"/"+newFileName);
                     newsLetter.setUploadDate(LocalDate.now());
                     //newsLetter.setUploadedBy(loginUser.getId());
                     newsLetterService.save(newsLetter);

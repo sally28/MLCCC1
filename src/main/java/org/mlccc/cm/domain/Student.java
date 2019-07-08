@@ -41,6 +41,9 @@ public class Student implements Serializable {
     @Column(name = "birth_year")
     private String birthYear;
 
+    @Column(name = "notes")
+    private String notes;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -158,6 +161,14 @@ public class Student implements Serializable {
             return false;
         }
         return Objects.equals(getId(), student.getId());
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override

@@ -12,9 +12,9 @@
         <dd>
             <span>{{vm.teacher.lastName}}</span>
         </dd>
-        <dt><span>User Account</span></dt>
+        <dt><span>Email</span></dt>
         <dd>
-            <a ui-sref="user-management-detail({id:vm.teacher.account.id})">{{vm.teacher.account.firstName}} {{vm.teacher.account.lastName}} {{vm.teacher.account.login}}</a>
+            {{vm.teacher.account.email}}
         </dd>
     </dl>
     </br>

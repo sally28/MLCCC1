@@ -50,6 +50,7 @@
     <include file="config/liquibase/changelog/20190218135120_modify_jhi_user.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190219210358_added_entity_MlcClassCategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190219210359_modified_entity_MlcClass.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190708210359_modified_entity_Student.xml" relativeToChangelogFile="false"/>
 
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 

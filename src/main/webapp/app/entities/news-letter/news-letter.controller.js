@@ -59,6 +59,7 @@
 
         function onUploadFinished(){
             console.log("upload finished");
+            vm.fileSelected = false;
             loadAll();
         }
     }
