@@ -22,6 +22,21 @@
                   separator=";"
                   tableName="jhi_user">
         </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/students.csv"
+                  separator=";"
+                  tableName="student">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/teachers.csv"
+                  separator=";"
+                  tableName="teacher">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/students-accounts.csv"
+                  separator=";"
+                  tableName="student_account">
+        </loadData>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

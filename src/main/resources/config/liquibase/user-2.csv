@@ -1,9 +1,6 @@
 id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;activation_key;reset_key;created_by;created_date;reset_date;address;city;state;zip;phone;last_modified_by;last_modified_date;school_district_id
 27;xlihuangpu@hotmail.com;NULL;Xia;Li;xlihuangpu@hotmail.com;NULL;t;en;NULL;NULL;system;2019-02-18 21:25:13.651976;NULL;704 Powder Mill Lane;Wynnewood;PA;19096;610-896-7604;NULL;NULL;NULL
 112;zqi@lynx.neu.edu;NULL;NULL;NULL;zqi@lynx.neu.edu;NULL;t;en;NULL;NULL;system;2019-02-18 21:34:05.318634;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
-1;system;$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG;System;System;system;;t;en;NULL;NULL;system;2019-02-12 20:41:50.815147;NULL;NULL;NULL;NULL;NULL;NULL;system;NULL;NULL
-3;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin;;t;en;NULL;NULL;system;2019-02-12 20:41:50.815147;NULL;NULL;NULL;NULL;NULL;NULL;system;NULL;NULL
-4;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user;;t;en;NULL;NULL;system;2019-02-12 20:41:50.815147;NULL;NULL;NULL;NULL;NULL;NULL;system;NULL;NULL
 28;ptsui2@cntus.jnj.com;NULL;Ping;Tsui;ptsui2@cntus.jnj.com;NULL;t;en;NULL;NULL;system;2019-02-18 20:59:58.366115;NULL;1237 Berwyn Paoli Rd;Berwyn;PA;19312;610-408-9238;NULL;NULL;NULL
 29;fengzouan@yahoo.com;NULL;feng;zou;fengzouan@yahoo.com;NULL;t;en;NULL;NULL;system;2019-02-18 20:59:58.366115;NULL;224 deonshire road;devon,;PA;19333;610-240-9532;NULL;NULL;NULL
 31;shuo_tang8@msn.com;NULL;Shuo;Tang;shuo_tang8@msn.com;NULL;t;en;NULL;NULL;system;2019-02-18 20:59:58.366115;NULL;1808 Page PL;Malvern;PA;19355;484-318-7336;NULL;NULL;NULL
