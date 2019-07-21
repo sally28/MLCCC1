@@ -18,7 +18,7 @@
     -->
     <changeSet id="20190216004758" author="jhipster">
         <loadData encoding="UTF-8"
-                  file="config/liquibase/user-1.csv"
+                  file="config/liquibase/user-2.csv"
                   separator=";"
                   tableName="jhi_user">
         </loadData>

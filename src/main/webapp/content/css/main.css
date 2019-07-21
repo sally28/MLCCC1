@@ -344,7 +344,7 @@ ui bootstrap tweaks
     background: url(../images/bodybg.jpg.png) repeat;
     color: #b0a59f;
     font: 400 13px/17px "Droid Sans", sans-serif;
-    -webkit-text-size-adjust: none;url("../images/hipster.png") no-repeat center top
+    -webkit-text-size-adjust: none;
 }
 
 

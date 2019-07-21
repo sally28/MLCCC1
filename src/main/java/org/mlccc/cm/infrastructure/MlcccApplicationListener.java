@@ -19,7 +19,7 @@ public class MlcccApplicationListener implements ApplicationListener<Application
         String dbPassword;
         String mailPassword;
         try {
-            MlcccCipher.init(environment.getProperty("keyFilePath"),environment.getProperty("ivFilePath"));
+            MlcccCipher.init(environment.getProperty("application.keyFilePath"),environment.getProperty("application.ivFilePath"));
             dbPassword = MlcccCipher.decrypt(environment.getProperty("spring.datasource.password"));
             mailPassword = MlcccCipher.decrypt(environment.getProperty("spring.mail.password"));
         }catch (Exception e){

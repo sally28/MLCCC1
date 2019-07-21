@@ -16,7 +16,7 @@ import java.util.List;
 @Configuration
 public class MvcConfigurer implements WebMvcConfigurer {
 
-    @Value("${uploadedFileDir}")
+    @Value("${application.uploadedFileDir}")
     private String uploadedFileDir;
 
     @Override
