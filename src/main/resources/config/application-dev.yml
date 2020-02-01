@@ -26,9 +26,12 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/mlccc
-        username: postgres
-        password: Scala350!
+        url: jdbc:postgresql://ec2-50-16-197-244.compute-1.amazonaws.com:5432/d61nsjv88u08d4?sslmode=require
+        username: negtfxydeqxgab
+        password: 7abe7b01fcb3b9dff4034a48c41fa646d7455cdc12be06d6a9e5a1dc68f4e18d
+        #url: jdbc:postgresql://localhost:5432/mlccc1
+        #username: postgres
+        #password: Scala350!
         #type: ${datasource.type}
         #url: ${datasource.url}
         #username: ${datasource.username}
@@ -146,7 +149,7 @@ application:
     newsletterUploadDir: /Temp/MLCCC/upload/newsletter/
     mediaUploadDir: /Temp/MLCCC/upload/media/
 
-uploadedFileDir: /Temp/MLCCC/upload/
-keyFilePath: /Temp/security/secret.key
-ivFilePath: /Temp/security/ivParameter.txt
+    uploadedFileDir: /Temp/MLCCC/upload/
+    keyFilePath: /Temp/security/secret.key
+    ivFilePath: /Temp/security/ivParameter.txt
 
