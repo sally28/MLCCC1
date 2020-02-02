@@ -1,19 +1,27 @@
 <div>
     <h2>Invoices</h2>
     <jhi-alert></jhi-alert>
-    <!--
     <div class="container-fluid" has-authority="ROLE_ADMIN">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <!-- <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="invoice.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
                         Create new Invoice
                     </span>
                 </button>
+            </div> -->
+            <div class="col-sm-4">
+                <form name="searchForm" role="form" novalidate ng-submit="vm.searchInvoice()">
+                    <div class="form-group has-feedback">
+                        <input type="search" class="form-control" placeholder="Search Invoice by User Name" name="searchTerm" id="searchTerm"
+                        ng-model="vm.searchTerm"/>
+                        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>-->
+    </div>
     <br/>
     <div ng-repeat="invoice in vm.invoices track by invoice.id">
         <div>
@@ -26,13 +34,16 @@
                     <th><span>Multi Class Discount</span></th>
                     <th><span>Early Bird Discount</span></th>
                     <th><span>Registration Fee</span></th>
+                    <th><span>Credits</span></th>
+                    <th><span>Benefit</span></th>
                     <th><span>Total</span></th>
                     <th></th>
                 </thead>
                 <tbody>
                     <tr>
                         <td has-authority="ROLE_ADMIN"><a ui-sref="user-management-detail({login:invoice.billToUser.login})">{{invoice.billToUser.firstName}} {{invoice.billToUser.lastName}}</a></td>
-                        <td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.description}}</a></td>
+                        <!--<td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.description}}</a></td>-->
+                        <td>{{invoice.description}}</td>
                         <td>{{invoice.status}}</td>
                         <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
                         <td>
@@ -45,7 +56,21 @@
                             {{invoice.earlyBirdDiscount}}
                         </td>
                         <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
                             {{invoice.total}}
+                        </td>
+                        <td has-authority="ROLE_ADMIN">
+                            <button type="button"
+                                    ui-sref="invoice.edit({id:invoice.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon"></span>
+                                <span class="hidden-sm-down">Edit</span>
+                            </button>
                         </td>
                         <td>
                             <button type="button"

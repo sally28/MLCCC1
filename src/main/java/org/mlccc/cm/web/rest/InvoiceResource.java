@@ -142,10 +142,23 @@ public class InvoiceResource {
      */
     @GetMapping("/invoices/{id}")
     @Timed
-    public ResponseEntity<Invoice> getInvoice(@PathVariable Long id) {
+    public ResponseEntity<InvoiceDTO> getInvoice(@PathVariable Long id) {
         log.debug("REST request to get Invoice : {}", id);
         Invoice invoice = invoiceService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(invoice));
+        InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
+        if(invoice.getRegistrations().size() > 1){
+            invoiceDTO.setMultiClassDiscount(-30.00);
+        }
+        Date now = Calendar.getInstance().getTime();
+        if(now.before(new Date())){
+            invoiceDTO.setEarlyBirdDiscount(-0.05);
+        }
+        for(RegistrationDTO registrationDTO : invoiceDTO.getRegistrations()){
+            invoiceDTO.setRegistrationFee(registrationDTO.getRegistrationFee());
+            invoiceDTO.setTotal(invoiceDTO.getTotal() + registrationDTO.getTuition());
+        }
+        invoiceDTO.setTotal(invoiceDTO.getTotal()+invoiceDTO.getMultiClassDiscount());
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(invoiceDTO));
     }
 
     /**

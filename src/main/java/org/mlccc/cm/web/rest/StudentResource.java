@@ -154,6 +154,8 @@ public class StudentResource {
                         registrations.addAll(registrationService.findAllWithStudentIdClassId(student.getId(), mlcClass.getId()));
                     });
                     student.setRegistrations(new HashSet<>(registrations));
+                    //Student student_2 = studentService.findByIdAndFetchEager(student.getId());
+                    //student.setAssociatedAccounts(student_2.getAssociatedAccounts());
                 });
             } else {
                 // if normal user getting student list, attach registration information
