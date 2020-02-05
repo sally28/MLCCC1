@@ -91,7 +91,7 @@ public class MlcClassServiceImpl implements MlcClassService{
     }
 
     @Override
-    public Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId){
+    public Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId, Long schoolTermId){
         log.debug("Request to findAllWithSearchTerm: {}, {}, {}, {}", searchTerm, categoryId, teacherId);
         if(!StringUtils.isEmpty(searchTerm)){
             searchTerm = "%"+searchTerm.toLowerCase()+"%";
@@ -100,9 +100,24 @@ public class MlcClassServiceImpl implements MlcClassService{
             return mlcClassRepository.findAllWithCategory(pageable, categoryId);
         } else if (teacherId != null){
             return mlcClassRepository.findAllWithTeacherAccountId(pageable, teacherId);
+        } else if (schoolTermId != null){
+            return mlcClassRepository.findAllPageWithSchoolTermId(pageable, schoolTermId);
         } else {
             return mlcClassRepository.findAll(pageable);
         }
     }
+
+    @Override
+    public List<MlcClass> findAllActive() {
+        log.debug("Request to findAllActive ");
+        return mlcClassRepository.findAllActive();
+    }
+
+    @Override
+    public List<MlcClass> findAllWithSchoolTermId(Long schoolTermId) {
+        log.debug("Request to findAllWithSchoolTermId ");
+        return mlcClassRepository.findAllWithSchoolTermId(schoolTermId);
+    }
+
 
 }

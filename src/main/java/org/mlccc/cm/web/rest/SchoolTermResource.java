@@ -1,7 +1,9 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.SchoolTerm;
+import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.SchoolTermService;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -30,8 +32,11 @@ public class SchoolTermResource {
 
     private final SchoolTermService schoolTermService;
 
-    public SchoolTermResource(SchoolTermService schoolTermService) {
+    private final MlcClassService mlcClassService;
+
+    public SchoolTermResource(SchoolTermService schoolTermService, MlcClassService mlcClassService) {
         this.schoolTermService = schoolTermService;
+        this.mlcClassService = mlcClassService;
     }
 
     /**
@@ -49,7 +54,20 @@ public class SchoolTermResource {
         if (schoolTerm.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new schoolTerm cannot already have an ID")).body(null);
         }
+        schoolTerm.setStatus("PENDING");
         SchoolTerm result = schoolTermService.save(schoolTerm);
+
+        // copy all classes of current active school term to new school term.
+        List<MlcClass> activeClasses = mlcClassService.findAllActive();
+
+        for(MlcClass mlcClass : activeClasses){
+            MlcClass newClass = new MlcClass();
+            newClass.setClassName(mlcClass.getClassName());
+            newClass.setClassRoom(mlcClass.getClassRoom());
+            newClass.setSchoolTerm(schoolTerm);
+            mlcClassService.save(newClass);
+        }
+
         return ResponseEntity.created(new URI("/api/school-terms/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -115,6 +133,13 @@ public class SchoolTermResource {
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteSchoolTerm(@PathVariable Long id) {
         log.debug("REST request to delete SchoolTerm : {}", id);
+        // copy all classes of current active school term to new school term.
+        List<MlcClass> activeClasses = mlcClassService.findAllWithSchoolTermId(id);
+
+        for(MlcClass mlcClass : activeClasses){
+            mlcClassService.delete(mlcClass.getId());
+        }
+
         schoolTermService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

@@ -70,6 +70,22 @@ public class MlcClass implements Serializable {
             orphanRemoval = true)
     private Set<Registration> registrations = new HashSet<>();*/
 
+    public MlcClass(){}
+
+    public MlcClass(MlcClass cloneFromClass){
+        this.className= cloneFromClass.getClassName();
+        this.classRoom = cloneFromClass.getClassRoom();
+        this.classTime = cloneFromClass.getClassTime();
+        this.textBook = cloneFromClass.getTextBook();
+        this.size = cloneFromClass.getSize();
+        this.minAge = cloneFromClass.getMinAge();
+        this.tuition = cloneFromClass.getTuition();
+        this.registrationFee = cloneFromClass.getRegistrationFee();
+        this.status = cloneFromClass.getStatus();
+        this.mlcClassCategory = cloneFromClass.getMlcClassCategory();
+        this.teacher = cloneFromClass.getTeacher();
+    }
+
     public Long getId() {
         return id;
     }

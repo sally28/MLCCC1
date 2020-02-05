@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('MlcClassController', MlcClassController);
 
-    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory'];
+    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory', 'SchoolTerm'];
 
-    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory) {
+    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory, SchoolTerm) {
 
         var vm = this;
 
@@ -25,6 +25,8 @@
         vm.CHLCategoryId;
         vm.CSLCategoryId;
         vm.NonLangCategoryId;
+        vm.schoolTerms = loadSchoolTerms;
+        vm.getClassesBySchoolTerm = getClassesBySchoolTerm;
 
         MlcClassCategory.query(null,function(data){
             vm.mlcClassCategories = data;
@@ -40,6 +42,8 @@
         });
 
         loadAll();
+
+        loadSchoolTerms();
 
         function loadAll () {
             MlcClass.query({
@@ -106,6 +110,21 @@
 
         function getNonLangClasses(){
             MlcClass.query({category: vm.NonLangCategoryId,
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'className'
+            }, onSuccess, onError);
+        }
+
+        function loadSchoolTerms () {
+            SchoolTerm.query(function(result) {
+                vm.schoolTerms = result;
+                vm.searchQuery = null;
+            });
+        }
+
+        function getClassesBySchoolTerm() {
+            MlcClass.query({schoolTerm: vm.schoolTerm.id,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'

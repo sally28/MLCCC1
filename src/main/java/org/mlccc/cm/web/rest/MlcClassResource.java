@@ -1,6 +1,7 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.swagger.annotations.Api;
 import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.service.MlcClassService;
@@ -103,9 +104,9 @@ public class MlcClassResource {
     @GetMapping("/mlc-classes")
     @Timed
     public ResponseEntity<List<MlcClass>> getAllMlcClasses(@ApiParam Pageable pageable, @ApiParam String search, @ApiParam Long category,
-                                                           @ApiParam Long teacher) {
+                                                           @ApiParam Long teacher, @ApiParam Long schoolTerm) {
         log.debug("REST request to get a page of MlcClasses");
-        Page<MlcClass> page = mlcClassService.findAllWithSearchTerm(pageable, search, category, teacher);
+        Page<MlcClass> page = mlcClassService.findAllWithSearchTerm(pageable, search, category, teacher, schoolTerm);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/mlc-classes");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

@@ -20,6 +20,14 @@
                     </div>
                 </form>
             </div>
+            <div class="col-sm-2">
+                <!--<label for="field_status">School Term</label>-->
+                <select class="form-control" id="field_school_term" name="school_term" ng-model="vm.schoolTerm"
+                        ng-options="schoolTerm as schoolTerm.term for schoolTerm in vm.schoolTerms track by schoolTerm.id"
+                        ng-change="vm.getClassesBySchoolTerm()">
+                    <option value="">Select School Term</option>
+                </select>
+            </div>
         </div>
         <div>
             <div class="col-sm-2">
