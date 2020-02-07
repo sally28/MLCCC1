@@ -30,6 +30,7 @@
                     <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th><span>Registration Fee</span></th>
                     <th><span>Tuition</span></th>
+                    <th><span>Modified Date</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -54,12 +55,23 @@
                         {{registration.mlcClass.tuition}}
                     </td>
                     <td>
+                        {{registration.modifyDate}}
+                    </td>
+                    <td>
                         <button type="submit"
                                 ui-sref="registration.delete({id:registration.id})"
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove-circle"></span>
                             <span class="hidden-sm-down">Cancel</span>
                         </button>
+                    </td>
+                    <td>
+                        <form name="confirmForm" role="form" novalidate ng-submit="vm.confirm(registration)">
+                            <button class="btn btn-primary btn-sm">
+                                <span class="glyphicon"></span>
+                                <span class="hidden-sm-down">Confirm</span>
+                            </button>
+                        </form>
                     </td>
                     <!--
                     <td class="text-right">

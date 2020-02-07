@@ -16,6 +16,7 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.confirm = confirm;
 
         loadAll();
 
@@ -55,6 +56,20 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+
+        function confirm(data){
+            data.status = 'CONFIRMED';
+            Registration.update(data, onSaveSuccess, onSaveError);
+        }
+
+        function onSaveSuccess (result) {
+            $scope.$emit('mlcccApp:registrationUpdate', result);
+            vm.isSaving = false;
+        }
+
+        function onSaveError () {
+            vm.isSaving = false;
         }
     }
 })();
