@@ -42,7 +42,7 @@
             });
         });
 
-        loadAll();
+        //loadAll();
 
         loadSchoolTerms();
 
@@ -70,6 +70,11 @@
         }
         function onError(error) {
             AlertService.error(error.data.message);
+        }
+
+        function onSchoolTermLoadSuccess() {
+            vm.schoolTerm = vm.schoolTerms[0];
+            getClassesBySchoolTerm();
         }
 
         function loadPage(page) {
@@ -132,6 +137,8 @@
             SchoolTerm.query(function(result) {
                 vm.schoolTerms = result;
                 vm.searchQuery = null;
+                vm.schoolTerm = vm.schoolTerms[0];
+                vm.getClassesBySchoolTerm();
             });
         }
 
