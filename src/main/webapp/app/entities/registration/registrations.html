@@ -58,20 +58,28 @@
                         {{registration.modifyDate}}
                     </td>
                     <td>
+                        <div ng-switch="registration.status">
+                            <span ng-switch-when="PENDING">
                         <button type="submit"
                                 ui-sref="registration.delete({id:registration.id})"
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove-circle"></span>
                             <span class="hidden-sm-down">Cancel</span>
                         </button>
+                                </span>
+                        </div>
                     </td>
                     <td>
-                        <form name="confirmForm" role="form" novalidate ng-submit="vm.confirm(registration)">
-                            <button class="btn btn-primary btn-sm">
-                                <span class="glyphicon"></span>
-                                <span class="hidden-sm-down">Confirm</span>
-                            </button>
-                        </form>
+                        <div ng-switch="registration.status">
+                            <span ng-switch-when="PENDING">
+                                <form name="confirmForm" role="form" novalidate ng-submit="vm.confirm(registration)">
+                                    <button class="btn btn-primary btn-sm">
+                                        <span class="glyphicon"></span>
+                                        <span class="hidden-sm-down">Confirm</span>
+                                    </button>
+                                </form>
+                            </span>
+                        </div>
                     </td>
                     <!--
                     <td class="text-right">
