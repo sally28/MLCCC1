@@ -96,19 +96,19 @@
             <tbody>
                 <tr ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.id">
                     <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
-                    <td><a ui-sref="mlc-class-category-detail({id:mlcClass.mlcClassCategory.id})">{{mlcClass.mlcClassCategory.name}}</a></td>
+                    <td>{{mlcClass.mlcClassCategory.name}}</td>
                     <td>{{mlcClass.minAge}}</td>
                     <td>
-                        <a ui-sref="class-status-detail({id:mlcClass.status.id})">{{mlcClass.status.status}}</a>
+                        <p style="color:{{mlcClass.status.colorDisplayed}};">{{mlcClass.status.status}}</p>
                     </td>
                     <td>
-                        <a ui-sref="class-time-detail({id:mlcClass.classTime.id})">{{mlcClass.classTime.classTime}}</a>
+                        {{mlcClass.classTime.classTime}}
                     </td>
                     <td>
                         <a ui-sref="teacher-detail({id:mlcClass.teacher.id})">{{mlcClass.teacher.firstName}} {{mlcClass.teacher.lastName}}</a>
                     </td>
                     <td>
-                        <a ui-sref="class-room-detail({id:mlcClass.classRoom.id})">{{mlcClass.classRoom.roomNumber}}</a>
+                        {{mlcClass.classRoom.roomNumber}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

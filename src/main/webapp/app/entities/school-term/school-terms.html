@@ -24,7 +24,7 @@
                     <th><span>Register</span></th>
                     <th><span>From Date</span></th>
                     <th><span>Early Bird Date</span></th>
-                    <th></th>
+                    <tn></tn>
                 </tr>
             </thead>
             <tbody>
@@ -33,16 +33,29 @@
                     <td>{{schoolTerm.term}}</td>
                     <td>{{schoolTerm.status}}</td>
                     <td>{{schoolTerm.register}}</td>
-                        <td>{{schoolTerm.fromDate | date:'mediumDate'}}</td>
-                        <td>{{schoolTerm.earlyBirdDate | date:'mediumDate'}}</td>
+                    <td>{{schoolTerm.fromDate | date:'mediumDate'}}</td>
+                    <td>{{schoolTerm.earlyBirdDate | date:'mediumDate'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="school-term-detail({id:schoolTerm.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
+                            <div ng-switch="schoolTerm.status">
+                                <div ng-switch-when="PENDING">
+                                    <form  name="startForm" role="form" novalidate ng-submit="vm.start(schoolTerm)">
+                                        <button class="btn btn-primary btn-sm">
+                                            <span class="glyphicon"></span>
+                                            <span class="hidden-sm-down">Start_</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div ng-switch-when="ACTIVE">
+                                    <form  name="finishForm" role="form" novalidate ng-submit="vm.finish(schoolTerm)">
+                                        <button class="btn btn-danger btn-sm">
+                                            <span class="glyphicon"></span>
+                                            <span class="hidden-sm-down">Finish</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
                             <button type="submit"
                                     ui-sref="school-term.edit({id:schoolTerm.id})"
                                     class="btn btn-primary btn-sm">

@@ -16,6 +16,8 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
 
+        vm.statusList = ["ACTIVE", "PENDING", "FINISHED"];
+
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });

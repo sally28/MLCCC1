@@ -10,7 +10,7 @@
     function SchoolTermController(SchoolTerm) {
 
         var vm = this;
-
+        vm.finish = finishSchoolTerm;
         vm.schoolTerms = [];
 
         loadAll();
@@ -20,6 +20,20 @@
                 vm.schoolTerms = result;
                 vm.searchQuery = null;
             });
+        }
+
+        function finishSchoolTerm(data) {
+            data.status = 'FINISHED';
+            SchoolTerm.update(data, onSaveSuccess, onSaveError);
+        }
+
+        function onSaveSuccess (result) {
+            $scope.$emit('mlcccApp:schooolTermUpdate', result);
+            vm.isSaving = false;
+        }
+
+        function onSaveError () {
+            vm.isSaving = false;
         }
     }
 })();

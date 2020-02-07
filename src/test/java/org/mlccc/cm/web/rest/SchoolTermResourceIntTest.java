@@ -5,6 +5,7 @@ import org.mlccc.cm.MlcccApp;
 import org.mlccc.cm.domain.SchoolTerm;
 import org.mlccc.cm.repository.MlcClassRepository;
 import org.mlccc.cm.repository.SchoolTermRepository;
+import org.mlccc.cm.service.ClassStatusService;
 import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.SchoolTermService;
 import org.mlccc.cm.web.rest.errors.ExceptionTranslator;
@@ -64,6 +65,9 @@ public class SchoolTermResourceIntTest {
     private MlcClassService mlcClassService;
 
     @Autowired
+    private ClassStatusService classStatusService;
+
+    @Autowired
     private SchoolTermService schoolTermService;
 
     @Autowired
@@ -85,7 +89,7 @@ public class SchoolTermResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        SchoolTermResource schoolTermResource = new SchoolTermResource(schoolTermService, mlcClassService);
+        SchoolTermResource schoolTermResource = new SchoolTermResource(schoolTermService, mlcClassService, classStatusService);
         this.restSchoolTermMockMvc = MockMvcBuilders.standaloneSetup(schoolTermResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

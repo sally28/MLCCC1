@@ -19,6 +19,8 @@ public final class Constants {
     public static final String FULL_STATUS = "FULL";
     public static final String CLOSED_STATUS = "CLOSED";
     public static final String ALMOST_FULL_STATUS = "ALMOST FULL";
+    public static final String FINISHED_STATUS = "FINISHED";
+    public static final String ACTIVE_STATUS = "ACTIVE";
 
     private Constants() {
     }

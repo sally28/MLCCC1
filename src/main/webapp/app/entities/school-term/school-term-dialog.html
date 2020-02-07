@@ -21,9 +21,10 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="field_status">Status</label>
-            <input type="text" class="form-control" name="status" id="field_status"
-                    ng-model="vm.schoolTerm.status"
-                    />
+            <select class="form-control" id="field_status" name="status" ng-model="vm.schoolTerm.status"
+                    ng-options="status for status in vm.statusList">
+                <option value=""></option>
+            </select>
         </div>
         <div class="form-group">
             <label class="control-label" for="field_register">Register</label>

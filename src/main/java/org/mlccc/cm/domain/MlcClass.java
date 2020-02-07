@@ -81,7 +81,6 @@ public class MlcClass implements Serializable {
         this.minAge = cloneFromClass.getMinAge();
         this.tuition = cloneFromClass.getTuition();
         this.registrationFee = cloneFromClass.getRegistrationFee();
-        this.status = cloneFromClass.getStatus();
         this.mlcClassCategory = cloneFromClass.getMlcClassCategory();
         this.teacher = cloneFromClass.getTeacher();
     }

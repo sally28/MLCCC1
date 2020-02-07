@@ -1,8 +1,11 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.mlccc.cm.config.Constants;
+import org.mlccc.cm.domain.ClassStatus;
 import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.SchoolTerm;
+import org.mlccc.cm.service.ClassStatusService;
 import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.SchoolTermService;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
@@ -34,9 +37,12 @@ public class SchoolTermResource {
 
     private final MlcClassService mlcClassService;
 
-    public SchoolTermResource(SchoolTermService schoolTermService, MlcClassService mlcClassService) {
+    private final ClassStatusService classStatusService;
+
+    public SchoolTermResource(SchoolTermService schoolTermService, MlcClassService mlcClassService, ClassStatusService classStatusService) {
         this.schoolTermService = schoolTermService;
         this.mlcClassService = mlcClassService;
+        this.classStatusService = classStatusService;
     }
 
     /**
@@ -59,11 +65,10 @@ public class SchoolTermResource {
 
         // copy all classes of current active school term to new school term.
         List<MlcClass> activeClasses = mlcClassService.findAllActive();
-
+        ClassStatus openStatus = classStatusService.findByName("OPEN");
         for(MlcClass mlcClass : activeClasses){
-            MlcClass newClass = new MlcClass();
-            newClass.setClassName(mlcClass.getClassName());
-            newClass.setClassRoom(mlcClass.getClassRoom());
+            MlcClass newClass = new MlcClass(mlcClass);
+            newClass.setStatus(openStatus);
             newClass.setSchoolTerm(schoolTerm);
             mlcClassService.save(newClass);
         }
@@ -91,6 +96,19 @@ public class SchoolTermResource {
             return createSchoolTerm(schoolTerm);
         }
         SchoolTerm result = schoolTermService.save(schoolTerm);
+
+        // School Term is finished, all classes must be closed.
+        if(schoolTerm.getStatus().equals(Constants.FINISHED_STATUS)) {
+            List<MlcClass> allClasses = mlcClassService.findAllWithSchoolTermId(schoolTerm.getId());
+            ClassStatus closeStatus = classStatusService.findByName(Constants.CLOSED_STATUS);
+            allClasses.forEach(mlcClass -> {
+                if (!mlcClass.getStatus().equals(Constants.CLOSED_STATUS)) {
+                    mlcClass.setStatus(closeStatus);
+                    mlcClassService.save(mlcClass);
+                }
+            });
+        }
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, schoolTerm.getId().toString()))
             .body(result);
