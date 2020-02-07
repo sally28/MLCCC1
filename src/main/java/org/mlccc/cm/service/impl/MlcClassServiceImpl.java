@@ -96,12 +96,16 @@ public class MlcClassServiceImpl implements MlcClassService{
         if(!StringUtils.isEmpty(searchTerm)){
             searchTerm = "%"+searchTerm.toLowerCase()+"%";
             return mlcClassRepository.findAllWithSearchTerm(pageable, searchTerm);
-        } else if (categoryId != null){
-            return mlcClassRepository.findAllWithCategory(pageable, categoryId);
         } else if (teacherId != null){
             return mlcClassRepository.findAllWithTeacherAccountId(pageable, teacherId);
-        } else if (schoolTermId != null){
-            return mlcClassRepository.findAllPageWithSchoolTermId(pageable, schoolTermId);
+        } else if (schoolTermId != null || categoryId != null){
+            if(schoolTermId == null){
+                return mlcClassRepository.findAllWithCategory(pageable, categoryId);
+            } else if(categoryId == null){
+                return mlcClassRepository.findAllPageWithSchoolTermId(pageable, schoolTermId);
+            } else {
+                return mlcClassRepository.findAllWithSchoolTermCategory(pageable, schoolTermId, categoryId);
+            }
         } else {
             return mlcClassRepository.findAll(pageable);
         }

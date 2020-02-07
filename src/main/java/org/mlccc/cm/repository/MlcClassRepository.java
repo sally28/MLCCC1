@@ -40,4 +40,7 @@ public interface MlcClassRepository extends JpaRepository<MlcClass,Long> {
 
     @Query("SELECT c FROM MlcClass c WHERE c.schoolTerm.id = (:schoolTermId) ")
     Page<MlcClass> findAllPageWithSchoolTermId(Pageable var1, @Param("schoolTermId") Long schoolTermId);
+
+    @Query("SELECT c FROM MlcClass c WHERE c.schoolTerm.id = (:schoolTermId) AND c.mlcClassCategory.id = (:categoryId) ")
+    Page<MlcClass> findAllWithSchoolTermCategory(Pageable var1, @Param("schoolTermId") Long schoolTermId, @Param("categoryId") Long categoryId);
 }

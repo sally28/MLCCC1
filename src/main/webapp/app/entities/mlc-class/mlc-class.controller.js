@@ -27,6 +27,7 @@
         vm.NonLangCategoryId;
         vm.schoolTerms = loadSchoolTerms;
         vm.getClassesBySchoolTerm = getClassesBySchoolTerm;
+        vm.filterClasses = filterClasses;
 
         MlcClassCategory.query(null,function(data){
             vm.mlcClassCategories = data;
@@ -65,7 +66,7 @@
             vm.totalItems = headers('X-Total-Count');
             vm.queryCount = vm.totalItems;
             vm.mlcClasses = data;
-            vm.page = pagingParams.page;
+           // vm.page = pagingParams.page;
         }
         function onError(error) {
             AlertService.error(error.data.message);
@@ -76,12 +77,23 @@
             vm.transition();
         }
 
-        function transition() {
+        /*function transition() {
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
+                category: vm.category? vm.category.id : null,
+                schoolTerm: vm.schoolTerm? vm.schoolTerm.id : null,
                 search: vm.currentSearch
             });
+        }*/
+        function transition() {
+            var categoryId  = vm.category? vm.category.id : null;
+            var schoolTermId = vm.schoolTerm? vm.schoolTerm.id : null;
+            MlcClass.query({schoolTerm: schoolTermId, category: categoryId,
+                page: vm.page - 1,
+                size: vm.itemsPerPage,
+                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
+            }, onSuccess, onError);
         }
 
         function searchClass(){
@@ -125,6 +137,16 @@
 
         function getClassesBySchoolTerm() {
             MlcClass.query({schoolTerm: vm.schoolTerm.id,
+                page: 0,
+                size: vm.itemsPerPage,
+                sort: 'className'
+            }, onSuccess, onError);
+        }
+
+        function filterClasses () {
+            var categoryId  = vm.category? vm.category.id : null;
+            var schoolTermId = vm.schoolTerm? vm.schoolTerm.id : null;
+            MlcClass.query({schoolTerm: schoolTermId, category: categoryId,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
