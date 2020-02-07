@@ -18,8 +18,9 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr>
-                    <th><span>ID</span></th>
+                    <th><span>ID</span>
                     <th><span>Amount</span></th>
+                    <th><span>Percentage</span></th>
                     <th><span>Start Date</span></th>
                     <th><span>End Date</span></th>
                     <th><span>Discount Code</span></th>
@@ -30,9 +31,17 @@
             <tbody>
                 <tr ng-repeat="discount in vm.discounts track by discount.id">
                     <td><a ui-sref="discount-detail({id:discount.id})">{{discount.id}}</a></td>
-                    <td>{{discount.amount}}</td>
-                        <td>{{discount.startDate | date:'mediumDate'}}</td>
-                        <td>{{discount.endDate | date:'mediumDate'}}</td>
+                    <td>
+                        <span ng-switch="{{discount.amount}} != null">
+                            <span ng-switch-when="true">${{discount.amount}}</span>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-switch="{{discount.percentage}} != null">
+                            <span ng-switch-when="true">{{discount.percentage}}%</span>
+                        </span></td>
+                    <td>{{discount.startDate | date:'mediumDate'}}</td>
+                    <td>{{discount.endDate | date:'mediumDate'}}</td>
                     <td>
                         <a ui-sref="discount-code-detail({id:discount.discountCode.id})">{{discount.discountCode.code}}</a>
                     </td>

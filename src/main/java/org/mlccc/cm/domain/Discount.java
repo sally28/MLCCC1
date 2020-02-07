@@ -24,9 +24,11 @@ public class Discount implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount")
     private Double amount;
+
+    @Column(name = "percentage")
+    private Double percentage;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -111,6 +113,14 @@ public class Discount implements Serializable {
 
     public void setSchoolTerm(SchoolTerm schoolTerm) {
         this.schoolTerm = schoolTerm;
+    }
+
+    public Double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
     }
 
     @Override
