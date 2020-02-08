@@ -3,11 +3,10 @@ package org.mlccc.cm.web.rest;
 import com.codahale.metrics.annotation.CachedGauge;
 import com.codahale.metrics.annotation.Timed;
 import io.swagger.models.auth.In;
-import org.mlccc.cm.domain.Authority;
-import org.mlccc.cm.domain.Invoice;
-import org.mlccc.cm.domain.Registration;
-import org.mlccc.cm.domain.User;
+import org.mlccc.cm.config.Constants;
+import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
+import org.mlccc.cm.service.DiscountService;
 import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.service.dto.InvoiceDTO;
@@ -40,9 +39,12 @@ public class InvoiceResource {
 
     private final UserService userService;
 
-    public InvoiceResource(InvoiceService invoiceService, UserService userService) {
+    private final DiscountService discountService;
+
+    public InvoiceResource(InvoiceService invoiceService, UserService userService, DiscountService discountService) {
         this.invoiceService = invoiceService;
         this.userService = userService;
+        this.discountService = discountService;
     }
 
     /**
@@ -117,19 +119,11 @@ public class InvoiceResource {
 
         for(Invoice invoice : invoices){
             InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
+            // calculate total amount if invoice is unpaid
+            if(invoice.getStatus().equals(Constants.INVOICE_UNPAID_STATUS)){
+                invoiceService.calculateTotalAmount(invoice, invoiceDTO);
+            }
             returnedInvoices.add(invoiceDTO);
-            if(invoice.getRegistrations().size() > 1){
-                invoiceDTO.setMultiClassDiscount(-30.00);
-            }
-            Date now = Calendar.getInstance().getTime();
-            if(now.before(new Date())){
-                invoiceDTO.setEarlyBirdDiscount(-0.05);
-            }
-            for(RegistrationDTO registrationDTO : invoiceDTO.getRegistrations()){
-                invoiceDTO.setRegistrationFee(registrationDTO.getRegistrationFee());
-                invoiceDTO.setTotal(invoiceDTO.getTotal() + registrationDTO.getTuition());
-            }
-            invoiceDTO.setTotal(invoiceDTO.getTotal()+invoiceDTO.getMultiClassDiscount());
         }
         return returnedInvoices;
     }

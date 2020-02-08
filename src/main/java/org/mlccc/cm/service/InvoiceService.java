@@ -1,13 +1,21 @@
 package org.mlccc.cm.service;
 
-import org.mlccc.cm.domain.Invoice;
+import io.swagger.models.auth.In;
+import org.mlccc.cm.config.Constants;
+import org.mlccc.cm.domain.*;
+import org.mlccc.cm.repository.DiscountRepository;
 import org.mlccc.cm.repository.InvoiceRepository;
+import org.mlccc.cm.repository.SchoolTermRepository;
+import org.mlccc.cm.security.AuthoritiesConstants;
+import org.mlccc.cm.security.DomainUserDetailsService;
+import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.ZoneId;
+import java.util.*;
 
 /**
  * Service Implementation for managing Invoice.
@@ -20,8 +28,22 @@ public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
 
-    public InvoiceService(InvoiceRepository invoiceRepository) {
+    private final DiscountService discountService;
+
+    private final UserService userService;
+
+    private final StudentService studentService;
+
+    private final SchoolTermRepository schoolTermRepository;
+
+    public InvoiceService(InvoiceRepository invoiceRepository, DiscountService discountService,
+                          SchoolTermRepository schoolTermRepository, UserService userService,
+                          StudentService studentService) {
         this.invoiceRepository = invoiceRepository;
+        this.discountService = discountService;
+        this.schoolTermRepository = schoolTermRepository;
+        this.userService = userService;
+        this.studentService = studentService;
     }
 
     /**
@@ -81,5 +103,99 @@ public class InvoiceService {
         return invoiceRepository.findAllInvoices();
     }
 
+    @Transactional(readOnly = true)
+    public void calculateTotalAmount(Invoice invoice, InvoiceDTO dto) {
+        log.debug("Request to calculateTotalAmount: {}", invoice.getId());
+        Date now = Calendar.getInstance().getTime();
 
+        Long schoolTermId = getSchoolTermId(invoice);
+        SchoolTerm schoolTerm = schoolTermRepository.findOne(schoolTermId);
+        User billToUser = userService.getUserWithAuthorities(invoice.getUser().getId());
+
+        // step 1: first step needs to apply teacher benefits to each class;
+        Set<Authority> authorities = billToUser.getAuthorities();
+        Boolean isTeacher = false;
+        for(Authority auth : authorities){
+            if(auth.getName().equals(AuthoritiesConstants.TEACHER)){
+                isTeacher = true;
+                break;
+            }
+        }
+        if(isTeacher){
+            Double teacherBenefits = 0.00;
+            for(Registration registration : invoice.getRegistrations()){
+                Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
+                Set<User> parents = student.getAssociatedAccounts();
+                for(User parent : parents){
+                    // student's parent is the teacher of the class registered
+                    User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
+                    if(teacherAccount != null && parent.equals(teacherAccount)){
+                        teacherBenefits += registration.getMlcClass().getTuition();
+                        registration.getMlcClass().setTuition(0.00);
+                    }
+                }
+            }
+            dto.setBenefits(teacherBenefits);
+        }
+
+        Map<String, Discount> discountMap = discountService.findAllBySchoolTerm(schoolTermId);
+        // step 2: apply multi-class discount;
+        if(invoice.getRegistrations().size() > 1 && discountMap.get(Constants.DISCOUNT_CODE_MULTICLASS) != null){
+            Double highestTuition = 0.00;
+            Double totalTuition = 0.00;
+            for (Registration reg : invoice.getRegistrations()){
+                if(reg.getMlcClass().getTuition()>highestTuition){
+                    highestTuition = reg.getMlcClass().getTuition();
+                }
+                totalTuition += reg.getMlcClass().getTuition();
+            }
+
+            Discount multiClassDiscount = discountMap.get(Constants.DISCOUNT_CODE_MULTICLASS);
+            if(multiClassDiscount.getAmount() != null){
+                // amount: simply minus amount from total
+                dto.setTotal(totalTuition-multiClassDiscount.getAmount());
+            } else {
+                // percentage: apply discount (percentage) to the total tuition minus highest tuition.
+                dto.setMultiClassDiscount(Math.round((totalTuition-highestTuition)*(multiClassDiscount.getPercentage()/100)*100.0)/100.0);
+                dto.setTotal(totalTuition-dto.getMultiClassDiscount());
+            }
+        }
+
+        // step 3: apply early bird discount;
+        Discount earlyBirdDiscount = discountMap.get(Constants.DISCOUNT_CODE_EARLYBIRD);
+        if(earlyBirdDiscount != null){
+            if(now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(schoolTerm.getEarlyBirdDate())) {
+                if(earlyBirdDiscount.getAmount() != null){
+                    // amount: simply minus amount from total
+                    dto.setTotal(dto.getTotal()-earlyBirdDiscount.getAmount());
+                } else {
+                    // percentage: apply discount (percentage) to the total amount.
+                    dto.setEarlyBirdDiscount(Math.round(dto.getTotal()*(earlyBirdDiscount.getPercentage()/100)*100.0)/100.0);
+                    dto.setTotal(dto.getTotal()-dto.getEarlyBirdDiscount());
+                }
+            }
+        }
+
+        // step 4: apply user credit;
+        dto.setCredit(0.00);
+
+
+        // step 5: apply registration waiver;
+        Discount regWaiverDiscount = discountMap.get(Constants.DISCOUNT_CODE_REGWAIVER);
+        if(now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(schoolTerm.getPromDate())) {
+            dto.setRegistrationFee(0.00);
+        }else {
+            dto.setRegistrationFee(30.00);
+            dto.setTotal(dto.getTotal()+regWaiverDiscount.getAmount());
+        }
+    }
+
+    public Long getSchoolTermId(Invoice invoice){
+        if(!invoice.getRegistrations().isEmpty()){
+            Registration reg = invoice.getRegistrations().iterator().next();
+            return reg.getMlcClass().getSchoolTerm().getId();
+        } else {
+            return null;
+        }
+    }
 }

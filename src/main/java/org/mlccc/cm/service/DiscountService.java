@@ -7,7 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Service Implementation for managing Discount.
@@ -66,5 +69,15 @@ public class DiscountService {
     public void delete(Long id) {
         log.debug("Request to delete Discount : {}", id);
         discountRepository.delete(id);
+    }
+
+    public Map<String, Discount> findAllBySchoolTerm(Long id) {
+        log.debug("Request to findAllBySchoolTerm : {}", id);
+        List<Discount> discounts = discountRepository.findAllBySchoolTerm(id);
+        Map<String, Discount> discountMap = new HashMap<>();
+        discounts.forEach(discount -> {
+            discountMap.put(discount.getDiscountCode().getCode(), discount);
+        });
+        return discountMap;
     }
 }

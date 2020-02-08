@@ -21,7 +21,11 @@ public final class Constants {
     public static final String ALMOST_FULL_STATUS = "ALMOST FULL";
     public static final String FINISHED_STATUS = "FINISHED";
     public static final String ACTIVE_STATUS = "ACTIVE";
-
+    public static final String DISCOUNT_CODE_MULTICLASS = "MULTICLASS";
+    public static final String DISCOUNT_CODE_EARLYBIRD = "EARLYBIRD";
+    public static final String DISCOUNT_CODE_REGWAIVER = "REGWAIVER";
+    public static final String INVOICE_PAID_STATUS = "PAID";
+    public static final String INVOICE_UNPAID_STATUS = "UNPAID";
     private Constants() {
     }
 }

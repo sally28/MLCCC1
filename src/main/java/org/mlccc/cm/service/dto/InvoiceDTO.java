@@ -38,6 +38,10 @@ public class InvoiceDTO {
 
     private Double earlyBirdDiscount = 0.00;
 
+    private Double credit = 0.00;
+
+    private Double benefits = 0.00;
+
     private Double registrationFee = 0.00;
 
     private Double total = 0.00;
@@ -145,6 +149,22 @@ public class InvoiceDTO {
 
     public void setRegistrationFee(Double registrationFee) {
         this.registrationFee = registrationFee;
+    }
+
+    public Double getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Double credit) {
+        this.credit = credit;
+    }
+
+    public Double getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(Double benefits) {
+        this.benefits = benefits;
     }
 
     @Override

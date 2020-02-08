@@ -34,7 +34,7 @@
                     <th><span>Multi Class Discount</span></th>
                     <th><span>Early Bird Discount</span></th>
                     <th><span>Registration Fee</span></th>
-                    <th><span>Credits</span></th>
+                    <th><span>Credit</span></th>
                     <th><span>Benefit</span></th>
                     <th><span>Total</span></th>
                     <th></th>
@@ -46,24 +46,12 @@
                         <td>{{invoice.description}}</td>
                         <td>{{invoice.status}}</td>
                         <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
-                        <td>
-                            {{invoice.multiClassDiscount}}
-                        </td>
-                        <td>
-                            {{invoice.earlyBirdDiscount}}
-                        </td>
-                        <td>
-                            {{invoice.earlyBirdDiscount}}
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            {{invoice.total}}
-                        </td>
+                        <td>{{invoice.multiClassDiscount | currency:"$"}}</td>
+                        <td>{{invoice.earlyBirdDiscount | currency:"$"}}</td>
+                        <td>{{invoice.registrationFee | currency:"$"}}</td>
+                        <td>{{invoice.credit | currency:"$"}}</td>
+                        <td>{{invoice.benefits | currency:"$"}}</td>
+                        <td>{{invoice.total | currency:"$"}}</td>
                         <td has-authority="ROLE_ADMIN">
                             <button type="button"
                                     ui-sref="invoice.edit({id:invoice.id})"
@@ -88,11 +76,11 @@
                     <table class="jh-table table table-striped">
                         <tbody>
                         <tr ng-repeat="registration in invoice.registrations track by registration.id">
-                            <td>{{registration.studentName}}</a></td>
-                            <td>Class: {{registration.mlcClassName}}</a></td>
+                            <td>{{registration.studentName}}</td>
+                            <td>Class: {{registration.mlcClassName}}</td>
                             <td>Time: {{registration.classTime}}</td>
                             <td>Status: {{registration.status}}</td>
-                            <td>Tuition: {{registration.tuition}}</td>
+                            <td>Tuition: {{registration.tuition | currency:"$"}}</td>
                         </tr>
                         </tbody>
                     </table>
