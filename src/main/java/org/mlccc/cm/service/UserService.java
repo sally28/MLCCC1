@@ -217,7 +217,9 @@ public class UserService {
         });
     }
 
-    public void updateUser(User user) {
+    public void updateUserPassword(User user, String password) {
+        String encryptedPassword = passwordEncoder.encode(password);
+        user.setPassword(encryptedPassword);
         userRepository.save(user);
     }
 

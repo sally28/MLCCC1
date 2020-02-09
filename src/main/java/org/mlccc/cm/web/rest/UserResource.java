@@ -24,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -139,6 +140,11 @@ public class UserResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "userexists", "Login already in use")).body(null);
         }
         Optional<UserDTO> updatedUser = userService.updateUser(managedUserVM);
+
+        // change user password
+        if(managedUserVM.getPassword() != null){
+            userService.updateUserPassword(existingUser.get(), managedUserVM.getPassword());
+        }
 
         return ResponseUtil.wrapOrNotFound(updatedUser,
             HeaderUtil.createAlert("A user is updated with identifier " + managedUserVM.getLogin(), managedUserVM.getLogin()));
