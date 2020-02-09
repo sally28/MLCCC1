@@ -47,10 +47,10 @@
                                 <tbody>
                                 <tr ng-repeat="registration in student.registrations track by registration.id">
                                     <td><a ui-sref="registration-detail({id:registration.id})">{{registration.id}}</a></td>
-                                    <td><a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.className}}</a></td>
-                                    <td><a ui-sref="teacher-detail({id:registration.mlcClass.teacher.id})">Teacher: {{registration.mlcClass.teacher.firstName}} {{registration.mlcClass.teacher.lastName}}</a></td>
+                                    <td>{{registration.mlcClassName}}</td>
+                                    <td>Teacher: {{registration.teacher}}</td>
                                     <td>{{registration.status}}</td>
-                                    <td>Tuition: {{registration.mlcClass.tuition}}</td>
+                                    <td>Tuition: {{registration.tuition}}</td>
                                     <td>
                                         <button type="button"
                                                 ng-click="vm.cancelRegistration()"
@@ -59,15 +59,6 @@
                                             <span class="hidden-sm-down">Cancel</span>
                                         </button>
                                     </td>
-                                    <!--
-                                    <td>
-                                        <button type="button"
-                                                ui-sref="payment.new({id:registration.id})"
-                                                class="btn btn-info btn-sm">
-                                            <span class="glyphicon glyphicon-ok"></span>
-                                            <span class="hidden-sm-down">Pay</span>
-                                        </button>
-                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
@@ -79,12 +70,8 @@
                 <table class="jh-table table table-striped">
                     <thead>
                     <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                        <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                         <th jh-sort-by="lastName"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                         <th jh-sort-by="gender"><span>Gender</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <!--<th jh-sort-by="birthMonth"><span>Birth Month</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                         <th jh-sort-by="birthYear"><span>Birth Month/Year</span> <span class="glyphicon glyphicon-sort"></span></th>
                         <th><span>Notes</span> <span class="glyphicon"></span></th>
                         <th></th>
@@ -92,16 +79,10 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="student in vm.students track by student.id">
-                        <!--<td><a ui-sref="student-detail({id:student.id})">{{student.id}}</a></td>-->
                         <td><a ui-sref="student-detail({id:student.id})">{{student.lastName}},{{student.firstName}}</a></td>
-                        <!--<td>{{student.lastName}}</td>-->
                         <td>{{student.gender}}</td>
                         <td>{{student.birthMonth}}/{{student.birthYear}}</td>
-                        <!--<td>{{student.birthYear}}</td>-->
                         <td>{{student.notes}}</td>
-                        <!--<td>
-                            <a ui-sref="mlc-account-detail({id:student.associatedAccounts[0].id})">{{student.associatedAccounts[0].id}}</a>
-                        </td>-->
                         <td class="text-right">
                             <div class="btn-group flex-btn-group-container">
                                 <button type="submit"

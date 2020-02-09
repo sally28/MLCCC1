@@ -28,17 +28,13 @@
         <dd>
             <span>{{vm.student.notes}}</span>
         </dd>
-        <dt><span>Associated Users</span></dt>
-        <dd>
-            <div has-authority="ROLE_ADMIN">
+        <div has-authority="ROLE_ADMIN">
+            <dt><span>Associated Users</span></dt>
+            <dd>
                 <a ui-sref="user-management-detail({login:vm.student.associatedAccounts[0].login})">
                     {{vm.student.associatedAccounts[0].login + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
-            </div>
-            <div has-authority="ROLE_USER">
-                <a ui-sref="settings({id:vm.student.associatedAccounts[0].id})">
-                    {{vm.student.associatedAccounts[0].login + ' ' + vm.student.associatedAccounts[0].lastName}} </a>
-            </div>
-        </dd>
+            </dd>
+        </div>
     </dl>
 
     <button type="submit"

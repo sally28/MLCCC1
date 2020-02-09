@@ -67,11 +67,11 @@
             vm.students.forEach(function(student){
                 student.registrations.forEach(function(registration){
                     var data = vm.mlcClasses.find( function( ele ) {
-                        return ele.name === registration.mlcClass.className;
+                        return ele.name === registration.mlcClassName;
                     } );
                     if(data == null){
                         var classItem = {
-                            name: registration.mlcClass.className,
+                            name: registration.mlcClassName,
                             students: []
                         }
                         classItem.students.push(student);

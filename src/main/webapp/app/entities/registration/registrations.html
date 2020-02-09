@@ -70,7 +70,7 @@
                         </div>
                     </td>
                     <td>
-                        <div ng-switch="registration.status">
+                        <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
                             <span ng-switch-when="PENDING">
                                 <form name="confirmForm" role="form" novalidate ng-submit="vm.confirm(registration)">
                                     <button class="btn btn-primary btn-sm">

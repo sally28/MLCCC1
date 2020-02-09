@@ -122,7 +122,7 @@ public class StudentResource {
      */
     @GetMapping("/students")
     @Timed
-    public ResponseEntity<List<Student>> getAllStudents(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
+    public ResponseEntity<List<StudentDTO>> getAllStudents(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
         log.debug("REST request to get a page of Students with search: {}", searchTerm);
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -137,11 +137,16 @@ public class StudentResource {
         }
 
         Page<Student> page = null;
+        List<StudentDTO> dtos = new ArrayList<>();
         if(allStudents){
             if(StringUtils.isEmpty(searchTerm)){
                 page = studentService.findAll(pageable);
             } else {
                 page = studentService.findAllWithSearchTerm(pageable, searchTerm);
+            }
+            for(Student s: page.getContent()){
+                StudentDTO dto = new StudentDTO(s);
+                dtos.add(dto);
             }
         } else {
             if(searchTerm.equalsIgnoreCase("inClass") && isTeacher){
@@ -154,8 +159,8 @@ public class StudentResource {
                         registrations.addAll(registrationService.findAllWithStudentIdClassId(student.getId(), mlcClass.getId()));
                     });
                     student.setRegistrations(new HashSet<>(registrations));
-                    //Student student_2 = studentService.findByIdAndFetchEager(student.getId());
-                    //student.setAssociatedAccounts(student_2.getAssociatedAccounts());
+                    StudentDTO dto = new StudentDTO(student, student.getRegistrations(), student.getAssociatedAccounts());
+                    dtos.add(dto);
                 });
             } else {
                 // if normal user getting student list, attach registration information
@@ -163,11 +168,14 @@ public class StudentResource {
                 page.forEach(student -> {
                     List<Registration> registrations =  registrationService.findAllWithStudentId(student.getId());
                     student.setRegistrations(new HashSet<>(registrations));
+                    StudentDTO dto = new StudentDTO(student, student.getRegistrations(), null);
+                    dtos.add(dto);
                 });
             }
         }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/students");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(dtos, headers, HttpStatus.OK);
     }
 
     /**
@@ -181,7 +189,7 @@ public class StudentResource {
     public ResponseEntity<StudentDTO> getStudent(@PathVariable Long id) {
         log.debug("REST request to get Student : {}", id);
         Student student = studentService.findByIdAndFetchEager(id);
-        return new ResponseEntity<>(new StudentDTO((student)), null, HttpStatus.OK);
+        return new ResponseEntity<>(new StudentDTO(student, student.getAssociatedAccounts()), null, HttpStatus.OK);
     }
 
     /**

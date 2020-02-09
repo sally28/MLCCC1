@@ -1,5 +1,6 @@
 package org.mlccc.cm.service.dto;
 
+import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.domain.Student;
 import org.mlccc.cm.domain.User;
 
@@ -25,7 +26,13 @@ public class StudentDTO {
 
     private Set<UserDTO> associatedAccounts;
 
+    private String parent1;
+
+    private String parent2;
+
     private Set<String> classesTaken;
+
+    private Set<RegistrationDTO> registrations;
 
     public StudentDTO() {
         // Empty constructor needed for Jackson.
@@ -38,13 +45,60 @@ public class StudentDTO {
         this.birthMonth = student.getBirthMonth();
         this.birthYear = student.getBirthYear();
         this.gender = student.getGender();
+        /*
         Set<UserDTO> associatedAccounts = new HashSet<>();
         for(User user : student.getAssociatedAccounts()){
             UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
                 true, null, null, null, null,null, null, null);
             associatedAccounts.add(dto);
+            this.parent1 = user.getFirstName() + " "+ user.getLastName() + "email: " + user.getEmail() + " phone: " + user.getPhone();
+        }
+        this.associatedAccounts = associatedAccounts;*/
+    }
+
+    public StudentDTO(Student student, Set<User> associatedUsers){
+        this.id = student.getId();
+        this.firstName = student.getFirstName();
+        this.lastName = student.getLastName();
+        this.birthMonth = student.getBirthMonth();
+        this.birthYear = student.getBirthYear();
+        this.gender = student.getGender();
+        Set<UserDTO> associatedAccounts = new HashSet<>();
+        for(User user : associatedUsers){
+            UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
+                    true, null, null, null, null,null, null, null);
+            associatedAccounts.add(dto);
+            this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
         }
         this.associatedAccounts = associatedAccounts;
+    }
+
+    public StudentDTO(Student student, Set<Registration> registrations, Set<User> associatedUsers){
+        this.id = student.getId();
+        this.firstName = student.getFirstName();
+        this.lastName = student.getLastName();
+        this.birthMonth = student.getBirthMonth();
+        this.birthYear = student.getBirthYear();
+        this.gender = student.getGender();
+        Set<UserDTO> associatedAccounts = new HashSet<>();
+        if(associatedUsers != null){
+            for(User user : associatedUsers){
+                UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
+                        true, null, null, null, null,null, null, null);
+                associatedAccounts.add(dto);
+                this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+            }
+            this.associatedAccounts = associatedAccounts;
+        }
+
+        if(registrations != null){
+            Set<RegistrationDTO> registrationDtos = new HashSet<>();
+            for(Registration registration : registrations){
+                RegistrationDTO dto = new RegistrationDTO(registration) ;
+                registrationDtos.add(dto);
+            }
+            this.registrations = registrationDtos;
+        }
     }
 
     public Long getId() {
@@ -109,6 +163,30 @@ public class StudentDTO {
 
     public void setClassesTaken(Set<String> classesTaken) {
         this.classesTaken = classesTaken;
+    }
+
+    public Set<RegistrationDTO> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(Set<RegistrationDTO> registrations) {
+        this.registrations = registrations;
+    }
+
+    public String getParent1() {
+        return parent1;
+    }
+
+    public void setParent1(String parent1) {
+        this.parent1 = parent1;
+    }
+
+    public String getParent2() {
+        return parent2;
+    }
+
+    public void setParent2(String parent2) {
+        this.parent2 = parent2;
     }
 
     @Override

@@ -30,9 +30,24 @@ public class RegistrationDTO {
 
     private String classTime;
 
+    private String teacher;
+
 
     public RegistrationDTO() {
         // Empty constructor needed for Jackson.
+    }
+
+    public RegistrationDTO(Registration registration) {
+        this.id = registration.getId();
+        this.createDate = registration.getCreateDate();
+        this.modifyDate = registration.getModifyDate();
+        this.studentName = registration.getStudent().getFirstName() + " " + registration.getStudent().getLastName();
+        this.mlcClassName = registration.getMlcClass().getClassName();
+        this.tuition = registration.getMlcClass().getTuition();
+        this.registrationFee = registration.getMlcClass().getRegistrationFee();
+        this.classTime = (registration.getMlcClass().getClassTime() != null)? registration.getMlcClass().getClassTime().getClassTime() : null;
+        this.status = registration.getStatus();
+        this.teacher = registration.getMlcClass().getTeacher().getFirstName() + " " + registration.getMlcClass().getTeacher().getLastName();
     }
 
     public String getStatus() {
@@ -105,6 +120,14 @@ public class RegistrationDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
     @Override
