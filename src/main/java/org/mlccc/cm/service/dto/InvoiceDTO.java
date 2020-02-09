@@ -69,6 +69,12 @@ public class InvoiceDTO {
             dto.setId(r.getId());
             registrations.add(dto);
         }
+        this.setBenefits(invoice.getTeacherBenefits());
+        this.setCredit(invoice.getUserCredit());
+        this.setEarlyBirdDiscount(invoice.getEarlyBirdDiscount());
+        this.setMultiClassDiscount(invoice.getMultiClassDiscount());
+        this.setRegistrationFee(invoice.getRegistrationFee());
+        this.setTotal(invoice.getTotal());
     }
 
     public Long getId() {

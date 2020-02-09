@@ -133,6 +133,30 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('user-management.reset-password', {
+            url: '/{login}/reset',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/admin/user-management/user-management-reset.html',
+                    controller: 'UserManagementResetController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: ['User', function(User) {
+                            return User.get({login : $stateParams.login});
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('user-management', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 })();

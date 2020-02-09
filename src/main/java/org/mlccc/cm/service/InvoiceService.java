@@ -111,7 +111,8 @@ public class InvoiceService {
         Long schoolTermId = getSchoolTermId(invoice);
         SchoolTerm schoolTerm = schoolTermRepository.findOne(schoolTermId);
         User billToUser = userService.getUserWithAuthorities(invoice.getUser().getId());
-
+        dto.setTotal(0.00);
+        dto.setMultiClassDiscount(0.00);
         // step 1: first step needs to apply teacher benefits to each class;
         Set<Authority> authorities = billToUser.getAuthorities();
         Boolean isTeacher = false;
@@ -159,6 +160,10 @@ public class InvoiceService {
                 dto.setMultiClassDiscount(Math.round((totalTuition-highestTuition)*(multiClassDiscount.getPercentage()/100)*100.0)/100.0);
                 dto.setTotal(totalTuition-dto.getMultiClassDiscount());
             }
+        } else {
+            for(Registration r : invoice.getRegistrations()){
+                dto.setTotal(dto.getTotal()+r.getMlcClass().getTuition());
+            }
         }
 
         // step 3: apply early bird discount;
@@ -177,8 +182,20 @@ public class InvoiceService {
         }
 
         // step 4: apply user credit;
-        dto.setCredit(0.00);
-
+        Double credit = billToUser.getCredit();
+        if(credit != null && credit>0.00) {
+            if(dto.getTotal()>=credit){
+                // invoice total amount is more than credit, apply all credit
+                dto.setCredit(billToUser.getCredit());
+                dto.setTotal(dto.getTotal() - billToUser.getCredit());
+                billToUser.setCredit(0.00);
+            } else {
+                // invoice total amount is less than credit, apply partial credit
+                dto.setCredit(dto.getTotal());
+                billToUser.setCredit(billToUser.getCredit()-dto.getTotal());
+                dto.setTotal(0.00);
+            }
+        }
 
         // step 5: apply registration waiver;
         Discount regWaiverDiscount = discountMap.get(Constants.DISCOUNT_CODE_REGWAIVER);

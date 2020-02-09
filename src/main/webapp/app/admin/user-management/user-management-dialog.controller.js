@@ -16,8 +16,6 @@
         vm.save = save;
         vm.user = entity;
 
-
-
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

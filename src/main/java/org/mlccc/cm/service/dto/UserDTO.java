@@ -66,6 +66,8 @@ public class UserDTO {
 
     private String schoolDistrict;
 
+    private Double credit;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -76,7 +78,7 @@ public class UserDTO {
                     user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
                     user.getAddress(), user.getCity(), user.getState(), user.getZip(), user.getPhone(),
                     user.getAuthorities().stream().map(Authority::getName)
-                            .collect(Collectors.toSet()), user.getSchoolDistrict());
+                            .collect(Collectors.toSet()), user.getSchoolDistrict(), user.getCredit());
 
     }
 
@@ -131,7 +133,7 @@ public class UserDTO {
                    String email, boolean activated, String imageUrl, String langKey,
                    String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
                    String address, String city, String state, String zip, String phone,
-                   Set<String> authorities, SchoolDistrict schoolDistrict) {
+                   Set<String> authorities, SchoolDistrict schoolDistrict, Double credit) {
 
         this.id = id;
         this.login = login;
@@ -154,6 +156,7 @@ public class UserDTO {
         if(schoolDistrict != null){
             this.schoolDistrict = schoolDistrict.getName();
         }
+        this.credit = credit;
     }
 
     public Long getId() {
@@ -246,6 +249,12 @@ public class UserDTO {
 
     public void setSchoolDistrict(String schoolDistrict) {
         this.schoolDistrict = schoolDistrict;
+    }
+
+    public void setCredit(Double credit) {this.credit = credit; }
+
+    public Double getCredit() {
+        return credit;
     }
 
     @Override

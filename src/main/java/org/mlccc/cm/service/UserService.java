@@ -189,7 +189,9 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setCredit(userDTO.getCredit());
                 Set<Authority> managedAuthorities = user.getAuthorities();
+                user.setCredit(userDTO.getCredit());
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
                     .map(authorityRepository::findOne)
@@ -213,6 +215,10 @@ public class UserService {
             user.setPassword(encryptedPassword);
             log.debug("Changed password for User: {}", user);
         });
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
     @Transactional(readOnly = true)

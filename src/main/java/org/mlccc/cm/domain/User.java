@@ -100,6 +100,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "credit")
+    private Double credit = 0.00;
+
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -263,6 +267,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setSchoolDistrict(SchoolDistrict schoolDistrict) {
         this.schoolDistrict = schoolDistrict;
+    }
+
+    public Double getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Double credit) {
+        this.credit = credit;
     }
 
     @Override

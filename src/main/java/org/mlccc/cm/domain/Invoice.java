@@ -35,6 +35,24 @@ public class Invoice implements Serializable {
     @Column(name = "invoice_date")
     private LocalDate invoiceDate;
 
+    @Column(name = "multi_class_discount")
+    private Double multiClassDiscount;
+
+    @Column(name = "early_bird_discount")
+    private Double earlyBirdDiscount;
+
+    @Column(name = "registration_fee")
+    private Double registrationFee;
+
+    @Column(name = "teacher_benefits")
+    private Double teacherBenefits;
+
+    @Column(name = "total")
+    private Double total;
+
+    @Column(name = "user_credit")
+    private Double userCredit;
+
     @ManyToOne
     private User user;
 
@@ -186,6 +204,54 @@ public class Invoice implements Serializable {
 
     public void setAppliedDiscounts(Set<AppliedDiscount> appliedDiscounts) {
         this.appliedDiscounts = appliedDiscounts;
+    }
+
+    public Double getMultiClassDiscount() {
+        return multiClassDiscount;
+    }
+
+    public void setMultiClassDiscount(Double multiClassDiscount) {
+        this.multiClassDiscount = multiClassDiscount;
+    }
+
+    public Double getEarlyBirdDiscount() {
+        return earlyBirdDiscount;
+    }
+
+    public void setEarlyBirdDiscount(Double earlyBirdDiscount) {
+        this.earlyBirdDiscount = earlyBirdDiscount;
+    }
+
+    public Double getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(Double registrationFee) {
+        this.registrationFee = registrationFee;
+    }
+
+    public Double getTeacherBenefits() {
+        return teacherBenefits;
+    }
+
+    public void setTeacherBenefits(Double teacherBenefits) {
+        this.teacherBenefits = teacherBenefits;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Double getUserCredit() {
+        return userCredit;
+    }
+
+    public void setUserCredit(Double userCredit) {
+        this.userCredit = userCredit;
     }
 
     @Override
