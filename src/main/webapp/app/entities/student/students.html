@@ -53,7 +53,7 @@
                                     <td>Tuition: {{registration.tuition}}</td>
                                     <td>
                                         <button type="button"
-                                                ng-click="vm.cancelRegistration()"
+                                                ui-sref="registration.delete({id:registration.id})"
                                                 class="btn btn-danger btn-sm">
                                             <span class="glyphicon glyphicon-remove-circle"></span>
                                             <span class="hidden-sm-down">Cancel</span>

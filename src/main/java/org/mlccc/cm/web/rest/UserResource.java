@@ -6,7 +6,6 @@ import org.mlccc.cm.domain.Authority;
 import org.mlccc.cm.domain.User;
 import org.mlccc.cm.repository.UserRepository;
 import org.mlccc.cm.security.AuthoritiesConstants;
-import org.mlccc.cm.security.SecurityUtils;
 import org.mlccc.cm.service.MailService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.service.dto.UserDTO;
@@ -24,7 +23,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
