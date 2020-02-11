@@ -104,6 +104,12 @@ public class InvoiceService {
     }
 
     @Transactional(readOnly = true)
+    public Invoice findOneWithRegistrations(Long id) {
+        log.debug("Request to findOneWithRegistrations.");
+        return invoiceRepository.findOneWithRegistrations(id);
+    }
+
+    @Transactional(readOnly = true)
     public void calculateTotalAmount(Invoice invoice, InvoiceDTO dto) {
         log.debug("Request to calculateTotalAmount: {}", invoice.getId());
         Date now = Calendar.getInstance().getTime();
@@ -202,7 +208,7 @@ public class InvoiceService {
         if(now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(schoolTerm.getPromDate())) {
             dto.setRegistrationFee(0.00);
         }else {
-            dto.setRegistrationFee(30.00);
+            dto.setRegistrationFee(schoolTerm.getRegistrationFee());
             dto.setTotal(dto.getTotal()+regWaiverDiscount.getAmount());
         }
     }

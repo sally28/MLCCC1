@@ -39,9 +39,6 @@ public class MlcClass implements Serializable {
     @Column(name = "tuition")
     private Double tuition;
 
-    @Column(name = "registration_fee")
-    private Double registrationFee;
-
     @Column(name = "seq_number")
     private Integer seqNumber;
 
@@ -80,7 +77,6 @@ public class MlcClass implements Serializable {
         this.size = cloneFromClass.getSize();
         this.minAge = cloneFromClass.getMinAge();
         this.tuition = cloneFromClass.getTuition();
-        this.registrationFee = cloneFromClass.getRegistrationFee();
         this.mlcClassCategory = cloneFromClass.getMlcClassCategory();
         this.teacher = cloneFromClass.getTeacher();
     }
@@ -156,19 +152,6 @@ public class MlcClass implements Serializable {
 
     public void setTuition(Double tuition) {
         this.tuition = tuition;
-    }
-
-    public Double getRegistrationFee() {
-        return registrationFee;
-    }
-
-    public MlcClass registrationFee(Double registrationFee) {
-        this.registrationFee = registrationFee;
-        return this;
-    }
-
-    public void setRegistrationFee(Double registrationFee) {
-        this.registrationFee = registrationFee;
     }
 
     public Integer getSeqNumber() {
@@ -294,7 +277,6 @@ public class MlcClass implements Serializable {
             ", size='" + getSize() + "'" +
             ", minAge='" + getMinAge() + "'" +
             ", tuition='" + getTuition() + "'" +
-            ", registrationFee='" + getRegistrationFee() + "'" +
             ", seqNumber='" + getSeqNumber() + "'" +
             "}";
     }

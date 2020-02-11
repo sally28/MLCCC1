@@ -96,7 +96,19 @@ public class RegistrationResource {
 
         Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
         Set<User> associatedAccounts =student.getAssociatedAccounts();
-        User invoicedUser = associatedAccounts.iterator().next();
+
+        // invoice should be billed to student primary contact.
+        User invoicedUser = null;
+        for(User user : associatedAccounts){
+            if(user.isPrimaryContact()){
+                invoicedUser = user;
+                break;
+            }
+        }
+        if(invoicedUser == null) {
+            associatedAccounts.iterator().next();
+        }
+
         List<Invoice> invoices = invoiceService.findUnpaidByUserId(invoicedUser.getId());
         Invoice invoice = new Invoice();
         if(invoices == null || invoices.isEmpty()){
@@ -217,7 +229,14 @@ public class RegistrationResource {
     @Timed
     public ResponseEntity<Void> deleteRegistration(@PathVariable Long id) {
         log.debug("REST request to delete Registration : {}", id);
-        registrationService.delete(id);
+        Registration registration = registrationService.findOne(id);
+        Invoice invoice = invoiceService.findOneWithRegistrations(registration.getInvoice().getId());
+        if(invoice.getRegistrations().size() == 1){
+            registrationService.delete(id);
+            invoiceService.delete(invoice.getId());
+        } else {
+            registrationService.delete(id);
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

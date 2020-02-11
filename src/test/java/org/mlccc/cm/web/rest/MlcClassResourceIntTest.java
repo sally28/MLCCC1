@@ -107,7 +107,6 @@ public class MlcClassResourceIntTest {
             .size(DEFAULT_SIZE)
             .minAge(DEFAULT_MIN_AGE)
             .tuition(DEFAULT_TUITION)
-            .registrationFee(DEFAULT_REGISTRATION_FEE)
             .seqNumber(DEFAULT_SEQ_NUMBER);
         return mlcClass;
     }
@@ -137,7 +136,6 @@ public class MlcClassResourceIntTest {
         assertThat(testMlcClass.getSize()).isEqualTo(DEFAULT_SIZE);
         assertThat(testMlcClass.getMinAge()).isEqualTo(DEFAULT_MIN_AGE);
         assertThat(testMlcClass.getTuition()).isEqualTo(DEFAULT_TUITION);
-        assertThat(testMlcClass.getRegistrationFee()).isEqualTo(DEFAULT_REGISTRATION_FEE);
         assertThat(testMlcClass.getSeqNumber()).isEqualTo(DEFAULT_SEQ_NUMBER);
     }
 
@@ -224,7 +222,6 @@ public class MlcClassResourceIntTest {
             .size(UPDATED_SIZE)
             .minAge(UPDATED_MIN_AGE)
             .tuition(UPDATED_TUITION)
-            .registrationFee(UPDATED_REGISTRATION_FEE)
             .seqNumber(UPDATED_SEQ_NUMBER);
 
         restMlcClassMockMvc.perform(put("/api/mlc-classes")
@@ -241,7 +238,6 @@ public class MlcClassResourceIntTest {
         assertThat(testMlcClass.getSize()).isEqualTo(UPDATED_SIZE);
         assertThat(testMlcClass.getMinAge()).isEqualTo(UPDATED_MIN_AGE);
         assertThat(testMlcClass.getTuition()).isEqualTo(UPDATED_TUITION);
-        assertThat(testMlcClass.getRegistrationFee()).isEqualTo(UPDATED_REGISTRATION_FEE);
         assertThat(testMlcClass.getSeqNumber()).isEqualTo(UPDATED_SEQ_NUMBER);
     }
 

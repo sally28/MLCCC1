@@ -27,9 +27,21 @@
             </select>
         </div>
         <div class="form-group">
+            <label class="control-label" for="field_registration_fee">Registration Fee</label>
+            <input type="number" class="form-control" name="registration_fee" id="field_registration_fee" min="0.00"
+                   ng-model="vm.schoolTerm.registrationFee"
+            />
+            <div ng-show="editForm.registration_fee.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.registration_fee.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label" for="field_register">Register</label>
-                <input type="checkbox" name="register" id="field_register"
-                          ng-model="vm.schoolTerm.register"/>
+            <input type="checkbox" name="register" id="field_register"
+                   ng-model="vm.schoolTerm.register"/>
         </div>
         <div class="form-group">
             <label class="control-label" for="field_promDate">Prom Date</label>

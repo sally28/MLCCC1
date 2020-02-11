@@ -26,4 +26,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
     @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.status = 'UNPAID' ")
     List<Invoice> findAllInvoices();
 
+    @EntityGraph(attributePaths = "registrations")
+    @Query("SELECT invoice FROM Invoice invoice WHERE invoice.id = (:invoiceId) ")
+    Invoice findOneWithRegistrations(@Param("invoiceId") Long invoiceId);
+
 }

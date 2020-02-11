@@ -22,6 +22,7 @@
                     <th><span>Term</span></th>
                     <th><span>Status</span></th>
                     <th><span>Register</span></th>
+                    <th><span>Registration Fee</span></th>
                     <th><span>Prom Date</span></th>
                     <th><span>Early Bird Date</span></th>
                     <tn></tn>
@@ -33,6 +34,7 @@
                     <td>{{schoolTerm.term}}</td>
                     <td>{{schoolTerm.status}}</td>
                     <td>{{schoolTerm.register}}</td>
+                    <td>{{schoolTerm.registrationFee | currency:"$"}}</td>
                     <td>{{schoolTerm.promDate | date:'mediumDate'}}</td>
                     <td>{{schoolTerm.earlyBirdDate | date:'mediumDate'}}</td>
                     <td class="text-right">

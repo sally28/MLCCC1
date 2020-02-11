@@ -1,5 +1,6 @@
 package org.mlccc.cm.domain;
 
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
 import org.mlccc.cm.config.Constants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -102,6 +103,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "credit")
     private Double credit = 0.00;
+
+    @Column(name="primary_contact")
+    private Boolean primaryContact;
+
+    @Column(name = "must_change_password")
+    private Boolean mustChangePassword;
 
 
     @JsonIgnore
@@ -275,6 +282,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setCredit(Double credit) {
         this.credit = credit;
+    }
+
+    public Boolean isPrimaryContact() {
+        return primaryContact;
+    }
+
+    public void setPrimaryContact(Boolean primaryContact) {
+        this.primaryContact = primaryContact;
+    }
+
+    public Boolean isMustChangePassword() {
+        return mustChangePassword;
+    }
+
+    public void setMustChangePassword(Boolean mustChangePassword) {
+        this.mustChangePassword = mustChangePassword;
     }
 
     @Override

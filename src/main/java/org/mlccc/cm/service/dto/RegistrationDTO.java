@@ -44,7 +44,7 @@ public class RegistrationDTO {
         this.studentName = registration.getStudent().getFirstName() + " " + registration.getStudent().getLastName();
         this.mlcClassName = registration.getMlcClass().getClassName();
         this.tuition = registration.getMlcClass().getTuition();
-        this.registrationFee = registration.getMlcClass().getRegistrationFee();
+        this.registrationFee = registration.getMlcClass().getSchoolTerm().getRegistrationFee();
         this.classTime = (registration.getMlcClass().getClassTime() != null)? registration.getMlcClass().getClassTime().getClassTime() : null;
         this.status = registration.getStatus();
         this.teacher = registration.getMlcClass().getTeacher().getFirstName() + " " + registration.getMlcClass().getTeacher().getLastName();

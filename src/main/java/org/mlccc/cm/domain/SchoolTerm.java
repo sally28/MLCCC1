@@ -39,6 +39,9 @@ public class SchoolTerm implements Serializable {
     @Column(name = "early_bird_date")
     private LocalDate earlyBirdDate;
 
+    @Column(name = "registration_fee")
+    private Double registrationFee;
+
     public Long getId() {
         return id;
     }
@@ -112,6 +115,14 @@ public class SchoolTerm implements Serializable {
         this.earlyBirdDate = earlyBirdDate;
     }
 
+    public Double getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(Double registrationFee) {
+        this.registrationFee = registrationFee;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -139,6 +150,7 @@ public class SchoolTerm implements Serializable {
             ", term='" + getTerm() + "'" +
             ", status='" + getStatus() + "'" +
             ", register='" + isRegister() + "'" +
+            ", registrationFee='" + getRegistrationFee() + "'" +
             ", promDate='" + getPromDate() + "'" +
             ", earlyBirdDate='" + getEarlyBirdDate() + "'" +
             "}";

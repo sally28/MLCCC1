@@ -95,6 +95,13 @@
 
         <div class="form-group">
             <label for="activated">
+                <input ng-disabled="vm.user.primaryContact === null" type="checkbox" id="primaryContact" name="primaryContact" ng-model="vm.user.primaryContact">
+                <span>Is Primary Contact</span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="activated">
                 <input ng-disabled="vm.user.id === null" type="checkbox" id="activated" name="activated" ng-model="vm.user.activated">
                 <span>Activated</span>
             </label>

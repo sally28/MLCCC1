@@ -21,8 +21,6 @@ public class MlcClassDTO {
 
     private Double tuition;
 
-    private Double registrationFee;
-
     private Integer seqNumber;
 
     private String status;
@@ -87,14 +85,6 @@ public class MlcClassDTO {
 
     public void setTuition(Double tuition) {
         this.tuition = tuition;
-    }
-
-    public Double getRegistrationFee() {
-        return registrationFee;
-    }
-
-    public void setRegistrationFee(Double registrationFee) {
-        this.registrationFee = registrationFee;
     }
 
     public Integer getSeqNumber() {

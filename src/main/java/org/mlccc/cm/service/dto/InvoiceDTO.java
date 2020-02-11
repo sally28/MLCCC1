@@ -62,10 +62,9 @@ public class InvoiceDTO {
             dto.setMlcClassName(r.getMlcClass().getClassName());
             dto.setStatus(r.getStatus());
             dto.setStudentName(r.getStudent().getFirstName() +" " + r.getStudent().getLastName());
-            dto.setRegistrationFee(r.getMlcClass().getRegistrationFee());
+            dto.setRegistrationFee(r.getMlcClass().getSchoolTerm().getRegistrationFee());
             dto.setTuition(r.getMlcClass().getTuition());
             dto.setClassTime(r.getMlcClass().getClassTime().getClassTime());
-            dto.setRegistrationFee(r.getMlcClass().getRegistrationFee());
             dto.setId(r.getId());
             registrations.add(dto);
         }

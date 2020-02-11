@@ -179,7 +179,7 @@ public class UserResource {
         } else {
             List<UserDTO> list = new ArrayList<>();
             final UserDTO user = new UserDTO(loginUser.getId(),loginUser.getLogin(), loginUser.getFirstName(), loginUser.getLastName(),
-                loginUser.getEmail(), true, null, null, null, null, null, null, null);
+                loginUser.getEmail(), true, null, null, null, null, null, null, null, loginUser.isPrimaryContact());
             list.add(user);
             return new ResponseEntity<>(list, null, HttpStatus.OK);
         }

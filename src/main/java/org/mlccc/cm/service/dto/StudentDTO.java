@@ -66,9 +66,13 @@ public class StudentDTO {
         Set<UserDTO> associatedAccounts = new HashSet<>();
         for(User user : associatedUsers){
             UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
-                    true, null, null, null, null,null, null, null);
+                    true, null, null, null, null,null, null, null, user.isPrimaryContact());
             associatedAccounts.add(dto);
-            this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+            if(user.isPrimaryContact()){
+                this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+            } else {
+                this.parent2 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+            }
         }
         this.associatedAccounts = associatedAccounts;
     }
@@ -84,9 +88,13 @@ public class StudentDTO {
         if(associatedUsers != null){
             for(User user : associatedUsers){
                 UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
-                        true, null, null, null, null,null, null, null);
+                        true, null, null, null, null,null, null, null, user.isPrimaryContact());
                 associatedAccounts.add(dto);
-                this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+                if(user.isPrimaryContact()){
+                    this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+                } else {
+                    this.parent2 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+                }
             }
             this.associatedAccounts = associatedAccounts;
         }

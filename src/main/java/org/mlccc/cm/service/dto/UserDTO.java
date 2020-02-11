@@ -68,6 +68,10 @@ public class UserDTO {
 
     private Double credit;
 
+    private Boolean primaryContact;
+
+    private Boolean mustChangePassword;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -78,7 +82,7 @@ public class UserDTO {
                     user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
                     user.getAddress(), user.getCity(), user.getState(), user.getZip(), user.getPhone(),
                     user.getAuthorities().stream().map(Authority::getName)
-                            .collect(Collectors.toSet()), user.getSchoolDistrict(), user.getCredit());
+                            .collect(Collectors.toSet()), user.getSchoolDistrict(), user.getCredit(), user.isPrimaryContact(), user.isMustChangePassword());
 
     }
 
@@ -86,7 +90,28 @@ public class UserDTO {
     public UserDTO(Long id, String login, String firstName, String lastName,
         String email, boolean activated, String imageUrl, String langKey,
         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-        Set<String> authorities) {
+        Set<String> authorities, Boolean primaryContact) {
+
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.activated = activated;
+        this.imageUrl = imageUrl;
+        this.langKey = langKey;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
+        this.authorities = authorities;
+        this.primaryContact = primaryContact;
+    }
+
+    public UserDTO(Long id, String login, String firstName, String lastName,
+                   String email, boolean activated, String imageUrl, String langKey,
+                   String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+                   Set<String> authorities) {
 
         this.id = id;
         this.login = login;
@@ -133,7 +158,7 @@ public class UserDTO {
                    String email, boolean activated, String imageUrl, String langKey,
                    String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
                    String address, String city, String state, String zip, String phone,
-                   Set<String> authorities, SchoolDistrict schoolDistrict, Double credit) {
+                   Set<String> authorities, SchoolDistrict schoolDistrict, Double credit, Boolean primaryContact, Boolean mustChangePassword) {
 
         this.id = id;
         this.login = login;
@@ -157,6 +182,8 @@ public class UserDTO {
             this.schoolDistrict = schoolDistrict.getName();
         }
         this.credit = credit;
+        this.primaryContact = primaryContact;
+        this.mustChangePassword = mustChangePassword;
     }
 
     public Long getId() {
@@ -255,6 +282,22 @@ public class UserDTO {
 
     public Double getCredit() {
         return credit;
+    }
+
+    public Boolean isPrimaryContact() {
+        return primaryContact;
+    }
+
+    public void setPrimaryContact(Boolean primaryContact) {
+        this.primaryContact = primaryContact;
+    }
+
+    public Boolean isMustChangePassword() {
+        return mustChangePassword;
+    }
+
+    public void setMustChangePassword(Boolean mustChangePassword) {
+        this.mustChangePassword = mustChangePassword;
     }
 
     @Override
