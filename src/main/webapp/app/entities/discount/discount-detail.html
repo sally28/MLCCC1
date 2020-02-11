@@ -6,7 +6,7 @@
     <dl class="dl-horizontal jh-entity-details">
         <dt><span>Amount</span></dt>
         <dd>
-            <span>{{vm.discount.amount}}</span>
+            <span>{{vm.discount.amount | currency:"$"}}</span>
         </dd>
         <dt><span>Percentage</span></dt>
         <dd>
@@ -22,11 +22,11 @@
         </dd>
         <dt><span>Discount Code</span></dt>
         <dd>
-            <a ui-sref="discount-code-detail({id:vm.discount.discountCode.id})">{{vm.discount.discountCode.id}}</a>
+            <a ui-sref="discount-code-detail({id:vm.discount.discountCode.id})">{{vm.discount.discountCode.code}}</a>
         </dd>
         <dt><span>School Term</span></dt>
         <dd>
-            <a ui-sref="school-term-detail({id:vm.discount.schoolTerm.id})">{{vm.discount.schoolTerm.id}}</a>
+            <a ui-sref="school-term-detail({id:vm.discount.schoolTerm.id})">{{vm.discount.schoolTerm.term}}</a>
         </dd>
     </dl>
 

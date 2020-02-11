@@ -49,9 +49,9 @@ public class TeacherDTO{
                 MlcClassDTO classDTO = new MlcClassDTO();
                 classDTO.setClassName(mlcClass.getClassName());
                 classDTO.setId(mlcClass.getId());
-                classDTO.setClassTime(mlcClass.getClassTime().getClassTime());
+                classDTO.setClassTime(mlcClass.getClassTime() != null ? mlcClass.getClassTime().getClassTime() : "");
                 classDTO.setMlcClassCategory(mlcClass.getMlcClassCategory() != null ? mlcClass.getMlcClassCategory().getName():"");
-                classDTO.setStatus(mlcClass.getStatus().getStatus());
+                classDTO.setStatus(mlcClass.getStatus() != null ? mlcClass.getStatus().getStatus() : "");
                 classDTO.setTuition(mlcClass.getTuition());
                 classes.add(classDTO);
             });
