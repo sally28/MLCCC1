@@ -4,10 +4,22 @@
     <div class="table-responsive">
         <div>
             <div ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.name">
-                <div>
-                    <h3><span>{{mlcClass.name}}</span></h3>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h3><span>{{mlcClass.name}}</span></h3>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3>
+                            <button type="submit"
+                                    ng-click="vm.print(mlcClass.name)"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon"></span>
+                                <span class="hidden-sm-down">Print</span>
+                            </button>
+                        </h3>
+                    </div>
                 </div>
-                <div>
+                <div id="print-section">
                     <table class="jh-table table table-striped">
                         <thead>
                         <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">

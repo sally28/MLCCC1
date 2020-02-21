@@ -8,12 +8,12 @@ import org.mlccc.cm.service.DiscountService;
 import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.service.dto.InvoiceDTO;
-import org.mlccc.cm.service.dto.RegistrationDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -52,6 +52,7 @@ public class InvoiceResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/invoices")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoice) throws URISyntaxException {
         log.debug("REST request to save Invoice : {}", invoice);
@@ -74,6 +75,7 @@ public class InvoiceResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/invoices")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Invoice> updateInvoice(@RequestBody Invoice invoice) throws URISyntaxException {
         log.debug("REST request to update Invoice : {}", invoice);
@@ -135,20 +137,12 @@ public class InvoiceResource {
     @Timed
     public ResponseEntity<InvoiceDTO> getInvoice(@PathVariable Long id) {
         log.debug("REST request to get Invoice : {}", id);
-        Invoice invoice = invoiceService.findOne(id);
+        Invoice invoice = invoiceService.findOneWithRegistrations(id);
         InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
-        if(invoice.getRegistrations().size() > 1){
-            invoiceDTO.setMultiClassDiscount(-30.00);
+        // calculate total amount if invoice is unpaid
+        if(invoice.getStatus().equals(Constants.INVOICE_UNPAID_STATUS)){
+            invoiceService.calculateTotalAmount(invoice, invoiceDTO);
         }
-        Date now = Calendar.getInstance().getTime();
-        if(now.before(new Date())){
-            invoiceDTO.setEarlyBirdDiscount(-0.05);
-        }
-        for(RegistrationDTO registrationDTO : invoiceDTO.getRegistrations()){
-            invoiceDTO.setRegistrationFee(registrationDTO.getRegistrationFee());
-            invoiceDTO.setTotal(invoiceDTO.getTotal() + registrationDTO.getTuition());
-        }
-        invoiceDTO.setTotal(invoiceDTO.getTotal()+invoiceDTO.getMultiClassDiscount());
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(invoiceDTO));
     }
 
@@ -159,6 +153,7 @@ public class InvoiceResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/invoices/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
         log.debug("REST request to delete Invoice : {}", id);

@@ -21,32 +21,26 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="field_description">Multi Class Discount</label>
-            <input type="text" class="form-control" name="multi class discount" id="field_description"
+            <input type="number" min="0.00" class="form-control" name="multi class discount" id="field_description"
                    ng-model="vm.invoice.multiClassDiscount"
             />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_description">Early Bird Discount</label>
-            <input type="text" class="form-control" name="earlybird discount" id="field_description"
+            <input type="number" min="0.00" class="form-control" name="earlybird discount" id="field_description"
                    ng-model="vm.invoice.earlyBirdDiscount"
             />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_description">Credit</label>
-            <input type="text" class="form-control" name="credit" id="field_description"
+            <input type="number" min="0.00" class="form-control" name="credit" id="field_description"
                    ng-model="vm.invoice.credit"
             />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_description">Benefits</label>
-            <input type="text" class="form-control" name="benefits" id="field_description"
+            <input type="number" min="0.00" class="form-control" name="benefits" id="field_description"
                    ng-model="vm.invoice.benefits"
-            />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_description">Total</label>
-            <input type="text" class="form-control" name="total" id="field_description"
-                   ng-model="vm.invoice.total"
             />
         </div>
         <!--
