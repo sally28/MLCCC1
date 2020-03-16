@@ -41,6 +41,9 @@ public class Registration implements Serializable {
     @ManyToOne
     private Invoice invoice;
 
+    @Transient
+    private double tuition;
+
     public Long getId() {
         return id;
     }
@@ -125,6 +128,14 @@ public class Registration implements Serializable {
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    public double getTuition() {
+        return tuition;
+    }
+
+    public void setTuition(double tuition) {
+        this.tuition = tuition;
     }
 
     @Override

@@ -120,41 +120,34 @@ public class InvoiceService {
         dto.setTotal(0.00);
         dto.setMultiClassDiscount(0.00);
         // step 1: first step needs to apply teacher benefits to each class;
-        Set<Authority> authorities = billToUser.getAuthorities();
-        Boolean isTeacher = false;
-        for(Authority auth : authorities){
-            if(auth.getName().equals(AuthoritiesConstants.TEACHER)){
-                isTeacher = true;
-                break;
-            }
-        }
-        if(isTeacher){
-            Double teacherBenefits = 0.00;
-            for(Registration registration : invoice.getRegistrations()){
-                Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
-                Set<User> parents = student.getAssociatedAccounts();
-                for(User parent : parents){
-                    // student's parent is the teacher of the class registered
-                    User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
-                    if(teacherAccount != null && parent.equals(teacherAccount)){
-                        teacherBenefits += registration.getMlcClass().getTuition();
-                        registration.getMlcClass().setTuition(0.00);
-                    }
+        Double teacherBenefits = 0.00;
+        for(Registration registration : invoice.getRegistrations()){
+            Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
+            Set<User> parents = student.getAssociatedAccounts();
+            for(User parent : parents){
+                // one of student's parent is the teacher of the class registered
+                User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
+                if(teacherAccount != null && parent.equals(teacherAccount)){
+                    teacherBenefits += registration.getMlcClass().getTuition();
+                    registration.setTuition(0.00);
+                    break;
+                } else {
+                    registration.setTuition(registration.getMlcClass().getTuition());
                 }
             }
-            dto.setBenefits(teacherBenefits);
         }
+        dto.setBenefits(teacherBenefits);
 
-        Map<String, Discount> discountMap = discountService.findAllBySchoolTerm(schoolTermId);
         // step 2: apply multi-class discount;
+        Map<String, Discount> discountMap = discountService.findAllBySchoolTerm(schoolTermId);
         if(invoice.getRegistrations().size() > 1 && discountMap.get(Constants.DISCOUNT_CODE_MULTICLASS) != null){
             Double highestTuition = 0.00;
             Double totalTuition = 0.00;
             for (Registration reg : invoice.getRegistrations()){
-                if(reg.getMlcClass().getTuition()>highestTuition){
-                    highestTuition = reg.getMlcClass().getTuition();
+                if(reg.getTuition()>highestTuition){
+                    highestTuition = reg.getTuition();
                 }
-                totalTuition += reg.getMlcClass().getTuition();
+                totalTuition += reg.getTuition();
             }
 
             Discount multiClassDiscount = discountMap.get(Constants.DISCOUNT_CODE_MULTICLASS);
@@ -168,7 +161,7 @@ public class InvoiceService {
             }
         } else {
             for(Registration r : invoice.getRegistrations()){
-                dto.setTotal(dto.getTotal()+r.getMlcClass().getTuition());
+                dto.setTotal(dto.getTotal()+r.getTuition());
             }
         }
 
