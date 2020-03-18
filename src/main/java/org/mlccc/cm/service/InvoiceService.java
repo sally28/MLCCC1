@@ -197,12 +197,11 @@ public class InvoiceService {
         }
 
         // step 5: apply registration waiver;
-        Discount regWaiverDiscount = discountMap.get(Constants.DISCOUNT_CODE_REGWAIVER);
         if(now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(schoolTerm.getPromDate())) {
             dto.setRegistrationFee(0.00);
         }else {
             dto.setRegistrationFee(schoolTerm.getRegistrationFee());
-            dto.setTotal(dto.getTotal()+regWaiverDiscount.getAmount());
+            dto.setTotal(dto.getTotal()+schoolTerm.getRegistrationFee());
         }
     }
 
