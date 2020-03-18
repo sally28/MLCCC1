@@ -10,6 +10,7 @@
     function InvoiceController(Invoice) {
 
         var vm = this;
+        vm.noRecord = false;
 
         vm.invoices = [];
 
@@ -18,6 +19,9 @@
         function loadAll() {
             Invoice.query(function(result) {
                 vm.invoices = result;
+                if(vm.invoices.length == 0){
+                    vm.noRecord = true;
+                }
                 vm.searchQuery = null;
             });
         }

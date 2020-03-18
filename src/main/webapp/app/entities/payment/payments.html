@@ -23,6 +23,7 @@
                     <th><span>Amount</span></th>
                     <th><span>Status</span></th>
                     <th><span>Type</span></th>
+                    <th><span>Date Paid</span></th>
                     <th has-authority="ROLE_ADMIN" ><span>User Account</span></th>
                     <th><span>Invoice</span></th>
                     <th></th>
@@ -34,6 +35,7 @@
                     <td>{{payment.amount | currency:"$"}}</td>
                     <td>{{payment.status}}</td>
                     <td>{{payment.type}}</td>
+                    <td>{{payment.createDate | date:'mediumDate'}}</td>
                     <td has-authority="ROLE_ADMIN" >
                         <a ui-sref="user-management-detail({login:payment.account.login})">{{payment.account.firstName}} {{payment.account.lastName}}</a>
                     </td>

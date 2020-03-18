@@ -72,4 +72,11 @@ public class PaymentServiceImpl implements PaymentService{
         log.debug("Request to delete Payment : {}", id);
         paymentRepository.delete(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Payment> findByUserId(Long userId) {
+        log.debug("Request to get Payments with user id");
+        return paymentRepository.findByUserId(userId);
+    }
 }

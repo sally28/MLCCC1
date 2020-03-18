@@ -1,12 +1,26 @@
 
 <div>
     <h2><span>Invoice</span> {{vm.invoice.id}}</h2>
+    <div ng-switch="vm.invoice.status">
+        <div ng-switch-when="UNPAID">
+            <button type="button"
+                    ui-sref="payment.new({invoiceId:vm.invoice.id})"
+                    class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span class="hidden-sm-down">Pay</span>
+            </button>
+        </div>
+    </div>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
         <dt><span>Description</span></dt>
         <dd>
             <span>{{vm.invoice.description}}</span>
+        </dd>
+        <dt><span>Amount</span></dt>
+        <dd>
+            <span>{{vm.invoice.total | currency:"$"}}</span>
         </dd>
         <dt><span>Status</span></dt>
         <dd>
@@ -24,6 +38,24 @@
         <dd has-authority="ROLE_ADMIN">
             <a ui-sref="user-management-detail({login:vm.invoice.billToUser.login})">{{vm.invoice.billToUser.login}}</a>
         </dd>
+        <dt><span>Registration</span></dt>
+        <dd>
+            <div ng-switch="vm.invoice.registrations.length > 0">
+                <div ng-switch-when="true">
+                    <table class="jh-table table table-striped">
+                        <tbody>
+                        <tr ng-repeat="registration in vm.invoice.registrations track by registration.id">
+                            <td>{{registration.studentName}}</td>
+                            <td>Class: {{registration.mlcClassName}}</td>
+                            <td>Time: {{registration.classTime}}</td>
+                            <td>Status: {{registration.status}}</td>
+                            <td>Tuition: {{registration.tuition | currency:"$"}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"
@@ -31,6 +63,8 @@
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
+
+
 <!--
     <button type="button" ui-sref="invoice-detail.edit({id:vm.invoice.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>

@@ -23,12 +23,14 @@
         </div>
     </div>
     <br/>
+    <div ng-if="vm.noRecord">
+        <h3>You have no unpaid invoices.</h3>
+    </div>
     <div ng-repeat="invoice in vm.invoices track by invoice.id">
         <div>
             <table class="jh-table table table-striped">
                 <thead>
                     <th has-authority="ROLE_ADMIN"><span>Bill to User</span></th>
-                    <th><span>Description</span></th>
                     <th><span>Status</span></th>
                     <th><span>Invoice Date</span></th>
                     <th><span>Multi Class Discount</span></th>
@@ -42,8 +44,6 @@
                 <tbody>
                     <tr>
                         <td has-authority="ROLE_ADMIN"><a ui-sref="user-management-detail({login:invoice.billToUser.login})">{{invoice.billToUser.firstName}} {{invoice.billToUser.lastName}}</a></td>
-                        <!--<td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.description}}</a></td>-->
-                        <td>{{invoice.description}}</td>
                         <td>{{invoice.status}}</td>
                         <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
                         <td>{{invoice.multiClassDiscount | currency:"$"}}</td>
@@ -51,7 +51,7 @@
                         <td>{{invoice.registrationFee | currency:"$"}}</td>
                         <td>{{invoice.credit | currency:"$"}}</td>
                         <td>{{invoice.benefits | currency:"$"}}</td>
-                        <td>{{invoice.total | currency:"$"}}</td>
+                        <td style="color:green">{{invoice.total | currency:"$"}}</td>
                         <td has-authority="ROLE_ADMIN">
                             <button type="button"
                                     ui-sref="invoice.edit({id:invoice.id})"

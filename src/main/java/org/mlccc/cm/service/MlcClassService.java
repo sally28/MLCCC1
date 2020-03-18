@@ -46,7 +46,7 @@ public interface MlcClassService {
 
     List<MlcClass> findAllWithTeacherUserId(Long teacherUserId);
 
-    Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId, Long schoolTermId);
+    Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId, Long schoolTermId, boolean newRegistration);
 
     List<MlcClass> findAllActive();
 

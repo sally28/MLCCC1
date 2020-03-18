@@ -2,13 +2,12 @@ package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.mlccc.cm.config.Constants;
-import org.mlccc.cm.domain.Invoice;
-import org.mlccc.cm.domain.MlcAccount;
-import org.mlccc.cm.domain.Payment;
-import org.mlccc.cm.domain.Registration;
+import org.mlccc.cm.domain.*;
+import org.mlccc.cm.security.AuthoritiesConstants;
 import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.PaymentService;
 import org.mlccc.cm.service.RegistrationService;
+import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.mlccc.cm.service.dto.PaymentDTO;
 import org.mlccc.cm.service.dto.RegistrationDTO;
@@ -25,6 +24,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing Payment.
@@ -43,10 +43,14 @@ public class PaymentResource {
 
     private final RegistrationService registrationService;
 
-    public PaymentResource(PaymentService paymentService, InvoiceService invoiceService, RegistrationService registrationService) {
+    private final UserService userService;
+
+    public PaymentResource(PaymentService paymentService, InvoiceService invoiceService, RegistrationService registrationService,
+                           UserService userService) {
         this.paymentService = paymentService;
         this.invoiceService = invoiceService;
         this.registrationService = registrationService;
+        this.userService = userService;
     }
 
     /**
@@ -135,7 +139,19 @@ public class PaymentResource {
     @Timed
     public List<Payment> getAllPayments() {
         log.debug("REST request to get all Payments");
-        return paymentService.findAll();
+        User loginUser = userService.getUserWithAuthorities();
+        Set<Authority> authorities = loginUser.getAuthorities();
+        Boolean allPayments = false;
+        for(Authority auth : authorities){
+            if(auth.getName().equals(AuthoritiesConstants.ADMIN)){
+                allPayments = true;
+            }
+        }
+        if(allPayments){
+            return paymentService.findAll();
+        } else {
+            return paymentService.findByUserId(loginUser.getId());
+        }
     }
 
     /**

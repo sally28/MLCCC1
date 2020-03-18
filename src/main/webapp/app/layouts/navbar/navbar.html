@@ -94,8 +94,15 @@
 
                 <li ng-switch-when="true" ui-sref-active="active" ng-class="{active: vm.$state.includes('invoice')}">
                     <a ui-sref="invoice" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-usd"></span>&nbsp;
+                        <span class="glyphicon glyphicon-credit-card"></span>&nbsp;
                         <span>Invoices</span>
+                    </a>
+                </li>
+
+                <li ng-switch-when="true" ui-sref-active="active" ng-class="{active: vm.$state.includes('payment')}">
+                    <a ui-sref="payment" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-usd"></span>&nbsp;
+                        <span>Payments</span>
                     </a>
                 </li>
 
@@ -103,7 +110,7 @@
                 <!--<li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">-->
                 <li ng-switch-when="true" uib-dropdown class="dropdown pointer"
                     ng-class="{active: vm.$state.includes('mlc-class-category','class-time','class-status','class-room')}">
-                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu" has-authority="ROLE_ADMIN">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>
                             <span class="hidden-sm">
@@ -156,12 +163,14 @@
                                     <span>Registration Status</span>
                                 </a>
                         </li>
+                        <!--
                         <li ui-sref-active="active">
                                 <a ui-sref="payment" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-credit-card"></span>&nbsp;
                                     <span>Payment Information</span>
                                 </a>
                         </li>
+                        -->
                         <li ui-sref-active="active" has-authority="ROLE_ADMIN">
                                 <a ui-sref="discount-code" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-usd"></span>&nbsp;

@@ -10,12 +10,6 @@
                         Register New Class
                     </span>
                 </button>
-                <button class="btn btn-info" ui-sref="invoice" >
-                    <span class="glyphicon glyphicon-eye-open"></span>
-                    <span >
-                        View Invoice
-                    </span>
-                </button>
             </div>
         </div>
     </div>
@@ -45,7 +39,9 @@
                         <a ui-sref="teacher-detail({id:registration.mlcClass.teacher.id})">{{registration.mlcClass.teacher.firstName}} {{registration.mlcClass.teacher.lastName}}</a>
                     </td>
                     <td>
+                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
                         {{registration.status}}
+                        </span>
                     </td>
                     <td>
                         {{registration.mlcClass.tuition | currency:"$"}}
@@ -77,30 +73,12 @@
                             </span>
                         </div>
                     </td>
-                    <!--
-                    <td class="text-right">
-
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="registration-detail({id:registration.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="registration.edit({id:registration.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="registration.delete({id:registration.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                        </div>
-                    </td>-->
+                    <td>
+                        <button class="btn btn-info" ui-sref="invoice-detail({id:registration.invoice.id})" >
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>Invoice</span>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>

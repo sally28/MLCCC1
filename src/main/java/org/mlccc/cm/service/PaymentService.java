@@ -37,4 +37,6 @@ public interface PaymentService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    List<Payment> findByUserId(Long userId);
 }

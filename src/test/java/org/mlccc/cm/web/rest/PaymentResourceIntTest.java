@@ -7,6 +7,7 @@ import org.mlccc.cm.repository.PaymentRepository;
 import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.PaymentService;
 import org.mlccc.cm.service.RegistrationService;
+import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -62,6 +63,9 @@ public class PaymentResourceIntTest {
     private RegistrationService registrationService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -80,7 +84,7 @@ public class PaymentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        PaymentResource paymentResource = new PaymentResource(paymentService, invoiceService, registrationService);
+        PaymentResource paymentResource = new PaymentResource(paymentService, invoiceService, registrationService, userService);
         this.restPaymentMockMvc = MockMvcBuilders.standaloneSetup(paymentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

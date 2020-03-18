@@ -91,11 +91,13 @@ public class MlcClassServiceImpl implements MlcClassService{
     }
 
     @Override
-    public Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId, Long schoolTermId){
-        log.debug("Request to findAllWithSearchTerm: {}, {}, {}, {}", searchTerm, categoryId, teacherId);
+    public Page<MlcClass> findAllWithSearchTerm(Pageable pageable, String searchTerm, Long categoryId, Long teacherId, Long schoolTermId, boolean newRegistration){
+        log.debug("Request to findAllWithSearchTerm: {}, {}, {}, {}, {}", searchTerm, categoryId, teacherId, newRegistration);
         if(!StringUtils.isEmpty(searchTerm)){
             searchTerm = "%"+searchTerm.toLowerCase()+"%";
             return mlcClassRepository.findAllWithSearchTerm(pageable, searchTerm);
+        } else if(newRegistration) {
+            return mlcClassRepository.findAllActiveWithCategory(pageable, categoryId);
         } else if (teacherId != null){
             return mlcClassRepository.findAllWithTeacherAccountId(pageable, teacherId);
         } else if (schoolTermId != null || categoryId != null){
