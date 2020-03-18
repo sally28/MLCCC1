@@ -1,48 +1,63 @@
-package org.mlccc.cm.domain;
+package org.mlccc.cm.service.dto;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import org.mlccc.cm.domain.Invoice;
+import org.mlccc.cm.domain.Payment;
+import org.mlccc.cm.domain.User;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * A Payment.
- */
-@Entity
-@Table(name = "payment")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Payment implements Serializable {
+
+public class PaymentDTO {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "status")
     private String status;
 
-    @Column(name = "type")
     private String type;
 
-    @Column(name = "reference_id")
     private String referenceId;
 
-    @Column(name = "create_date")
     private LocalDate createDate;
 
-    @ManyToOne
+
     private User account;
 
-    @ManyToOne
-    private Invoice invoice;
+    private InvoiceDTO invoiceDto;
+
+    public PaymentDTO() {
+        // Empty constructor needed for Jackson.
+    }
+
+    public PaymentDTO amount(Double amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public PaymentDTO (String status, InvoiceDTO invoiceDto, User account, Double amount) {
+        this.status = status;
+        this.invoiceDto = invoiceDto;
+        this.account = account;
+        this.amount = amount;
+    }
+
+    public Payment toPayment(){
+        Payment payment = new Payment();
+        if(this.id != null){
+            payment.setId(this.id);
+        }
+        payment.setAmount(this.getAmount());
+        payment.setStatus(this.getStatus());
+        payment.setType(this.getType());
+        payment.setAccount(this.getAccount());
+        payment.setReferenceId(this.getReferenceId());
+        return payment;
+    }
 
     public Long getId() {
         return id;
@@ -56,11 +71,6 @@ public class Payment implements Serializable {
         return amount;
     }
 
-    public Payment amount(Double amount) {
-        this.amount = amount;
-        return this;
-    }
-
     public void setAmount(Double amount) {
         this.amount = amount;
     }
@@ -69,7 +79,7 @@ public class Payment implements Serializable {
         return status;
     }
 
-    public Payment status(String status) {
+    public PaymentDTO status(String status) {
         this.status = status;
         return this;
     }
@@ -82,7 +92,7 @@ public class Payment implements Serializable {
         return type;
     }
 
-    public Payment type(String type) {
+    public PaymentDTO type(String type) {
         this.type = type;
         return this;
     }
@@ -99,25 +109,12 @@ public class Payment implements Serializable {
         this.account = userAccount;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public InvoiceDTO getInvoiceDto() {
+        return invoiceDto;
     }
 
-    public Payment invoice(Invoice invoice) {
-        this.invoice = invoice;
-        return this;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
-
-    public String getReferenceId() {
-        return referenceId;
-    }
-
-    public void setReferenceId(String referenceId) {
-        this.referenceId = referenceId;
+    public void setInvoiceDto(InvoiceDTO invoiceDto) {
+        this.invoiceDto = invoiceDto;
     }
 
     public LocalDate getCreateDate() {
@@ -128,6 +125,14 @@ public class Payment implements Serializable {
         this.createDate = createDate;
     }
 
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,7 +141,7 @@ public class Payment implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Payment payment = (Payment) o;
+        PaymentDTO payment = (PaymentDTO) o;
         if (payment.getId() == null || getId() == null) {
             return false;
         }
@@ -150,7 +155,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "PaymentDto{" +
             "id=" + getId() +
             ", amount='" + getAmount() + "'" +
             ", status='" + getStatus() + "'" +

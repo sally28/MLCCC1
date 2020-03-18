@@ -1,5 +1,8 @@
 package org.mlccc.cm.config;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
  * Application constants.
  */
@@ -26,6 +29,7 @@ public final class Constants {
     public static final String DISCOUNT_CODE_REGWAIVER = "REGWAIVER";
     public static final String INVOICE_PAID_STATUS = "PAID";
     public static final String INVOICE_UNPAID_STATUS = "UNPAID";
+    public static final String PAYMENT_TYPES = "Cash,Check,Credit Card,Paypal";
     private Constants() {
     }
 }

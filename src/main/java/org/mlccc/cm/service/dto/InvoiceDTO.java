@@ -30,6 +30,8 @@ public class InvoiceDTO {
 
     private LocalDate invoiceDate;
 
+    private LocalDate modifyDate;
+
     private User billToUser;
 
     private Set<RegistrationDTO> registrations;
@@ -56,6 +58,7 @@ public class InvoiceDTO {
         this.setId(invoice.getId());
         this.setStatus(invoice.getStatus());
         this.setInvoiceDate(invoice.getInvoiceDate());
+        this.setModifyDate(invoice.getModifyDate());
         registrations = new HashSet<>();
         for(Registration r : invoice.getRegistrations()){
             RegistrationDTO dto = new RegistrationDTO();
@@ -170,6 +173,14 @@ public class InvoiceDTO {
 
     public void setBenefits(Double benefits) {
         this.benefits = benefits;
+    }
+
+    public LocalDate getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(LocalDate modifyDate) {
+        this.modifyDate = modifyDate;
     }
 
     @Override

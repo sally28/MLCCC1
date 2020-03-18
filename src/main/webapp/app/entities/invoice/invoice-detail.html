@@ -16,9 +16,13 @@
         <dd>
             <span>{{vm.invoice.invoiceDate | date:'mediumDate'}}</span>
         </dd>
-        <dt><span>User</span></dt>
+        <dt><span>Updated Date</span></dt>
         <dd>
-            {{vm.invoice.user.login}}
+            <span>{{vm.invoice.modifyDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt has-authority="ROLE_ADMIN"><span>User</span></dt>
+        <dd has-authority="ROLE_ADMIN">
+            <a ui-sref="user-management-detail({login:vm.invoice.billToUser.login})">{{vm.invoice.billToUser.login}}</a>
         </dd>
     </dl>
 
@@ -33,6 +37,7 @@
         <span class="hidden-sm-down"> Edit</span>
     </button>
 -->
+    <!--
     <div id="paypal-button"></div>
     <script>
         paypal.Button.render({
@@ -57,5 +62,5 @@
                         });
             }
         }, '#paypal-button');
-    </script>
+    </script>-->
 </div>

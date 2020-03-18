@@ -85,22 +85,20 @@
             data: {
                 authorities: ['ROLE_USER']
             },
+            params: {
+                invoiceId: null
+            },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/payment/payment-dialog.html',
-                    controller: 'PaymentDialogController',
+                    templateUrl: 'app/entities/payment/payment-new.html',
+                    controller: 'PaymentNewController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
-                            return {
-                                amount: null,
-                                status: null,
-                                type: null,
-                                id: null
-                            };
-                        }
+                        entity: ['Invoice', function(Invoice) {
+                            return Invoice.get({id : $stateParams.invoiceId}).$promise;
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('payment', null, { reload: 'payment' });

@@ -53,6 +53,9 @@ public class Invoice implements Serializable {
     @Column(name = "user_credit")
     private Double userCredit;
 
+    @Column(name = "modify_date")
+    private LocalDate modifyDate;
+
     @ManyToOne
     private User user;
 
@@ -252,6 +255,14 @@ public class Invoice implements Serializable {
 
     public void setUserCredit(Double userCredit) {
         this.userCredit = userCredit;
+    }
+
+    public LocalDate getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(LocalDate modifyDate) {
+        this.modifyDate = modifyDate;
     }
 
     @Override

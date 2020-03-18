@@ -91,9 +91,9 @@ public class StudentDTO {
                         true, null, null, null, null,null, null, null, user.isPrimaryContact());
                 associatedAccounts.add(dto);
                 if(user.isPrimaryContact()){
-                    this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+                    this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail();
                 } else {
-                    this.parent2 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
+                    this.parent2 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail();
                 }
             }
             this.associatedAccounts = associatedAccounts;

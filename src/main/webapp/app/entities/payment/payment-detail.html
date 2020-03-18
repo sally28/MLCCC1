@@ -6,7 +6,7 @@
     <dl class="dl-horizontal jh-entity-details">
         <dt><span>Amount</span></dt>
         <dd>
-            <span>{{vm.payment.amount}}</span>
+            <span>{{vm.payment.amount | currency:"$"}}</span>
         </dd>
         <dt><span>Status</span></dt>
         <dd>
@@ -16,13 +16,17 @@
         <dd>
             <span>{{vm.payment.type}}</span>
         </dd>
-        <dt><span>Account</span></dt>
+        <dt><span>Date Paid</span></dt>
         <dd>
-            <a ui-sref="mlc-account-detail({id:vm.payment.account.id})">{{vm.payment.account.id}}</a>
+            <span>{{vm.payment.createDate | date:'mediumDate'}}</span>
         </dd>
-        <dt><span>Registration</span></dt>
+        <dt has-authority="ROLE_ADMIN"><span>Account</span></dt>
+        <dd has-authority="ROLE_ADMIN" >
+            <a ui-sref="user-management-detail({login:vm.payment.account.login})">{{vm.payment.account.login}}</a>
+        </dd>
+        <dt><span>Invoice</span></dt>
         <dd>
-            <a ui-sref="registration-detail({id:vm.payment.registration.id})">{{vm.payment.registration.id}}</a>
+            <a ui-sref="invoice-detail({id:vm.payment.invoice.id})">{{vm.payment.invoice.id}}</a>
         </dd>
     </dl>
 
@@ -32,7 +36,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="payment-detail.edit({id:vm.payment.id})" class="btn btn-primary">
+    <button has-authority="ROLE_ADMIN" type="button" ui-sref="payment-detail.edit({id:vm.payment.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>
     </button>

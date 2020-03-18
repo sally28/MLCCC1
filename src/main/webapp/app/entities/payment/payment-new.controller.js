@@ -3,19 +3,16 @@
 
     angular
         .module('mlcccApp')
-        .controller('PaymentDialogController', PaymentDialogController);
+        .controller('PaymentNewController', PaymentNewController);
 
-    PaymentDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Payment', 'MlcAccount', 'Invoice'];
+    PaymentNewController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Payment', 'MlcAccount', 'Invoice'];
 
-    function PaymentDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Payment, MlcAccount, Invoice) {
+    function PaymentNewController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Payment, MlcAccount, Invoice) {
         var vm = this;
-
-        vm.payment = entity;
+        vm.payment = { id: null, amount: null, type: null, status: null};
+        vm.invoice = entity;
         vm.clear = clear;
         vm.save = save;
-
-        vm.invoice = Invoice.get({id : $stateParams.invoiceId}).$promise;
-        vm.account
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -27,11 +24,10 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.payment.id !== null) {
-                Payment.update(vm.payment, onSaveSuccess, onSaveError);
-            } else {
-                Payment.save(vm.payment, onSaveSuccess, onSaveError);
-            }
+            vm.payment.invoiceDto = vm.invoice;
+            vm.payment.account = vm.invoice.billToUser;
+            vm.payment.status = 'PAID';
+            Payment.save(vm.payment, onSaveSuccess, onSaveError);
         }
 
         function onSaveSuccess (result) {
