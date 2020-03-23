@@ -68,7 +68,7 @@ public class StudentDTO {
             UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
                     true, null, null, null, null,null, null, null, user.isPrimaryContact());
             associatedAccounts.add(dto);
-            if(user.isPrimaryContact()){
+            if(Boolean.TRUE.equals(user.isPrimaryContact())){
                 this.parent1 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
             } else {
                 this.parent2 = user.getFirstName() + " "+ user.getLastName() + " " + user.getEmail() + " " + user.getPhone();
