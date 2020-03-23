@@ -70,7 +70,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="student-detail.edit({id:vm.student.id})" class="btn btn-primary">
+    <button has-authority="ROLE_ADMIN" type="button" ui-sref="student-detail.edit({id:vm.student.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>
     </button>

@@ -49,10 +49,14 @@
                                     <td><a ui-sref="registration-detail({id:registration.id})">{{registration.id}}</a></td>
                                     <td>{{registration.mlcClassName}}</td>
                                     <td>Teacher: {{registration.teacher}}</td>
-                                    <td>{{registration.status}}</td>
-                                    <td>Tuition: {{registration.tuition}}</td>
                                     <td>
-                                        <button type="button"
+                                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                                        {{registration.status}}
+                                        </span>
+                                    </td>
+                                    <td>Tuition: {{registration.tuition | currency:"$"}}</td>
+                                    <td ng-switch="registration.status">
+                                        <button ng-switch-when="PENDING" type="button"
                                                 ui-sref="registration.delete({id:registration.id})"
                                                 class="btn btn-danger btn-sm">
                                             <span class="glyphicon glyphicon-remove-circle"></span>

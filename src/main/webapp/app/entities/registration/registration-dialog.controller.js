@@ -17,9 +17,13 @@
         vm.save = save;
         vm.searchStudent = searchStudent;
         vm.searchClasses = searchClasses;
+        vm.checked = false;
+        vm.select = select;
 
         if($stateParams.studentId){
             vm.students = [Student.get({id : $stateParams.studentId})];
+            vm.registration.student = vm.students[0];
+
         } else {
             vm.students = Student.query({}, function(data){
                 vm.registration.student = data[0];
@@ -91,6 +95,10 @@
                 vm.students = data;
                 vm.registration.student = data[0];
             });
+        }
+
+        function select(){
+            vm.checked = !vm.checked;
         }
 
     }
