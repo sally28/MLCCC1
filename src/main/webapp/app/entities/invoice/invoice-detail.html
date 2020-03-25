@@ -18,9 +18,27 @@
         <dd>
             <span>{{vm.invoice.description}}</span>
         </dd>
-        <dt><span>Amount</span></dt>
+        <dt><span>Amount: {{vm.invoice.total | currency:"$"}}</span></dt>
         <dd>
-            <span>{{vm.invoice.total | currency:"$"}}</span>
+            <table class="jh-table table table-striped">
+                <thead>
+                    <th><span>Registration Fee</span></th>
+                    <th><span>Multi Class Discount</span></th>
+                    <th><span>Early Bird Discount</span></th>
+                    <th><span>Benefits</span></th>
+                    <th><span>Credit</span></th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{vm.invoice.registrationFee | currency:"$"}}</td>
+                    <td>{{vm.invoice.multiClassDiscount | currency:"$"}}</td>
+                    <td>{{vm.invoice.earlyBirdDiscount | currency:"$"}}</td>
+                    <td>{{vm.invoice.benefits | currency:"$"}}</td>
+                    <td>{{vm.invoice.credit | currency:"$"}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <span></span>
         </dd>
         <dt><span>Status</span></dt>
         <dd>

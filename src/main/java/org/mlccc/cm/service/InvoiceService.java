@@ -154,6 +154,7 @@ public class InvoiceService {
             if(multiClassDiscount.getAmount() != null){
                 // amount: simply minus amount from total
                 dto.setTotal(totalTuition-multiClassDiscount.getAmount());
+                dto.setMultiClassDiscount(multiClassDiscount.getAmount());
             } else {
                 // percentage: apply discount (percentage) to the total tuition minus highest tuition.
                 dto.setMultiClassDiscount(Math.round((totalTuition-highestTuition)*(multiClassDiscount.getPercentage()/100)*100.0)/100.0);
@@ -163,6 +164,7 @@ public class InvoiceService {
             for(Registration r : invoice.getRegistrations()){
                 dto.setTotal(dto.getTotal()+r.getTuition());
             }
+            dto.setMultiClassDiscount(0.00);
         }
 
         // step 3: apply early bird discount;
@@ -172,11 +174,14 @@ public class InvoiceService {
                 if(earlyBirdDiscount.getAmount() != null){
                     // amount: simply minus amount from total
                     dto.setTotal(dto.getTotal()-earlyBirdDiscount.getAmount());
+                    dto.setEarlyBirdDiscount(earlyBirdDiscount.getAmount());
                 } else {
                     // percentage: apply discount (percentage) to the total amount.
                     dto.setEarlyBirdDiscount(Math.round(dto.getTotal()*(earlyBirdDiscount.getPercentage()/100)*100.0)/100.0);
                     dto.setTotal(dto.getTotal()-dto.getEarlyBirdDiscount());
                 }
+            } else {
+                dto.setEarlyBirdDiscount(0.00);
             }
         }
 
@@ -194,6 +199,8 @@ public class InvoiceService {
                 billToUser.setCredit(billToUser.getCredit()-dto.getTotal());
                 dto.setTotal(0.00);
             }
+        } else {
+            dto.setCredit(0.00);
         }
 
         // step 5: apply registration waiver;
