@@ -235,6 +235,8 @@ public class RegistrationResource {
             registrationService.delete(id);
             invoiceService.delete(invoice.getId());
         } else {
+            invoice.getRegistrations().remove(registration);
+            invoiceService.save(invoice);
             registrationService.delete(id);
         }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
