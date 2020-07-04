@@ -34,6 +34,8 @@ public class StudentDTO {
 
     private Set<RegistrationDTO> registrations;
 
+    private String notes;
+
     public StudentDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -45,6 +47,7 @@ public class StudentDTO {
         this.birthMonth = student.getBirthMonth();
         this.birthYear = student.getBirthYear();
         this.gender = student.getGender();
+        this.notes = student.getNotes();
         /*
         Set<UserDTO> associatedAccounts = new HashSet<>();
         for(User user : student.getAssociatedAccounts()){
@@ -63,6 +66,7 @@ public class StudentDTO {
         this.birthMonth = student.getBirthMonth();
         this.birthYear = student.getBirthYear();
         this.gender = student.getGender();
+        this.notes = student.getNotes();
         Set<UserDTO> associatedAccounts = new HashSet<>();
         for(User user : associatedUsers){
             UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
@@ -84,6 +88,7 @@ public class StudentDTO {
         this.birthMonth = student.getBirthMonth();
         this.birthYear = student.getBirthYear();
         this.gender = student.getGender();
+        this.notes = student.getNotes();
         Set<UserDTO> associatedAccounts = new HashSet<>();
         if(associatedUsers != null){
             for(User user : associatedUsers){
@@ -195,6 +200,14 @@ public class StudentDTO {
 
     public void setParent2(String parent2) {
         this.parent2 = parent2;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override

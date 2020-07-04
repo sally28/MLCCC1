@@ -109,6 +109,7 @@ public class StudentServiceImpl implements StudentService{
         student.setLastName(studentDto.getLastName());
         student.setGender(studentDto.getGender());
         student.setId(studentDto.getId());
+        student.setNotes(studentDto.getNotes());
 
         Set<User> associatedAccounts = new HashSet<>();
         for(UserDTO userDto : studentDto.getAssociatedAccounts()){
@@ -128,6 +129,7 @@ public class StudentServiceImpl implements StudentService{
         studentDto.setLastName(student.getLastName());
         studentDto.setGender(student.getGender());
         studentDto.setId(student.getId());
+        studentDto.setNotes(student.getNotes());
 
         if(fields.contains("associatedAccounts")){
             Set<UserDTO> associatedAccounts = new HashSet<>();
