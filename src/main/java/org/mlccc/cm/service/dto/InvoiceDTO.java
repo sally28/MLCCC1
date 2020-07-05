@@ -46,7 +46,11 @@ public class InvoiceDTO {
 
     private Double registrationFee = 0.00;
 
+    private Double adjustment = 0.00;
+
     private Double total = 0.00;
+
+    private String comments;
 
     public InvoiceDTO() {
         // Empty constructor needed for Jackson.
@@ -76,7 +80,9 @@ public class InvoiceDTO {
         this.setEarlyBirdDiscount(invoice.getEarlyBirdDiscount() != null ? invoice.getEarlyBirdDiscount() : 0.00);
         this.setMultiClassDiscount(invoice.getMultiClassDiscount() != null ? invoice.getMultiClassDiscount() : 0.00);
         this.setRegistrationFee(invoice.getRegistrationFee() != null ? invoice.getRegistrationFee() : 0.00);
+        this.setAdjustment(invoice.getAdjustment() != null ? invoice.getAdjustment() : 0.00);
         this.setTotal(invoice.getTotal() != null ? invoice.getTotal() : 0.00);
+        this.setComments(invoice.getComments());
     }
 
     public Long getId() {
@@ -181,6 +187,22 @@ public class InvoiceDTO {
 
     public void setModifyDate(LocalDate modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Double getAdjustment() {
+        return adjustment;
+    }
+
+    public void setAdjustment(Double adjustment) {
+        this.adjustment = adjustment;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     @Override

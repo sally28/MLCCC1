@@ -210,6 +210,12 @@ public class InvoiceService {
             dto.setRegistrationFee(schoolTerm.getRegistrationFee());
             dto.setTotal(dto.getTotal()+schoolTerm.getRegistrationFee());
         }
+
+        // step 6: apply adjustment;
+        if(invoice.getAdjustment() != null){
+            dto.setAdjustment(invoice.getAdjustment());
+            dto.setTotal(dto.getTotal() - dto.getAdjustment());
+        }
     }
 
     public Long getSchoolTermId(Invoice invoice){

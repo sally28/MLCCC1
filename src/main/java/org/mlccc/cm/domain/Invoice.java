@@ -53,8 +53,14 @@ public class Invoice implements Serializable {
     @Column(name = "user_credit")
     private Double userCredit;
 
+    @Column(name = "adjustment")
+    private Double adjustment;
+
     @Column(name = "modify_date")
     private LocalDate modifyDate;
+
+    @Column(name = "comments")
+    private String comments;
 
     @ManyToOne
     private User user;
@@ -263,6 +269,22 @@ public class Invoice implements Serializable {
 
     public void setModifyDate(LocalDate modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Double getAdjustment() {
+        return adjustment;
+    }
+
+    public void setAdjustment(Double adjustment) {
+        this.adjustment = adjustment;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     @Override

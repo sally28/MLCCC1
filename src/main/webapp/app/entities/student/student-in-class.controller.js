@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('StudentInClassController', StudentInClassController);
 
-    StudentInClassController.$inject = ['$state', 'loginUser', 'Student', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'Registration', 'MlcClass'];
+    StudentInClassController.$inject = ['$state', 'loginUser', 'Student', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'Registration', 'MlcClass', 'Print'];
 
-    function StudentInClassController($state, loginUser, Student, ParseLinks, AlertService, paginationConstants, pagingParams, Registration, MlcClass) {
+    function StudentInClassController($state, loginUser, Student, ParseLinks, AlertService, paginationConstants, pagingParams, Registration, MlcClass, Print) {
 
         var vm = this;
 
@@ -91,6 +91,7 @@
         }
 
         function print(className){
+            /*
             var printContents = document.getElementById('print-section').innerHTML;
             var popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
             popupWin.document.open();
@@ -103,6 +104,9 @@
                   </html>`
             );
             popupWin.document.close();
+            */
+            var printContents = document.getElementById('print-section').innerHTML;
+            Print.print(className, printContents);
         }
     }
 })();

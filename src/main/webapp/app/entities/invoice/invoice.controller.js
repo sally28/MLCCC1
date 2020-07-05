@@ -5,14 +5,16 @@
         .module('mlcccApp')
         .controller('InvoiceController', InvoiceController);
 
-    InvoiceController.$inject = ['Invoice'];
+    InvoiceController.$inject = ['Invoice', 'Print'];
 
-    function InvoiceController(Invoice) {
+    function InvoiceController(Invoice, Print) {
 
         var vm = this;
         vm.noRecord = false;
 
         vm.invoices = [];
+
+        vm.print = print;
 
         loadAll();
 
@@ -24,6 +26,11 @@
                 }
                 vm.searchQuery = null;
             });
+        }
+
+        function print(title){
+            var printContents = document.getElementById('print-section').innerHTML;
+            Print.print(title, printContents);
         }
     }
 })();

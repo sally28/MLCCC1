@@ -81,11 +81,17 @@ public class InvoiceResource {
         log.debug("REST request to update Invoice : {}", invoice);
         if (invoice.getId() == null) {
             return createInvoice(invoice);
+        } else {
+            // update invoice can only apply to description, adjustment and comments fields.
+            Invoice existingInvoice = invoiceService.findOne(invoice.getId());
+            existingInvoice.setAdjustment(invoice.getAdjustment());
+            existingInvoice.setComments(invoice.getComments());
+            existingInvoice.setDescription(invoice.getDescription());
+            Invoice result = invoiceService.save(existingInvoice);
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, invoice.getId().toString()))
+                    .body(result);
         }
-        Invoice result = invoiceService.save(invoice);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, invoice.getId().toString()))
-            .body(result);
     }
 
     /**

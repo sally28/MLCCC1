@@ -3,14 +3,6 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid" has-authority="ROLE_ADMIN">
         <div class="row">
-            <!-- <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="invoice.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Invoice
-                    </span>
-                </button>
-            </div> -->
             <div class="col-sm-4">
                 <form name="searchForm" role="form" novalidate ng-submit="vm.searchInvoice()">
                     <div class="form-group has-feedback">
@@ -20,13 +12,21 @@
                     </div>
                 </form>
             </div>
+            <div class="col-sm-8">
+                    <button type="submit"
+                            ng-click="vm.print('Unpaid Invoices')"
+                            class="btn btn-primary btn-sm" style="margin-left: 640px">
+                        <span class="glyphicon glyphicon-print"></span>
+                        <span class="hidden-sm-down">Print</span>
+                    </button>
+            </div>
         </div>
     </div>
     <br/>
     <div ng-if="vm.noRecord">
         <h3>You have no unpaid invoices.</h3>
     </div>
-    <div ng-repeat="invoice in vm.invoices track by invoice.id">
+    <div id="print-section" ng-repeat="invoice in vm.invoices track by invoice.id">
         <div>
             <table class="jh-table table table-striped">
                 <thead>
@@ -38,6 +38,7 @@
                     <th><span>Registration Fee</span></th>
                     <th><span>Credit</span></th>
                     <th><span>Benefit</span></th>
+                    <th><span>Adjustment</span></th>
                     <th><span>Total</span></th>
                     <th></th>
                 </thead>
@@ -51,6 +52,7 @@
                         <td>{{invoice.registrationFee | currency:"$"}}</td>
                         <td>{{invoice.credit | currency:"$"}}</td>
                         <td>{{invoice.benefits | currency:"$"}}</td>
+                        <td>{{invoice.adjustment | currency:"$"}}</td>
                         <td style="color:green">{{invoice.total | currency:"$"}}</td>
                         <td has-authority="ROLE_ADMIN">
                             <button type="button"
@@ -60,7 +62,7 @@
                                 <span class="hidden-sm-down">Edit</span>
                             </button>
                         </td>
-                        <td>
+                        <td has-authority="ROLE_ADMIN">
                             <button type="button"
                                     ui-sref="payment.new({invoiceId:invoice.id})"
                                     class="btn btn-primary btn-sm">
