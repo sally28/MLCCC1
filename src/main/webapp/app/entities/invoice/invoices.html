@@ -26,7 +26,8 @@
     <div ng-if="vm.noRecord">
         <h3>You have no unpaid invoices.</h3>
     </div>
-    <div id="print-section" ng-repeat="invoice in vm.invoices track by invoice.id">
+    <div id="print-section">
+        <div ng-repeat="invoice in vm.invoices track by invoice.id">
         <div>
             <table class="jh-table table table-striped">
                 <thead>
@@ -89,6 +90,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!--
     <div class="table-responsive">
