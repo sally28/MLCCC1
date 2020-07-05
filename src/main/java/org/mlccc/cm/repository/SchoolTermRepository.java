@@ -14,6 +14,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface SchoolTermRepository extends JpaRepository<SchoolTerm,Long> {
-    @Query("SELECT st FROM SchoolTerm st order by  st.status, st.id")
+    @Query("SELECT st FROM SchoolTerm st order by st.id desc")
     List<SchoolTerm> findAll();
 }
