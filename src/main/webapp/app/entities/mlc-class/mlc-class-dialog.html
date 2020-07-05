@@ -82,7 +82,7 @@
         </div>
         <div class="form-group">
             <label for="field_schoolTerm">School Term</label>
-            <select class="form-control" id="field_schoolTerm" name="schoolTerm" ng-model="vm.mlcClass.schoolTerm" ng-options="schoolTerm as schoolTerm.id for schoolTerm in vm.schoolterms track by schoolTerm.id">
+            <select class="form-control" id="field_schoolTerm" name="schoolTerm" ng-model="vm.mlcClass.schoolTerm" ng-options="schoolTerm as schoolTerm.term for schoolTerm in vm.schoolterms track by schoolTerm.id">
                 <option value=""></option>
             </select>
         </div>
