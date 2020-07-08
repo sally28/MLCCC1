@@ -19,18 +19,6 @@
         vm.accounts = []
         vm.accounts.push(vm.teacher.account);
 
-        /*vm.accounts = User.query({filter: 'teacher-is-null'});
-
-        $q.all([vm.teacher.$promise]).then(function() {
-            if (!vm.teacher.account || !vm.teacher.account.id) {
-                return $q.reject();
-            }
-            vm.accounts.push(vm.teacher.account);
-        }).then(function(account) {
-            vm.accounts.push(account);
-        });
-        */
-
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });

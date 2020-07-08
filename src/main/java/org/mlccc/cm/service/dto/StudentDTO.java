@@ -92,7 +92,7 @@ public class StudentDTO {
         Set<UserDTO> associatedAccounts = new HashSet<>();
         if(associatedUsers != null){
             for(User user : associatedUsers){
-                UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),null,
+                UserDTO dto = new UserDTO(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),user.getEmail(),
                         true, null, null, null, null,null, null, null, user.isPrimaryContact());
                 associatedAccounts.add(dto);
                 if(user.isPrimaryContact()){

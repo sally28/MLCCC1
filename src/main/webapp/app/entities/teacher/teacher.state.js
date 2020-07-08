@@ -221,6 +221,52 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('teacher.email', {
+            parent: 'teacher',
+            url: '/{id}/email',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/components/email/email.html',
+                    controller: 'EmailController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: ['Teacher', function(Teacher) {
+                            return Teacher.get({id : $stateParams.id}).$promise;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('teacher', null, { reload: 'teacher' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
+        .state('teacher.allemail', {
+            parent: 'teacher',
+            url: '/email',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/components/email/email.html',
+                    controller: 'EmailController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: {to: 'All Teachers'}
+                    }
+                }).result.then(function() {
+                    $state.go('teacher', null, { reload: 'teacher' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 

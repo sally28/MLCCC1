@@ -39,4 +39,8 @@ public final class HeaderUtil {
         headers.add("X-mlcccApp-params", entityName);
         return headers;
     }
+
+    public static HttpHeaders emailSentAlert(String param) {
+        return createAlert("Email has been sent to " + param, param);
+    }
 }

@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * Service Implementation for managing Teacher.
@@ -50,6 +52,13 @@ public class TeacherServiceImpl implements TeacherService{
     public Page<TeacherDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Teachers");
         return teacherRepository.findAll(pageable).map(TeacherDTO::new);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Teacher> findAll() {
+        log.debug("Request to get all Teachers");
+        return teacherRepository.findAll();
     }
 
     /**

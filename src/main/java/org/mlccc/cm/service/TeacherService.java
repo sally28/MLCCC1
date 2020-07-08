@@ -29,6 +29,8 @@ public interface TeacherService {
      */
     Page<TeacherDTO> findAll(Pageable pageable);
 
+    List<Teacher> findAll();
+
     /**
      *  Get the "id" teacher.
      *
