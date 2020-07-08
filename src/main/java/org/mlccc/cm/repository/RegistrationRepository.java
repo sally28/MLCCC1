@@ -24,7 +24,7 @@ public interface RegistrationRepository extends JpaRepository<Registration,Long>
     @Query("SELECT r FROM Registration r WHERE r.mlcClass.id = (:mlcClassId)")
     List<Registration> findAllWithClassId(@Param("mlcClassId") Long mlcClassId);
 
-    @Query("SELECT r FROM Registration r WHERE r.student.id = (:studentId) AND r.mlcClass.id = (:mlcClassId)")
+    @Query("SELECT r FROM Registration r WHERE r.student.id = (:studentId) AND r.mlcClass.id = (:mlcClassId) AND r.mlcClass.status.status != 'CLOSED'")
     List<Registration> findAllWithStudentIdClassId(@Param("studentId") Long studentId, @Param("mlcClassId") Long mlcClassId);
 
     @Query("SELECT r FROM Registration r join r.student.associatedAccounts sa WHERE sa.id = (:userId)")

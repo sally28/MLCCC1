@@ -28,7 +28,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     Page<Student> findAllWithSearchTerm(Pageable var1, @Param("searchTerm")String searchTerm);
 
     @EntityGraph(attributePaths = "associatedAccounts")
-    @Query("select s from Student s join s.registrations r join r.mlcClass c join c.teacher t join t.account a where a.id = (:userId) ")
+    @Query("select s from Student s join s.registrations r join r.mlcClass c join c.teacher t join t.account a where a.id = (:userId) and c.status.status != 'CLOSED' ")
     Page<Student> findStudentsInClassTaughtBy(Pageable var1, @Param("userId")Long userId);
 
 }

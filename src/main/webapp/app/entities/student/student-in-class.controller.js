@@ -105,7 +105,7 @@
             );
             popupWin.document.close();
             */
-            var printContents = document.getElementById('print-section').innerHTML;
+            var printContents = document.getElementById('print-section '+className).innerHTML;
             Print.print(className, printContents);
         }
     }
