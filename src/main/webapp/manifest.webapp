@@ -3,24 +3,24 @@
   "short_name": "mlcccApp",
   "icons": [
       {
-          "src": "/content/images/logo-jhipster.png",
+          "src": "/content/images/Logo.jpg",
           "sizes": "192x192",
-          "type": "image/png"
+          "type": "image/jpg"
       },
       {
-          "src": "/content/images/logo-jhipster.png",
+          "src": "/content/images/Logo.jpg",
           "sizes": "256x256",
-          "type": "image/png"
+          "type": "image/jpg"
       },
       {
-          "src": "/content/images/logo-jhipster.png",
+          "src": "/content/images/Logo.jpg",
           "sizes": "384x384",
-          "type": "image/png"
+          "type": "image/jpg"
       },
       {
-          "src": "/content/images/logo-jhipster.png",
+          "src": "/content/images/Logo.jpg",
           "sizes": "512x512",
-          "type": "image/png"
+          "type": "image/jpg"
       }
   ],
   "theme_color": "#000000",

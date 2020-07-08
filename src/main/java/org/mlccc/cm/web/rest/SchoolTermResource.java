@@ -95,18 +95,30 @@ public class SchoolTermResource {
         if (schoolTerm.getId() == null) {
             return createSchoolTerm(schoolTerm);
         }
+        boolean statusChanged = false;
+        SchoolTerm existing = schoolTermService.findOne(schoolTerm.getId());
+        if(!existing.getStatus().equals(schoolTerm.getStatus())){
+            statusChanged = true;
+        }
         SchoolTerm result = schoolTermService.save(schoolTerm);
 
         // School Term is finished, all classes must be closed.
-        if(schoolTerm.getStatus().equals(Constants.FINISHED_STATUS)) {
-            List<MlcClass> allClasses = mlcClassService.findAllWithSchoolTermId(schoolTerm.getId());
-            ClassStatus closeStatus = classStatusService.findByName(Constants.CLOSED_STATUS);
-            allClasses.forEach(mlcClass -> {
-                if (!mlcClass.getStatus().equals(Constants.CLOSED_STATUS)) {
+        if(statusChanged) {
+            if (schoolTerm.getStatus().equals(Constants.FINISHED_STATUS)) {
+                List<MlcClass> allClasses = mlcClassService.findAllWithSchoolTermId(schoolTerm.getId());
+                ClassStatus closeStatus = classStatusService.findByName(Constants.CLOSED_STATUS);
+                allClasses.forEach(mlcClass -> {
                     mlcClass.setStatus(closeStatus);
                     mlcClassService.save(mlcClass);
-                }
-            });
+                });
+            } else if(schoolTerm.getStatus().equals(Constants.ACTIVE_STATUS)) {
+                List<MlcClass> allClasses = mlcClassService.findAllWithSchoolTermId(schoolTerm.getId());
+                ClassStatus openStatus = classStatusService.findByName(Constants.OPEN_STATUS);
+                allClasses.forEach(mlcClass -> {
+                    mlcClass.setStatus(openStatus);
+                    mlcClassService.save(mlcClass);
+                });
+            }
         }
 
         return ResponseEntity.ok()

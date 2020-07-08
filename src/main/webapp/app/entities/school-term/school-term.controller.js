@@ -12,6 +12,7 @@
         var vm = this;
         vm.finish = finishSchoolTerm;
         vm.schoolTerms = [];
+        vm.start = start;
 
         loadAll();
 
@@ -34,6 +35,11 @@
 
         function onSaveError () {
             vm.isSaving = false;
+        }
+
+        function start(schoolTerm){
+            schoolTerm.status = 'ACTIVE';
+            SchoolTerm.update(schoolTerm, onSaveSuccess, onSaveError);
         }
     }
 })();
