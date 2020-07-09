@@ -21,17 +21,10 @@
         vm.account = loginUser;
         vm.mlcClasses = [];
         vm.print = print;
-
+        vm.emailParents = email;
         loadAll();
 
         function loadAll () {
-            /*MlcClass.query({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort(),
-                teacher: vm.account.id,
-            }, onSuccess, onError);
-            */
             Student.query( {
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
@@ -93,6 +86,27 @@
         function print(className){
             var printContents = document.getElementById('print-section '+className).innerHTML;
             Print.print(className, printContents);
+        }
+
+        function email(className){
+            var parents = []
+            vm.mlcClasses.forEach(function(mlcClass) {
+                if(mlcClass.name == className){
+                    mlcClass.students.forEach(function(student){
+                        student.associatedAccounts.forEach(function(account){
+                            if(account.primaryContact && account.email){
+                                parents.push(account.email);
+                            }
+                        });
+                    });
+                }
+            })
+
+            $state.params.to = 'principal@mlccc.org';
+            $state.params.subject = className;
+            $state.params.cc = vm.account.email;
+            $state.params.bcc = parents;
+            $state.go('student-in-class.email')
         }
     }
 })();

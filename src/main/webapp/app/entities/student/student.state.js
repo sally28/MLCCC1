@@ -247,6 +247,28 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('student-in-class.email', {
+            parent: 'student-in-class',
+            url: '/email',
+            data: {
+                authorities: ['ROLE_TEACHER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/components/email/email.html',
+                    controller: 'EmailController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: {to: $state.params.to, subject: $state.params.subject, cc: $state.params.cc, bcc: $state.params.bcc}
+                    }
+                }).result.then(function() {
+                    $state.go('student-in-class', null, { reload: 'student-in-class' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 

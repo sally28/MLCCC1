@@ -42,10 +42,15 @@ public class EmailResource {
     @PostMapping("/email")
     @Timed
     public ResponseEntity send(@RequestParam (required = true) String recipients, @RequestParam (required = true) String subject,
-                               @RequestParam (required = true) String content) throws URISyntaxException {
+                               @RequestParam (required = true) String content, @RequestParam (required = false) String cc,
+                               @RequestParam (required = false) String bcc ) throws URISyntaxException {
         log.debug("REST request to send email : {}", recipients);
         String[] to;
+        String[] ccList;
+        String[] bccList;
         StringBuffer emails = new StringBuffer();
+        ccList = (cc != null)? cc.split(",") : null;
+        bccList = (bcc != null)? bcc.split(",") : null;
         if(recipients.equals("All Teachers")){
             List<Teacher> teachers = teacherService.findAll();
             for(Teacher teacher : teachers){
@@ -58,7 +63,7 @@ public class EmailResource {
             to = recipients.split(",");
         }
 
-        //mailService.sendEmail(to, subject, content, false, false);
+        mailService.sendEmail(to, subject, content, ccList, bccList, false, false);
 
         return ResponseEntity.created(new URI("/api/account-email/"))
                 .headers(HeaderUtil.emailSentAlert(recipients))

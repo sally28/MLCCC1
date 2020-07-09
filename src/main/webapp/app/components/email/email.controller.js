@@ -24,7 +24,7 @@
             }
             vm.email.cc = entity.cc;
             vm.email.bcc = entity.bcc;
-            vm.subject = entity.subject;
+            vm.email.subject = entity.subject;
         }
         vm.onSuccess = onSuccess;
 
@@ -33,7 +33,14 @@
         }
 
         function send(){
-            Email.setParameter({'recipients':vm.email.recipients, 'cc':vm.cc, 'bcc':vm.bcc, 'subject':vm.email.subject, 'content':vm.email.content});
+            Email.setParameter(
+                {
+                    'recipients':vm.email.recipients,
+                    'cc':vm.email.cc,
+                    'bcc':vm.email.bcc,
+                    'subject':vm.email.subject,
+                    'content':vm.email.content
+                });
             Email.send().sendEmail(null, onSuccess, onError);
         }
 
