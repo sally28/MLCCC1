@@ -152,8 +152,12 @@ application:
     uploadedFileDir: /Temp/MLCCC/upload/
     keyFilePath: /Temp/security/secret.key
     ivFilePath: /Temp/security/ivParameter.txt
-    anEnvironment: sandbox
-    anLoginId: 793qNYs9
-    anTransactionKey: 274ALe6Pzv8h3pn4
-    anKey: Simon
+    #anEnvironment: sandbox
+    #anLoginId: 793qNYs9
+    #anTransactionKey: 274ALe6Pzv8h3pn4
+    #anKey: Simon
+    anEnvironment: production
+    anLoginId: 7Qu2Rz7z
+    anTransactionKey: 5Qmr56whM55Yw48Z
+    #anKey: Simon
 
