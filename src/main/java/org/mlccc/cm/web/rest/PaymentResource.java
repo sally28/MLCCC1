@@ -1,6 +1,7 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import net.authorize.api.contract.v1.ANetApiResponse;
 import org.mlccc.cm.config.Constants;
 import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
@@ -8,6 +9,7 @@ import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.PaymentService;
 import org.mlccc.cm.service.RegistrationService;
 import org.mlccc.cm.service.UserService;
+import org.mlccc.cm.service.dto.CCTransactionDTO;
 import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.mlccc.cm.service.dto.PaymentDTO;
 import org.mlccc.cm.service.dto.RegistrationDTO;
@@ -80,8 +82,11 @@ public class PaymentResource {
 
         // post credit card transaction
         if(payment.getType().equals(Constants.PAYMENT_TYPE_CC)){
-            if(!paymentService.processCCPayment(payment)){
+            CCTransactionDTO ccTransactionDTO = paymentService.processCCPayment(paymentDto.getCreditCard());
+            if(ccTransactionDTO.getResponseCode() == null){
                 return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "CreditCardPayment", "Credit Card payment is not successful")).body(null);
+            } else {
+                payment.setReferenceId(ccTransactionDTO.getTransactionId());
             }
         }
 

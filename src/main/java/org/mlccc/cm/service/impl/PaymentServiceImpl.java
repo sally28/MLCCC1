@@ -4,6 +4,8 @@ import org.mlccc.cm.config.ApplicationProperties;
 import org.mlccc.cm.service.PaymentService;
 import org.mlccc.cm.domain.Payment;
 import org.mlccc.cm.repository.PaymentRepository;
+import org.mlccc.cm.service.dto.CCTransactionDTO;
+import org.mlccc.cm.service.dto.CreditCardPayment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +95,7 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public Boolean processCCPayment(Payment payment){
+    public CCTransactionDTO processCCPayment(CreditCardPayment payment){
         // Set the request to operate in either the sandbox or production environment
         if(applicationProperties.getAnEnvironment().equals("sandbox")) {
             ApiOperationBase.setEnvironment(Environment.SANDBOX);
@@ -109,20 +111,21 @@ public class PaymentServiceImpl implements PaymentService{
         // Populate the payment data
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
-        creditCard.setCardNumber("4242424242424242");
-        creditCard.setExpirationDate("0822");
+        creditCard.setCardNumber(payment.getCardNumber());
+        creditCard.setExpirationDate(payment.getExpirationDate());
+        creditCard.setCardCode(payment.getCardCode());
         paymentType.setCreditCard(creditCard);
 
         // Set email address (optional)
         CustomerDataType customer = new CustomerDataType();
-        customer.setEmail("test@test.test");
+        customer.setEmail(payment.getEmail());
 
         // Create the payment transaction object
         TransactionRequestType txnRequest = new TransactionRequestType();
         txnRequest.setTransactionType(TransactionTypeEnum.AUTH_CAPTURE_TRANSACTION.value());
         txnRequest.setPayment(paymentType);
         txnRequest.setCustomer(customer);
-        txnRequest.setAmount(new BigDecimal(payment.getAmount()).setScale(2, RoundingMode.CEILING));
+        txnRequest.setAmount(new BigDecimal(payment.getPaymentAmount()).setScale(2, RoundingMode.CEILING));
 
         // Create the API request and set the parameters for this specific request
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
@@ -135,6 +138,7 @@ public class PaymentServiceImpl implements PaymentService{
 
         // Get the response
         CreateTransactionResponse response = controller.getApiResponse();
+        CCTransactionDTO transactionDTO = new CCTransactionDTO();
 
         // Parse the response to determine results
         if (response!=null) {
@@ -142,37 +146,49 @@ public class PaymentServiceImpl implements PaymentService{
             if (response.getMessages().getResultCode() == MessageTypeEnum.OK) {
                 TransactionResponse result = response.getTransactionResponse();
                 if (result.getMessages() != null) {
-                    log.info("Successfully created transaction with Transaction ID: " + result.getTransId());
-                    log.info("Response Code: " + result.getResponseCode());
-                    log.info("Message Code: " + result.getMessages().getMessage().get(0).getCode());
-                    log.info("Description: " + result.getMessages().getMessage().get(0).getDescription());
-                    log.info("Auth Code: " + result.getAuthCode());
+                    transactionDTO.setAuthCode(result.getAuthCode());
+                    transactionDTO.setResponseCode(result.getResponseCode());
+                    transactionDTO.setTransactionId(result.getTransId());
+                    transactionDTO.setMessageCode(result.getMessages().getMessage().get(0).getCode());
+                    transactionDTO.setDescription(result.getMessages().getMessage().get(0).getDescription());
+                    log.info("Successfully created transaction with Transaction ID: " + transactionDTO.getTransactionId());
+                    log.info("Response Code: " + transactionDTO.getResponseCode());
+                    log.info("Message Code: " + transactionDTO.getMessageCode());
+                    log.info("Description: " + transactionDTO.getDescription());
+                    log.info("Auth Code: " + transactionDTO.getAuthCode());
                 } else {
-                    log.info("Failed Transaction.");
+                    log.error("Failed Transaction.");
                     if (response.getTransactionResponse().getErrors() != null) {
-                        log.info("Error Code: " + response.getTransactionResponse().getErrors().getError().get(0).getErrorCode());
-                        log.info("Error message: " + response.getTransactionResponse().getErrors().getError().get(0).getErrorText());
+                        transactionDTO.setErrorCode(response.getTransactionResponse().getErrors().getError().get(0).getErrorCode());
+                        transactionDTO.setMessage(response.getTransactionResponse().getErrors().getError().get(0).getErrorText());
+                        log.error("Error Code: " + transactionDTO.getErrorCode());
+                        log.error("Error message: " + transactionDTO.getMessage());
                     }
                 }
             } else {
-                log.info("Failed Transaction.");
+                log.error("Failed Transaction.");
                 if (response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null) {
-                    log.info("Error Code: " + response.getTransactionResponse().getErrors().getError().get(0).getErrorCode());
-                    log.info("Error message: " + response.getTransactionResponse().getErrors().getError().get(0).getErrorText());
+                    transactionDTO.setErrorCode(response.getTransactionResponse().getErrors().getError().get(0).getErrorCode());
+                    transactionDTO.setMessage(response.getTransactionResponse().getErrors().getError().get(0).getErrorText());
+                    log.error("Error Code: " + transactionDTO.getErrorCode());
+                    log.error("Error message: " + transactionDTO.getMessage());
                 } else {
-                    log.info("Error Code: " + response.getMessages().getMessage().get(0).getCode());
-                    log.info("Error message: " + response.getMessages().getMessage().get(0).getText());
+                    transactionDTO.setErrorCode(response.getMessages().getMessage().get(0).getCode());
+                    transactionDTO.setMessage(response.getMessages().getMessage().get(0).getText());
+                    log.error("Error Code: " + transactionDTO.getErrorCode());
+                    log.error("Error message: " + transactionDTO.getMessage());
                 }
             }
         } else {
             // Display the error code and message when response is null
             ANetApiResponse errorResponse = controller.getErrorResponse();
-            log.info("Failed to get response");
+            log.error("Failed to get response");
             if (!errorResponse.getMessages().getMessage().isEmpty()) {
-                log.info("Error: "+errorResponse.getMessages().getMessage().get(0).getCode()+" \n"+ errorResponse.getMessages().getMessage().get(0).getText());
+                transactionDTO.setMessage(errorResponse.getMessages().getMessage().get(0).getCode()+" \n"+ errorResponse.getMessages().getMessage().get(0).getText());
+                log.error("Error: "+ transactionDTO.getMessage());
             }
         }
 
-        return true;
+        return transactionDTO;
     }
 }

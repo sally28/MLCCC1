@@ -1,6 +1,9 @@
 package org.mlccc.cm.service;
 
 import org.mlccc.cm.domain.Payment;
+import org.mlccc.cm.service.dto.CCTransactionDTO;
+import org.mlccc.cm.service.dto.CreditCardPayment;
+
 import java.util.List;
 
 /**
@@ -40,5 +43,5 @@ public interface PaymentService {
 
     List<Payment> findByUserId(Long userId);
 
-    Boolean processCCPayment(Payment payment);
+    CCTransactionDTO processCCPayment(CreditCardPayment payment);
 }

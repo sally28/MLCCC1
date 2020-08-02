@@ -1,7 +1,6 @@
 package org.mlccc.cm.service.dto;
 
 
-import org.mlccc.cm.domain.Invoice;
 import org.mlccc.cm.domain.Payment;
 import org.mlccc.cm.domain.User;
 
@@ -29,6 +28,8 @@ public class PaymentDTO {
     private User account;
 
     private InvoiceDTO invoiceDto;
+
+    private CreditCardPayment creditCard;
 
     public PaymentDTO() {
         // Empty constructor needed for Jackson.
@@ -131,6 +132,14 @@ public class PaymentDTO {
 
     public void setReferenceId(String referenceId) {
         this.referenceId = referenceId;
+    }
+
+    public CreditCardPayment getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCardPayment creditCard) {
+        this.creditCard = creditCard;
     }
 
     @Override

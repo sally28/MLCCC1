@@ -11,6 +11,7 @@
         var vm = this;
         vm.payment = { id: null, amount: null, type: null, status: null};
         vm.invoice = entity;
+        vm.getPaymentMethod = getPaymentMethod;
         vm.clear = clear;
         vm.save = save;
 
@@ -41,5 +42,17 @@
             vm.isSaving = false;
         }
 
+        function  getPaymentMethod() {
+            if (vm.payment.type == 'Credit Card'){
+                var creditCardPayment = {
+                    paymentAmount : vm.invoice.total,
+                    cardNumber : '4242424242424242',
+                    expirationDate: '0822',
+                    cardCode: '234',
+                    email: vm.invoice.billToUser.email
+                }
+                vm.payment.creditCard = creditCardPayment;
+            }
+        }
     }
 })();

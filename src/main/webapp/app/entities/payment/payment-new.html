@@ -26,12 +26,11 @@
         <div class="form-group">
             <label class="control-label" for="field_type">Payment Type</label>
             <select type="text" class="form-control" name="type" id="field_type"
-                    ng-model="vm.payment.type">
-                <option value="Cash">Cash</option>
-                <option value="Check">Check</option>
-                <option value="Credit Card">Credit Card</option>
-                <!--<option value="Paypal">Paypal</option>
-                -->
+                    ng-model="vm.payment.type" ng-change="vm.getPaymentMethod()">
+                <option value="">Select Payment Type</option>
+                <option value="Credit Card">Credit Card (Visa Only)</option>
+                <option value="Cash" has-authority="ROLE_ADMIN">Cash</option>
+                <option value="Check" has-authority="ROLE_ADMIN">Check</option>
             </select>
         </div>
         <div class="form-group" ng-switch="vm.payment.type">
@@ -55,7 +54,12 @@
     </div>
     <div ng-switch="vm.payment.type">
         <div ng-switch-when="Credit Card">
-            <div id="dropin-container"></div>
+            <div id="dropin-container">
+                <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber"/> <br><br>
+                <input type="text" name="expMonth" id="expMonth" placeholder="expMonth"/> <br><br>
+                <input type="text" name="expYear" id="expYear" placeholder="expYear"/> <br><br>
+                <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/> <br><br>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
