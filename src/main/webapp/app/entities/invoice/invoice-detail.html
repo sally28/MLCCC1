@@ -1,7 +1,7 @@
 
 <div>
     <h2><span>Invoice</span> {{vm.invoice.id}}</h2>
-    <div ng-switch="vm.invoice.status" has-authority="ROLE_ADMIN">
+    <div ng-switch="vm.invoice.status">
         <div ng-switch-when="UNPAID">
             <button type="button"
                     ui-sref="payment.new({invoiceId:vm.invoice.id})"

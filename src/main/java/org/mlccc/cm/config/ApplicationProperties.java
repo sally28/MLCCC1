@@ -14,6 +14,10 @@ public class ApplicationProperties {
     private String uploadedFileDir;
     private String keyFilePath;
     private String ivFilePath;
+    private String anEnvironment;
+    private String anLoginId;
+    private String anTransactionKey;
+    private String anKey;
 
 
     public String getNewsletterUploadDir() {
@@ -54,5 +58,37 @@ public class ApplicationProperties {
 
     public void setIvFilePath(String ivFilePath) {
         this.ivFilePath = ivFilePath;
+    }
+
+    public String getAnLoginId() {
+        return anLoginId;
+    }
+
+    public void setAnLoginId(String anLoginId) {
+        this.anLoginId = anLoginId;
+    }
+
+    public String getAnTransactionKey() {
+        return anTransactionKey;
+    }
+
+    public void setAnTransactionKey(String anTransactionKey) {
+        this.anTransactionKey = anTransactionKey;
+    }
+
+    public String getAnKey() {
+        return anKey;
+    }
+
+    public void setAnKey(String anKey) {
+        this.anKey = anKey;
+    }
+
+    public String getAnEnvironment() {
+        return anEnvironment;
+    }
+
+    public void setAnEnvironment(String anEnvironment) {
+        this.anEnvironment = anEnvironment;
     }
 }

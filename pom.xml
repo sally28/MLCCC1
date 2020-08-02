@@ -380,6 +380,14 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-data</artifactId>
         </dependency>
+        <!-- credit card process -->
+        <!-- https://mvnrepository.com/artifact/net.authorize/anet-java-sdk -->
+        <dependency>
+            <groupId>net.authorize</groupId>
+            <artifactId>anet-java-sdk</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
     <build>

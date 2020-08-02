@@ -78,6 +78,13 @@ public class PaymentResource {
 
         Payment payment = paymentDto.toPayment();
 
+        // post credit card transaction
+        if(payment.getType().equals(Constants.PAYMENT_TYPE_CC)){
+            if(!paymentService.processCCPayment(payment)){
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "CreditCardPayment", "Credit Card payment is not successful")).body(null);
+            }
+        }
+
         InvoiceDTO invoiceDto = paymentDto.getInvoiceDto();
         Invoice invoice = invoiceService.findOne(invoiceDto.getId());
         invoice.setEarlyBirdDiscount(invoiceDto.getEarlyBirdDiscount());
@@ -181,4 +188,5 @@ public class PaymentResource {
         paymentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
 }

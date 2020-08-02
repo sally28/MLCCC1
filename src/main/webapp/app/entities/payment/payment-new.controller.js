@@ -27,6 +27,7 @@
             vm.payment.invoiceDto = vm.invoice;
             vm.payment.account = vm.invoice.billToUser;
             vm.payment.status = 'PAID';
+            vm.payment.amount = vm.invoice.total;
             Payment.save(vm.payment, onSaveSuccess, onSaveError);
         }
 
