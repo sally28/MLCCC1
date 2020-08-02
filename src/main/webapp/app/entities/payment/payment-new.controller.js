@@ -36,6 +36,9 @@
             vm.payment.account = vm.invoice.billToUser;
             vm.payment.status = 'PAID';
             vm.payment.amount = vm.invoice.total;
+            if(vm.payment.type == 'Credit Card'){
+                vm.payment.creditCard = vm.creditCardPayment;
+            }
             Payment.save(vm.payment, onSaveSuccess, onSaveError);
         }
 
@@ -51,8 +54,8 @@
 
         function  getPaymentMethod() {
             if (vm.payment.type == 'Credit Card'){
+                vm.creditCardPayment.paymentAmount = vm.invoice.total;
                 vm.creditCardPayment.email = vm.invoice.billToUser.email;
-                vm.payment.creditCard = creditCardPayment;
             }
         }
     }

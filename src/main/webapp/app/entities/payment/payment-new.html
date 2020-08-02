@@ -54,38 +54,35 @@
         <div ng-switch="vm.payment.type">
             <div ng-switch-when="Credit Card">
                 <div id="dropin-container">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <svg id="iconCardFront" viewBox="0 0 48 29" width="40" height="24" style="background: #fff;border: 1px solid #bbb;border-radius: 3px;box-sizing: content-box;">
-                                    <title>Generic Card</title>
-                                    <path d="M46.177 29H1.823C.9 29 0 28.13 0 27.187V1.813C0 .87.9 0 1.823 0h44.354C47.1 0 48 .87 48 1.813v25.375C48 28.13 47.1 29 46.177 29z" style="fill: #FFF"></path>
-                                    <path d="M4.8 9.14c0-.427.57-.973 1.067-.973h7.466c.496 0 1.067.546 1.067.972v3.888c0 .425-.57.972-1.067.972H5.867c-.496 0-1.067-.547-1.067-.972v-3.89z" style="fill: #828282"></path>
-                                    <rect style="fill: #828282" x="10.8" y="22.167" width="3.6" height="2.333" rx="1.167"></rect>
-                                    <rect style="fill: #828282" x="4.8" y="22.167" width="3.6" height="2.333" rx="1.167"></rect>
-                                    <path d="M6.55 16.333h34.9c.966 0 1.75.784 1.75 1.75 0 .967-.784 1.75-1.75 1.75H6.55c-.966 0-1.75-.783-1.75-1.75 0-.966.784-1.75 1.75-1.75z" style="fill: #828282"></path>
-                                    <ellipse style="fill: #828282" cx="40.2" cy="6.417" rx="3" ry="2.917"></ellipse>
-                                </svg>
-                            </div>
-                            <div class="col-sm-8">
-                                <label class="control-label" for="field_type">Pay with card</label>
-                            </div>
-                            <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
                                 <svg id="icon-visa" viewBox="0 0 40 24" width="40" height="24" >
                                     <title>Visa</title>
                                     <path d="M0 1.927C0 .863.892 0 1.992 0h36.016C39.108 0 40 .863 40 1.927v20.146C40 23.137 39.108 24 38.008 24H1.992C.892 24 0 23.137 0 22.073V1.927z" style="fill: #FFF"></path>
                                     <path d="M0 22.033C0 23.12.892 24 1.992 24h36.016c1.1 0 1.992-.88 1.992-1.967V20.08H0v1.953z" style="fill: #F8B600"></path>
                                     <path d="M0 3.92h40V1.967C40 .88 39.108 0 38.008 0H1.992C.892 0 0 .88 0 1.967V3.92zM19.596 7.885l-2.11 9.478H14.93l2.11-9.478h2.554zm10.743 6.12l1.343-3.56.773 3.56H30.34zm2.85 3.358h2.36l-2.063-9.478H31.31c-.492 0-.905.274-1.088.695l-3.832 8.783h2.682l.532-1.415h3.276l.31 1.415zm-6.667-3.094c.01-2.502-3.6-2.64-3.577-3.76.008-.338.345-.7 1.083-.793.365-.045 1.373-.08 2.517.425l.448-2.01c-.615-.214-1.405-.42-2.39-.42-2.523 0-4.3 1.288-4.313 3.133-.016 1.364 1.268 2.125 2.234 2.58.996.464 1.33.762 1.325 1.177-.006.636-.793.918-1.526.928-1.285.02-2.03-.333-2.623-.6l-.462 2.08c.598.262 1.7.49 2.84.502 2.682 0 4.437-1.273 4.445-3.243zM15.948 7.884l-4.138 9.478h-2.7L7.076 9.8c-.123-.466-.23-.637-.606-.834-.615-.32-1.63-.62-2.52-.806l.06-.275h4.345c.554 0 1.052.354 1.178.966l1.076 5.486 2.655-6.45h2.683z" style="fill: #1A1F71"></path>
                                 </svg>
+                                <label class="control-label" for="field_cardNumber">Card Number</label>
+                                <input type="text" class="form-control" name="cardNumber" id="field_cardNumber"
+                                       ng-model="vm.creditCardPayment.cardNumber" placeholder="•••• •••• •••• ••••"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="field_cardNumber">Card Number</label>
-                            <input type="number" class="form-control" name="cardNumber" id="field_cardNumber"
-                                   ng-model="vm.creditCardPayment.cardNumber"/>
-                            <label class="control-label" for="field_cardCode">Security Code</label>
-                            <input type="number" class="form-control" name="cardCode" id="field_cardCode"
-                                   ng-model="vm.creditCardPayment.cardCode"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="field_cardCode">Security Code</label>
+                                <input type="text" class="form-control" name="cardCode" id="field_cardCode"
+                                       ng-model="vm.creditCardPayment.cardCode" placeholder="•••"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="field_expirationDate">Expiration Date (MM/YY)</label>
+                                <input type="text" class="form-control" name="expirationDate" id="field_expirationDate"
+                                       ng-model="vm.creditCardPayment.expirationDate" placeholder="MM/YY"/>
+                            </div>
                         </div>
                     </div>
                 </div>
