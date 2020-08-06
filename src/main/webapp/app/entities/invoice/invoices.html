@@ -34,8 +34,8 @@
                     <th has-authority="ROLE_ADMIN"><span>Bill to User</span></th>
                     <th><span>Status</span></th>
                     <th><span>Invoice Date</span></th>
-                    <!--<th><span>Multi Class Discount</span></th>
-                    <th><span>Early Bird Discount</span></th>-->
+                    <th><span>Multi Class Discount</span></th>
+                    <!--<th><span>Early Bird Discount</span></th>-->
                     <th><span>Registration Fee</span></th>
                     <th><span>Credit</span></th>
                     <th><span>Benefit</span></th>
@@ -48,8 +48,8 @@
                         <td has-authority="ROLE_ADMIN"><a ui-sref="user-management-detail({login:invoice.billToUser.login})">{{invoice.billToUser.firstName}} {{invoice.billToUser.lastName}}</a></td>
                         <td>{{invoice.status}}</td>
                         <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
-                        <!--<td>{{invoice.multiClassDiscount | currency:"$"}}</td>
-                        <td>{{invoice.earlyBirdDiscount | currency:"$"}}</td>-->
+                        <td>{{invoice.multiClassDiscount | currency:"$"}}</td>
+                        <!--<td>{{invoice.earlyBirdDiscount | currency:"$"}}</td>-->
                         <td>{{invoice.registrationFee | currency:"$"}}</td>
                         <td>{{invoice.credit | currency:"$"}}</td>
                         <td>{{invoice.benefits | currency:"$"}}</td>
