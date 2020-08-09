@@ -1,0 +1,71 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myInvoiceLabel">Create or edit a Invoice</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.invoice.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.invoice.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.invoice.description"
+                    />
+        </div>
+        <!--
+        <div class="form-group">
+            <label class="control-label" for="field_description">Multi Class Discount</label>
+            <input type="number" min="0.00" class="form-control" name="multi class discount" id="field_description"
+                   ng-model="vm.invoice.multiClassDiscount"
+            />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Early Bird Discount</label>
+            <input type="number" min="0.00" class="form-control" name="earlybird discount" id="field_description"
+                   ng-model="vm.invoice.earlyBirdDiscount"
+            />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Credit</label>
+            <input type="number" min="0.00" class="form-control" name="credit" id="field_description"
+                   ng-model="vm.invoice.credit"
+            />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Benefits</label>
+            <input type="number" min="0.00" class="form-control" name="benefits" id="field_description"
+                   ng-model="vm.invoice.benefits"
+            />
+        </div>
+        -->
+        <div class="form-group">
+            <label class="control-label" for="field_adjustment">Admin Adjustment</label>
+            <input type="number" min="0.00" class="form-control" name="adjustment" id="field_adjustment"
+                   ng-model="vm.invoice.adjustment"
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="field_comments">Admin Comments</label>
+            <textarea placeholder="Administrator: put your comments about the adjustment for this invoice." class="form-control" name="comments" id="field_comments"
+                   ng-model="vm.invoice.comments"
+            />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

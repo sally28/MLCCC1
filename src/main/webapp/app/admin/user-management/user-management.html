@@ -1,0 +1,89 @@
+<div>
+    <h2>Users</h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+      <div class="col-md-6">
+          <button class="btn btn-primary" ui-sref="user-management.new">
+              <span class="glyphicon glyphicon-flash"></span> <span>Create a new User</span>
+          </button>
+
+          </div>
+        <div class="col-md-4">
+        <form name="searchForm" role="form" novalidate ng-submit="vm.searchUser()">
+            <div class="form-group has-feedback">
+                <input type="search" class="form-control" placeholder="Search User by Name" name="searchTerm" id="searchTerm"
+                       ng-model="vm.searchTerm"/>
+                <i class="glyphicon glyphicon-search form-control-feedback"></i>
+            </div>
+        </form>
+        </div>
+        <div class="col-sm-2"  has-authority="ROLE_ADMIN">
+            <button class="btn btn-primary" ui-sref="user-management.email" >
+                <span class="glyphicon glyphicon-envelope"></span>
+                <span>Send Email</span>
+            </button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <!--<th jh-sort-by="id"><span>ID</span><span class="glyphicon glyphicon-sort"></span></th>-->
+                <th jh-sort-by="login"><span>Login</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="email"><span>Email</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+                                <th><span>Profiles</span></th>                <th jh-sort-by="createdDate"><span>Created Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="lastLoginDate"><span>Last Login Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in vm.users track by user.id">
+                <!--<td><a ui-sref="user-management-detail({login:user.login})">{{user.id}}</a></td>-->
+                <td><a ui-sref="user-management-detail({login:user.login})">{{user.login}}</a></td>
+                <td>{{user.email}}</td>
+                <td>
+                    <button class="btn btn-danger btn-xs" ng-click="vm.setActive(user, true)" ng-show="!user.activated"
+                           >Deactivated</button>
+                    <button class="btn btn-success btn-xs" ng-click="vm.setActive(user, false)" ng-show="user.activated"
+                            ng-disabled="vm.currentAccount.login === user.login">Activated</button>
+                </td>
+                
+                <td>
+                    <div ng-repeat="authority in user.authorities">
+                        <span class="label label-info">{{ authority }}</span>
+                    </div>
+                </td>
+                <td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
+                <td>{{user.lastLoginDate | date:'dd/MM/yy HH:mm'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                class="btn btn-danger btn-sm" ng-disabled="vm.currentAccount.login === user.login">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.reset-password({login:user.login})"
+                                class="btn btn-primary btn-sm">
+                            <span class="hidden-xs hidden-sm"></span>
+                            <span>Reset Password</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

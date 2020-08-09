@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "account",
+            "otherEntityName": "mlcAccount",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "accountAgreement"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "agreement",
+            "otherEntityName": "userAgreement",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "accountAgreement"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "createDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180621001222",
+    "entityTableName": "account_agreement",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

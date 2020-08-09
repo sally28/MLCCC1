@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Account Flag</span> {{vm.accountFlag.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Flag Type</span></dt>
+        <dd>
+            <span>{{vm.accountFlag.flagType}}</span>
+        </dd>
+        <dt><span>Related Key</span></dt>
+        <dd>
+            <span>{{vm.accountFlag.relatedKey}}</span>
+        </dd>
+        <dt><span>Account</span></dt>
+        <dd>
+            <a ui-sref="mlc-account-detail({id:vm.accountFlag.account.id})">{{vm.accountFlag.account.id}}</a>
+        </dd>
+        <dt><span>Flag Status</span></dt>
+        <dd>
+            <a ui-sref="account-flag-status-detail({id:vm.accountFlag.flagStatus.id})">{{vm.accountFlag.flagStatus.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="account-flag-detail.edit({id:vm.accountFlag.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

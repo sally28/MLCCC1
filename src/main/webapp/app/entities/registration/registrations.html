@@ -1,0 +1,90 @@
+<div>
+    <h2>Registrations</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="registration.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Register New Class
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="student.id"><span>Student</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mlcClass.id"><span>Class</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="teacher.id"><span>Teacher</span> <span class="glyphicon"></span></th>
+                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Tuition</span></th>
+                    <th><span>Modified Date</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="registration in vm.registrations track by registration.id">
+                    <td>
+                        <a ui-sref="student-detail({id:registration.student.id})">{{registration.student.firstName+' '+registration.student.lastName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="mlc-class-detail({id:registration.mlcClass.id})">{{registration.mlcClass.className}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="teacher-detail({id:registration.mlcClass.teacher.id})">{{registration.mlcClass.teacher.firstName}} {{registration.mlcClass.teacher.lastName}}</a>
+                    </td>
+                    <td>
+                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                        {{registration.status}}
+                        </span>
+                    </td>
+                    <td>
+                        {{registration.mlcClass.tuition | currency:"$"}}
+                    </td>
+                    <td>
+                        {{registration.modifyDate}}
+                    </td>
+                    <td>
+                        <div ng-switch="registration.status">
+                            <span ng-switch-when="PENDING">
+                                <button type="submit"
+                                        ui-sref="registration.delete({id:registration.id})"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                    <span class="hidden-sm-down">Cancel</span>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
+                            <span ng-switch-when="PENDING">
+                                <form name="confirmForm" role="form" novalidate ng-submit="vm.confirm(registration)">
+                                    <button class="btn btn-primary btn-sm">
+                                        <span class="glyphicon"></span>
+                                        <span class="hidden-sm-down">Confirm</span>
+                                    </button>
+                                </form>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ui-sref="invoice-detail({id:registration.invoice.id})" >
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>Invoice</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Applied Discount</span> {{vm.appliedDiscount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{vm.appliedDiscount.createdDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Modified Date</span></dt>
+        <dd>
+            <span>{{vm.appliedDiscount.modifiedDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Discount</span></dt>
+        <dd>
+            <a ui-sref="discount-detail({id:vm.appliedDiscount.discount.id})">{{vm.appliedDiscount.discount.id}}</a>
+        </dd>
+        <dt><span>Registration</span></dt>
+        <dd>
+            <a ui-sref="registration-detail({id:vm.appliedDiscount.registration.id})">{{vm.appliedDiscount.registration.id}}</a>
+        </dd>
+        <dt><span>Invoice</span></dt>
+        <dd>
+            <a ui-sref="invoice-detail({id:vm.appliedDiscount.invoice.id})">{{vm.appliedDiscount.invoice.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="applied-discount-detail.edit({id:vm.appliedDiscount.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,70 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "status",
+            "otherEntityName": "classStatus",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "classTime",
+            "otherEntityName": "classTime",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "teacher",
+            "otherEntityName": "teacher",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "classRoom",
+            "otherEntityName": "classRoom",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "schoolTerm",
+            "otherEntityName": "schoolTerm",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "className",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "textBook",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "size",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "minAge",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tuition",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "registrationFee",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "seqNumber",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180621001229",
+    "entityTableName": "mlc_class",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl"
+}

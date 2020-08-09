@@ -1,0 +1,98 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myMlcClassLabel">Create or edit a Class</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.mlcClass.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.mlcClass.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_className">Class Name</label>
+            <input type="text" class="form-control" name="className" id="field_className"
+                    ng-model="vm.mlcClass.className"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_textBook">Text Book</label>
+            <input type="text" class="form-control" name="textBook" id="field_textBook"
+                    ng-model="vm.mlcClass.textBook"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_size">Size</label>
+            <input type="number" class="form-control" name="size" id="field_size"
+                    ng-model="vm.mlcClass.size"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_minAge">Min Age</label>
+            <input type="number" class="form-control" name="minAge" id="field_minAge"
+                    ng-model="vm.mlcClass.minAge"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_tuition">Tuition</label>
+            <input type="number" class="form-control" name="tuition" id="field_tuition"
+                    ng-model="vm.mlcClass.tuition"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_seqNumber">Seq Number</label>
+            <input type="number" class="form-control" name="seqNumber" id="field_seqNumber"
+                    ng-model="vm.mlcClass.seqNumber"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label for="field_status">Status</label>
+            <select class="form-control" id="field_status" name="status" ng-model="vm.mlcClass.status" ng-options="classStatus as classStatus.status for classStatus in vm.classstatuses track by classStatus.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_classTime">Class Time</label>
+            <select class="form-control" id="field_classTime" name="classTime" ng-model="vm.mlcClass.classTime" ng-options="classTime as classTime.classTime for classTime in vm.classtimes track by classTime.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_teacher">Teacher</label>
+            <select class="form-control" id="field_teacher" name="teacher" ng-model="vm.mlcClass.teacher" ng-options="teacher as teacher.lastName+','+teacher.firstName for teacher in vm.teachers track by teacher.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_classCategory">Category</label>
+            <select class="form-control" id="field_classCategory" name="category" ng-model="vm.mlcClass.mlcClassCategory" ng-options="category as category.name for category in vm.categories track by category.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_classRoom">Class Room</label>
+            <select class="form-control" id="field_classRoom" name="classRoom" ng-model="vm.mlcClass.classRoom" ng-options="classRoom as classRoom.roomNumber for classRoom in vm.classrooms track by classRoom.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_schoolTerm">School Term</label>
+            <select class="form-control" id="field_schoolTerm" name="schoolTerm" ng-model="vm.mlcClass.schoolTerm" ng-options="schoolTerm as schoolTerm.term for schoolTerm in vm.schoolterms track by schoolTerm.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

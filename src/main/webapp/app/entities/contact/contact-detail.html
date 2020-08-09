@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span>Contact</span> {{vm.contact.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Address</span></dt>
+        <dd>
+            <span>{{vm.contact.address}}</span>
+        </dd>
+        <dt><span>City</span></dt>
+        <dd>
+            <span>{{vm.contact.city}}</span>
+        </dd>
+        <dt><span>State</span></dt>
+        <dd>
+            <span>{{vm.contact.state}}</span>
+        </dd>
+        <dt><span>Zip</span></dt>
+        <dd>
+            <span>{{vm.contact.zip}}</span>
+        </dd>
+        <dt><span>Phone</span></dt>
+        <dd>
+            <span>{{vm.contact.phone}}</span>
+        </dd>
+        <dt><span>Fax</span></dt>
+        <dd>
+            <span>{{vm.contact.fax}}</span>
+        </dd>
+        <dt><span>School District</span></dt>
+        <dd>
+            <a ui-sref="school-district-detail({id:vm.contact.schoolDistrict.id})">{{vm.contact.schoolDistrict.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="contact-detail.edit({id:vm.contact.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

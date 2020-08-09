@@ -1,0 +1,122 @@
+<div>
+    <h2 has-authority="ROLE_ADMIN">Students</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container no-padding">
+        <div class="row">
+            <div class="col-sm-6">
+                <button class="btn btn-primary mb-2" ui-sref="student.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Student
+                    </span>
+                </button>
+            </div>
+            <div class="col-sm-4">
+            <form name="searchForm" role="form" novalidate ng-submit="vm.searchStudent()" has-authority="ROLE_ADMIN">
+                    <div class="form-group mx-sm-3 has-feedback">
+                        <input type="search" class="form-control" placeholder="Search Student by Name" name="searchTerm" id="searchTerm"
+                               ng-model="vm.searchTerm"/>
+                        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                        </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <div ng-switch="vm.showRegistrations">
+            <div ng-switch-when="true">
+                <div ng-repeat="student in vm.students track by student.id">
+                    <div>
+                        <a ui-sref="student-detail({id:student.id})">
+                            <h3><span>{{student.firstName}}</span> <span>{{student.lastName}}</span></h3>
+                        </a>
+                        <div>
+                            <button type="button"
+                                    ui-sref="registration.new.student({studentId:student.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <span class="hidden-sm-down">Register A Class</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div ng-switch="student.registrations.length > 0">
+                        <div ng-switch-when="true">
+                            <h4>Registrations</h4>
+                            <table class="jh-table table table-striped">
+                                <tbody>
+                                <tr ng-repeat="registration in student.registrations track by registration.id">
+                                    <td><a ui-sref="registration-detail({id:registration.id})">{{registration.id}}</a></td>
+                                    <td>{{registration.mlcClassName}}</td>
+                                    <td>Teacher: {{registration.teacher}}</td>
+                                    <td>
+                                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                                        {{registration.status}}
+                                        </span>
+                                    </td>
+                                    <td>Tuition: {{registration.tuition | currency:"$"}}</td>
+                                    <td ng-switch="registration.status">
+                                        <button ng-switch-when="PENDING" type="button"
+                                                ui-sref="registration.delete({id:registration.id})"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-sm-down">Cancel</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-when="false">
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                        <th jh-sort-by="lastName"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="gender"><span>Gender</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="birthYear"><span>Birth Month/Year</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th><span>Notes</span> <span class="glyphicon"></span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="student in vm.students track by student.id">
+                        <td><a ui-sref="student-detail({id:student.id})">{{student.lastName}},{{student.firstName}}</a></td>
+                        <td>{{student.gender}}</td>
+                        <td>{{student.birthMonth}}/{{student.birthYear}}</td>
+                        <td>{{student.notes}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        ui-sref="student-detail({id:student.id})"
+                                        class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    <span class="hidden-sm-down"></span>
+                                </button>
+                                <button type="submit"
+                                        ui-sref="student.edit({id:student.id})"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    <span class="hidden-sm-down"></span>
+                                </button>
+                                <button type="submit"
+                                        ui-sref="student.delete({id:student.id})"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                    <span class="hidden-sm-down"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

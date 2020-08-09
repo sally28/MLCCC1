@@ -1,0 +1,54 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('mlcccApp')
+        .directive('hasNoAuthority', hasNoAuthority);
+
+    hasNoAuthority.$inject = ['Principal'];
+
+    function hasNoAuthority(Principal) {
+        var directive = {
+            restrict: 'A',
+            link: linkFunc
+        };
+
+        return directive;
+
+        function linkFunc(scope, element, attrs) {
+            var authority = attrs.hasAuthority.replace(/\s+/g, '');
+
+            var setVisible = function () {
+                    element.removeClass('hidden');
+                },
+                setHidden = function () {
+                    element.addClass('hidden');
+                },
+                defineVisibility = function (reset) {
+
+                    if (reset) {
+                        setVisible();
+                    }
+
+                    Principal.hasNoAuthority(authority)
+                        .then(function (result) {
+                            if (result) {
+                                setVisible();
+                            } else {
+                                setHidden();
+                            }
+                        });
+                };
+
+            if (authority.length > 0) {
+                defineVisibility(true);
+
+                scope.$watch(function() {
+                    return Principal.isAuthenticated();
+                }, function() {
+                    defineVisibility(true);
+                });
+            }
+        }
+    }
+})();

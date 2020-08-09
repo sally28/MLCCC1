@@ -1,0 +1,34 @@
+<div>
+    <h2>My Teachers</h2>
+    <jhi-alert></jhi-alert>
+    <div>
+        <div ng-repeat="student in vm.students track by student.id">
+            <div>
+                <h3><span>{{student.firstName}} {{student.firstName}}</span></h3>
+            </div>
+            <div>
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                        <th jh-sort-by="className"><span>Class Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th><span>First Name</span></th>
+                        <th><span>Last Name</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="mlcClass in student.mlcClass track by mlcClass.id">
+                        <td><a ui-sref="mlcClass-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
+                        <td><a ui-sref="teacher-detail({id:mlcClass.teacher.id})">{{mlcClass.teacher.firstName}}</a></td>
+                        <td><a ui-sref="teacher-detail({id:mlcClass.teacher.id})">{{mlcClass.teacher.lastName}}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

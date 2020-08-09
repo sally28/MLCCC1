@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Registration</span> {{vm.registration.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Student</span></dt>
+        <dd>
+            <a ui-sref="student-detail({id:vm.registration.student.id})">{{vm.registration.student.firstName+' '+vm.registration.student.lastName}}</a>
+        </dd>
+        <dt><span>Class</span></dt>
+        <dd>
+            <a ui-sref="mlc-class-detail({id:vm.registration.mlcClass.id})">{{vm.registration.mlcClass.className}}</a>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <a ui-sref="registration-status-detail({id:vm.registration.status.id})">{{vm.registration.status.status}}</a>
+        </dd>
+        <dt><span>Create Date</span></dt>
+        <dd>
+            <span>{{vm.registration.createDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Modify Date</span></dt>
+        <dd>
+            <span>{{vm.registration.modifyDate | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="registration-detail.edit({id:vm.registration.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

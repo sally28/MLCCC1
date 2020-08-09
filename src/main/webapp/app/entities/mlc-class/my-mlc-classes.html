@@ -1,0 +1,41 @@
+<div>
+    <h2>My Classes</h2>
+    <jhi-alert></jhi-alert>
+
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="className"><span>Class Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mlcClassCategory"><span>Category</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="minAge"><span>Min Age</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="classTime.id"><span>Class Time</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="classRoom.id"><span>Class Room</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.id">
+                    <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
+                    <td><a ui-sref="mlc-class-category-detail({id:mlcClass.mlcClassCategory.id})">{{mlcClass.mlcClassCategory.name}}</a></td>
+                    <td>{{mlcClass.minAge}}</td>
+                    <td>
+                        <a ui-sref="class-status-detail({id:mlcClass.status.id})">{{mlcClass.status.status}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="class-time-detail({id:mlcClass.classTime.id})">{{mlcClass.classTime.classTime}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="class-room-detail({id:mlcClass.classRoom.id})">{{mlcClass.classRoom.roomNumber}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

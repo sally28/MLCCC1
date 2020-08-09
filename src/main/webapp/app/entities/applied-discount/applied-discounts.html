@@ -1,0 +1,70 @@
+<div>
+    <h2>Applied Discounts</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="applied-discount.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Applied Discount
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Created Date</span></th>
+                    <th><span>Modified Date</span></th>
+                    <th><span>Discount</span></th>
+                    <th><span>Registration</span></th>
+                    <th><span>Invoice</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="appliedDiscount in vm.appliedDiscounts track by appliedDiscount.id">
+                    <td><a ui-sref="applied-discount-detail({id:appliedDiscount.id})">{{appliedDiscount.id}}</a></td>
+                        <td>{{appliedDiscount.createdDate | date:'mediumDate'}}</td>
+                        <td>{{appliedDiscount.modifiedDate | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="discount-detail({id:appliedDiscount.discount.id})">{{appliedDiscount.discount.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="registration-detail({id:appliedDiscount.registration.id})">{{appliedDiscount.registration.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="invoice-detail({id:appliedDiscount.invoice.id})">{{appliedDiscount.invoice.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="applied-discount-detail({id:appliedDiscount.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="applied-discount.edit({id:appliedDiscount.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="applied-discount.delete({id:appliedDiscount.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

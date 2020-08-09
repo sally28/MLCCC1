@@ -1,0 +1,79 @@
+<div>
+    <h2>School Terms</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="school-term.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new School Term
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Term</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>Register</span></th>
+                    <th><span>Registration Fee</span></th>
+                    <th><span>Prom Date</span></th>
+                    <th><span>Early Bird Date</span></th>
+                    <tn></tn>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="schoolTerm in vm.schoolTerms track by schoolTerm.id">
+                    <td><a ui-sref="school-term-detail({id:schoolTerm.id})">{{schoolTerm.id}}</a></td>
+                    <td>{{schoolTerm.term}}</td>
+                    <td>{{schoolTerm.status}}</td>
+                    <td>{{schoolTerm.register}}</td>
+                    <td>{{schoolTerm.registrationFee | currency:"$"}}</td>
+                    <td>{{schoolTerm.promDate | date:'mediumDate'}}</td>
+                    <td>{{schoolTerm.earlyBirdDate | date:'mediumDate'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <div ng-switch="schoolTerm.status">
+                                <div ng-switch-when="PENDING">
+                                    <form  name="startForm" role="form" novalidate ng-submit="vm.start(schoolTerm)">
+                                        <button class="btn btn-primary btn-sm">
+                                            <span class="glyphicon"></span>
+                                            <span class="hidden-sm-down">Start </span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div ng-switch-when="ACTIVE">
+                                    <form  name="finishForm" role="form" novalidate ng-submit="vm.finish(schoolTerm)">
+                                        <button class="btn btn-danger btn-sm">
+                                            <span class="glyphicon"></span>
+                                            <span class="hidden-sm-down">Finish</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <button type="submit"
+                                    ui-sref="school-term.edit({id:schoolTerm.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="school-term.delete({id:schoolTerm.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

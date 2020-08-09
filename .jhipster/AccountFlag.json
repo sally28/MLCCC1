@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "account",
+            "otherEntityName": "mlcAccount",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "flagStatus",
+            "otherEntityName": "accountFlagStatus",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "flagType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "relatedKey",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180621001220",
+    "entityTableName": "account_flag",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

@@ -1,0 +1,15 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001221",
+    "entityTableName": "account_flag_status",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

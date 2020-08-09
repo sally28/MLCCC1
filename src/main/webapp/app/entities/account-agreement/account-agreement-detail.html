@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Account Agreement</span> {{vm.accountAgreement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Create Date</span></dt>
+        <dd>
+            <span>{{vm.accountAgreement.createDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Account</span></dt>
+        <dd>
+            <a ui-sref="mlc-account-detail({id:vm.accountAgreement.account.id})">{{vm.accountAgreement.account.id}}</a>
+        </dd>
+        <dt><span>Agreement</span></dt>
+        <dd>
+            <a ui-sref="user-agreement-detail({id:vm.accountAgreement.agreement.id})">{{vm.accountAgreement.agreement.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="account-agreement-detail.edit({id:vm.accountAgreement.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,66 @@
+<div>
+    <h2>Account Flags</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="account-flag.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Account Flag
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Flag Type</span></th>
+                    <th><span>Related Key</span></th>
+                    <th><span>Account</span></th>
+                    <th><span>Flag Status</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="accountFlag in vm.accountFlags track by accountFlag.id">
+                    <td><a ui-sref="account-flag-detail({id:accountFlag.id})">{{accountFlag.id}}</a></td>
+                    <td>{{accountFlag.flagType}}</td>
+                    <td>{{accountFlag.relatedKey}}</td>
+                    <td>
+                        <a ui-sref="mlc-account-detail({id:accountFlag.account.id})">{{accountFlag.account.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="account-flag-status-detail({id:accountFlag.flagStatus.id})">{{accountFlag.flagStatus.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="account-flag-detail({id:accountFlag.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="account-flag.edit({id:accountFlag.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="account-flag.delete({id:accountFlag.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

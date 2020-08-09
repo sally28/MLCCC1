@@ -1,0 +1,5 @@
+id;code;description
+1;MULTICLASS;Multi-class discount
+2;EARLYBIRD;Early bird discount
+3;REGWAIVER;Registration fee waiver
+4;OTHER;Other

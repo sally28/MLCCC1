@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fileName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uploadDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "uploadedBy",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180621004756",
+    "entityTableName": "news_letter",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

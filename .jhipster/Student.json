@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "account",
+            "otherEntityName": "mlcAccount",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gender",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "birthMonth",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "birthYear",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001227",
+    "entityTableName": "student",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl"
+}

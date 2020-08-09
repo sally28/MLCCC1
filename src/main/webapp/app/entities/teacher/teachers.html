@@ -1,0 +1,81 @@
+<div>
+    <h2>Teachers</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"  has-authority="ROLE_ADMIN">
+                <button class="btn btn-primary" ui-sref="teacher.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Teacher
+                    </span>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <form name="searchForm" role="form" novalidate ng-submit="vm.searchTeacher()">
+                    <div class="form-group has-feedback">
+                        <input type="search" class="form-control" placeholder="Search Teacher by Name" name="searchTerm" id="searchTerm"
+                               ng-model="vm.searchTerm"/>
+                        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-2"  has-authority="ROLE_ADMIN">
+                <button class="btn btn-primary" ui-sref="teacher.allemail" >
+                    <span class="glyphicon glyphicon-envelope"></span>
+                    <span >Send Email</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="firstName"><span>First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="lastName"><span>Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Class Categories</span></th>
+                    <th><span>Classes</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="teacher in vm.teachers track by teacher.id">
+                    <td><a ui-sref="teacher-detail({id:teacher.id})">{{teacher.firstName}}</a></td>
+                    <td><a ui-sref="teacher-detail({id:teacher.id})">{{teacher.lastName}}</a></td>
+                    <td>{{teacher.classCategories}}</td>
+                    <td>{{teacher.classes}}</td>
+                    <td class="text-right" has-authority="ROLE_ADMIN">
+                        <div class="btn-group flex-btn-group-container">
+                            <div ng-if="teacher.account">
+                            <button type="submit"
+                                    ui-sref="teacher.email({id:teacher.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            </div>
+                            <button type="submit"
+                                    ui-sref="teacher.edit({id:teacher.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="teacher.delete({id:teacher.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

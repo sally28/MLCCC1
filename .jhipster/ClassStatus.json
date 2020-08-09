@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "colorDisplayed",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180621001231",
+    "entityTableName": "class_status",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}
