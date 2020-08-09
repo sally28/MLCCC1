@@ -3,9 +3,11 @@ package org.mlccc.cm.web.rest;
 import org.mlccc.cm.MlcccApp;
 
 import org.mlccc.cm.domain.MlcClass;
+import org.mlccc.cm.domain.Teacher;
 import org.mlccc.cm.repository.MlcClassRepository;
 import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.RegistrationService;
+import org.mlccc.cm.service.TeacherService;
 import org.mlccc.cm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -84,10 +86,12 @@ public class MlcClassResourceIntTest {
 
     private RegistrationService registrationService;
 
+    private TeacherService teacherService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        MlcClassResource mlcClassResource = new MlcClassResource(mlcClassService, registrationService);
+        MlcClassResource mlcClassResource = new MlcClassResource(mlcClassService, registrationService, teacherService);
         this.restMlcClassMockMvc = MockMvcBuilders.standaloneSetup(mlcClassResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
