@@ -157,6 +157,27 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('user-management.email', {
+            parent: 'user-management',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/components/email/email.html',
+                    controller: 'EmailController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: {to: 'All Users'}
+                    }
+                }).result.then(function() {
+                    $state.go('user-management', null, { reload: 'user-management' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 })();

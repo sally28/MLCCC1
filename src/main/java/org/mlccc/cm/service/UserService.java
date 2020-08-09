@@ -229,6 +229,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public List<User> getAllActiveUsers() {
+        return userRepository.findAllByActivatedIsTrue();
+    }
+
+    @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }

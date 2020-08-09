@@ -93,5 +93,6 @@
         function searchUser(){
             User.search({search:vm.searchTerm}, onSuccess, onError);
         }
+
     }
 })();

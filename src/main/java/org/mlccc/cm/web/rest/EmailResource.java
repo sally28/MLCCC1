@@ -2,8 +2,10 @@ package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.mlccc.cm.domain.Teacher;
+import org.mlccc.cm.domain.User;
 import org.mlccc.cm.service.MailService;
 import org.mlccc.cm.service.TeacherService;
+import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,13 @@ public class EmailResource {
     @Autowired
     private final TeacherService teacherService;
 
-    public EmailResource(MailService mailService, TeacherService teacherService) {
+    @Autowired
+    private final UserService userService;
+
+    public EmailResource(MailService mailService, TeacherService teacherService, UserService userService) {
         this.mailService = mailService;
         this.teacherService = teacherService;
+        this.userService = userService;
     }
 
     @PostMapping("/email")
@@ -59,6 +65,15 @@ public class EmailResource {
                 }
             }
             to = emails.toString().split(",");
+        } else if(recipients.equals("All Users")) {
+            to = "principal@mlccc.org".split(",");
+            List<User> allUsers = userService.getAllActiveUsers();
+            for(User user : allUsers){
+                if(!user.getEmail().isEmpty()){
+                    emails.append(user.getEmail()).append(",");
+                }
+            }
+            bccList = emails.toString().split(",");
         } else {
             to = recipients.split(",");
         }
