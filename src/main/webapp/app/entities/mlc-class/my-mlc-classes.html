@@ -19,17 +19,11 @@
             <tbody>
                 <tr ng-repeat="mlcClass in vm.mlcClasses track by mlcClass.id">
                     <td><a ui-sref="mlc-class-detail({id:mlcClass.id})">{{mlcClass.className}}</a></td>
-                    <td><a ui-sref="mlc-class-category-detail({id:mlcClass.mlcClassCategory.id})">{{mlcClass.mlcClassCategory.name}}</a></td>
+                    <td>{{mlcClass.mlcClassCategory.name}}</td>
                     <td>{{mlcClass.minAge}}</td>
-                    <td>
-                        <a ui-sref="class-status-detail({id:mlcClass.status.id})">{{mlcClass.status.status}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="class-time-detail({id:mlcClass.classTime.id})">{{mlcClass.classTime.classTime}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="class-room-detail({id:mlcClass.classRoom.id})">{{mlcClass.classRoom.description}}</a>
-                    </td>
+                    <td ng-class="{'color-red': mlcClass.status.status == 'CLOSED'}">{{mlcClass.status.status}}</td>
+                    <td>{{mlcClass.classTime.classTime}}</td>
+                    <td>{{mlcClass.classRoom.description}}</td>
                 </tr>
             </tbody>
         </table>
