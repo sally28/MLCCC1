@@ -1,5 +1,5 @@
 # ===================================================================
-# Spring Boot configuration for the "prod" profile.
+# Spring Boot configuration for the "dev" profile.
 #
 # This configuration overrides the application.yml file.
 #
@@ -14,33 +14,53 @@
 # ===================================================================
 
 spring:
+    profiles:
+        active: prod
+        include: swagger
     devtools:
         restart:
-            enabled: false
+            enabled: true
         livereload:
-            enabled: false
+            enabled: false # we use gulp + BrowserSync for livereload
+    jackson:
+        serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/mlccc
-        username: postgres
-        password: Scala350!
+        url: jdbc:postgresql://ec2-50-16-197-244.compute-1.amazonaws.com:5432/d61nsjv88u08d4?sslmode=require
+        username: negtfxydeqxgab
+        password: 7abe7b01fcb3b9dff4034a48c41fa646d7455cdc12be06d6a9e5a1dc68f4e18d
+        #url: jdbc:postgresql://localhost:5432/mlccc
+        #username: postgres
+        #password: Scala350!
+        #type: ${datasource.type}
+        #url: ${datasource.url}
+        #username: ${datasource.username}
+        #password: ${datasource.password}
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
-        show-sql: false
+        show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: false
+            hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.NoDefaultJCacheRegionFactory
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.gmail.com
+        port: 587
+        username: mlcccteam@gmail.com
+        password: mlccc@2651
+        protocol: smtp
+        properties:
+            mail:
+                smtp:
+                    starttls:
+                        enable: true
+    messages:
+        cache-seconds: 1
     thymeleaf:
-        cache: true
+        cache: false
 
 liquibase:
     contexts: dev
@@ -55,7 +75,7 @@ liquibase:
 # Then, modify the server.ssl properties so your "server" configuration looks like:
 #
 # server:
-#    port: 443
+#    port: 8443
 #    ssl:
 #        key-store: keystore.p12
 #        key-store-password: <your-password>
@@ -64,10 +84,6 @@ liquibase:
 # ===================================================================
 server:
     port: 8080
-    compression:
-        enabled: true
-        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
-        min-response-size: 1024
 
 # ===================================================================
 # JHipster specific properties
@@ -78,30 +94,36 @@ server:
 jhipster:
     http:
         version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
-        cache: # Used by the CachingHttpHeadersFilter
-            timeToLiveInDays: 1461
     cache: # Cache configuration
         ehcache: # Ehcache configuration
             time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
-            max-entries: 1000 # Number of objects in each cache entry
+            max-entries: 100 # Number of objects in each cache entry
+    # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
+    cors:
+        allowed-origins: "*"
+        allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+        allowed-headers: "*"
+        exposed-headers:
+        allow-credentials: true
+        max-age: 1800
     security:
         authentication:
             jwt:
-                secret: 8c547733b36082ea98aa98fe358f49c958eb5159
+                secret: my-secret-token-to-change-in-production
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: mlccc@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+        base-url: https://mlcccadmin.herokuapp.com/
+        from: mlcccteam@gmail.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
-        graphite:
+        graphite: # Use the "graphite" Maven profile to have the Graphite dependencies
             enabled: false
             host: localhost
             port: 2003
             prefix: mlccc
-        prometheus:
+        prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
             enabled: false
             endpoint: /prometheusMetrics
         logs: # Reports Dropwizard metrics in the logs
@@ -124,3 +146,17 @@ jhipster:
 # ===================================================================
 
 application:
+    newsletterUploadDir: /Temp/MLCCC/upload/newsletter/
+    mediaUploadDir: /Temp/MLCCC/upload/media/
+
+    uploadedFileDir: /Temp/MLCCC/upload/
+    keyFilePath: /Temp/security/secret.key
+    ivFilePath: /Temp/security/ivParameter.txt
+    #anEnvironment: sandbox
+    #anLoginId: 793qNYs9
+    #anTransactionKey: 274ALe6Pzv8h3pn4
+    #anKey: Simon
+    anEnvironment: production
+    anLoginId: 7Qu2Rz7z
+    anTransactionKey: 5Qmr56whM55Yw48Z
+    #anKey: Simon
