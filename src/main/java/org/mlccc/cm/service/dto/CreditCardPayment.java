@@ -6,6 +6,7 @@ public class CreditCardPayment {
     String cardCode;
     Double paymentAmount;
     String email;
+    String cardHolderName;
 
     public String getCardNumber() {
         return cardNumber;
@@ -45,5 +46,13 @@ public class CreditCardPayment {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCardHolderName() {
+        return cardHolderName;
+    }
+
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = cardHolderName;
     }
 }

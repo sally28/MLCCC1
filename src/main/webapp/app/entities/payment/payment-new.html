@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -65,7 +65,37 @@
                                 </svg>
                                 <label class="control-label" for="field_cardNumber">Card Number</label>
                                 <input type="text" class="form-control" name="cardNumber" id="field_cardNumber"
-                                       ng-model="vm.creditCardPayment.cardNumber" placeholder="•••• •••• •••• ••••"/>
+                                       ng-model="vm.creditCardPayment.cardNumber" placeholder="•••• •••• •••• ••••" required
+                                       ng-minlength=16 ng-maxlength=19 ng-pattern="/^[0-9]+$/"/>
+                                <div ng-show="editForm.cardNumber.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.cardNumber.$error.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.cardNumber.$error.minlength"
+                                    >
+                                        This field must be at least 16 digits.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.cardNumber.$error.maxlength"
+                                    >
+                                        This field cannot be longer than 19 digits.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.cardNumber.$error.pattern">
+                                        Card number must be numbers.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" for="field_cardHolderName">Card Holder Name</label>
+                                <input type="text" class="form-control" name="cardHolderName" id="field_cardHolderName"
+                                       ng-model="vm.creditCardPayment.cardHardHolderName"/>
                             </div>
                         </div>
                     </div>
@@ -74,14 +104,40 @@
                             <div class="form-group">
                                 <label class="control-label" for="field_cardCode">Security Code</label>
                                 <input type="text" class="form-control" name="cardCode" id="field_cardCode"
-                                       ng-model="vm.creditCardPayment.cardCode" placeholder="•••"/>
+                                       ng-model="vm.creditCardPayment.cardCode" placeholder="•••" ng-pattern="/^[0-9]+$/"
+                                       ng-minlength=3 ng-maxlength=3 required/>
+                                <div ng-show="editForm.cardCode.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.cardCode.$error.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.cardCode.$error.minlength"
+                                    >
+                                        This field must be 3 digits.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.cardCode.$error.maxlength"
+                                    >
+                                        This field must be 3 digits.
+                                    <p class="help-block"
+                                       ng-show="editForm.cardCode.$error.pattern">
+                                        Security code must be numbers.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label" for="field_expirationDate">Expiration Date (MM/YY)</label>
+                                <label class="control-label" for="field_expirationDate">Expiration Date (MM/YYYY)</label>
                                 <input type="text" class="form-control" name="expirationDate" id="field_expirationDate"
-                                       ng-model="vm.creditCardPayment.expirationDate" placeholder="MM/YY"/>
+                                       ng-model="vm.creditCardPayment.expirationDate" placeholder="MM/YYYY" required/>
+                                <div ng-show="editForm.expirationDate.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.expirationDate.$error.required">
+                                        This field is required.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

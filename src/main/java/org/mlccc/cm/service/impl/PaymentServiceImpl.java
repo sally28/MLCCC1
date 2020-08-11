@@ -119,6 +119,7 @@ public class PaymentServiceImpl implements PaymentService{
         // Set email address (optional)
         CustomerDataType customer = new CustomerDataType();
         customer.setEmail(payment.getEmail());
+        customer.setId(payment.getCardHolderName());
 
         // Create the payment transaction object
         TransactionRequestType txnRequest = new TransactionRequestType();

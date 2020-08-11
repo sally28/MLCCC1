@@ -130,6 +130,7 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
+        user.setPrimaryContact(userDTO.isPrimaryContact());
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -190,6 +191,7 @@ public class UserService {
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
                 user.setCredit(userDTO.getCredit());
+                user.setPrimaryContact(userDTO.isPrimaryContact());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 user.setCredit(userDTO.getCredit());
                 managedAuthorities.clear();
