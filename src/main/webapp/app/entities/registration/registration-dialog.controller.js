@@ -36,7 +36,7 @@
             if(vm.mlcClassCategory == null){
                 vm.mlcClassCategory = data[0];
             }
-            vm.mlcclasses = MlcClass.query({category: vm.mlcClassCategory.id, newRegistration: true}, function(data){
+            vm.mlcclasses = MlcClass.query({category: vm.mlcClassCategory.id, newRegistration: true, size: 50}, function(data){
                 vm.registration.mlcClass = data[0];
             });
         }
@@ -81,7 +81,7 @@
         }
 
         function searchClasses (){
-            vm.mlcclasses = MlcClass.search({category: vm.mlcClassCategory.id, newRegistration: true}, function(data){
+            vm.mlcclasses = MlcClass.search({category: vm.mlcClassCategory.id, newRegistration: true, size:50}, function(data){
                 vm.registration.mlcClass = data[0];
             });
         }
