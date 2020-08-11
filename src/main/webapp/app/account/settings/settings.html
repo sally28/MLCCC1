@@ -89,9 +89,9 @@
                     <label class="control-label" for="phone">Phone</label>
                     <input type="phone" class="form-control" id="phone" name="phone" placeholder="phone"
                            ng-model="vm.settingsAccount.phone" ng-minlength=10 ng-maxlength=10 maxlength="10">
-                    <label class="control-label" for="phone">School District</label>
-                    <input type="phone" class="form-control" id="schoolDistrict" name="phone" placeholder="schoolDistrict"
-                           ng-model="vm.settingsAccount.schoolDistrict" ng-minlength=10 ng-maxlength=500 maxlength="10">
+                    <label class="control-label" for="schoolDistrict">School District</label>
+                    <input type="phone" class="form-control" id="schoolDistrict" name="schoolDistrict" placeholder="schoolDistrict"
+                           ng-model="vm.settingsAccount.schoolDistrict" ng-maxlength=500>
                 </div>
                 <p></p>
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
