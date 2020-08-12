@@ -73,7 +73,7 @@ public class UserDTO {
     private Boolean mustChangePassword;
 
     public UserDTO() {
-        // Empty constructor needed for Jackson.
+        // Empty constructor needed for Jackson;
     }
 
     public UserDTO(User user) {

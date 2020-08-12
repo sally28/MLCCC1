@@ -26,7 +26,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Service class for managing users.
+ * Service class for managing users;
  */
 @Service
 @Transactional

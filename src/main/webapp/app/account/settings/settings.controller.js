@@ -35,7 +35,7 @@
                 schoolDistrict: account.schoolDistrict
             };
         };
-
+        //load all school districts
         loadSchoolDistricts();
 
         Principal.identity().then(function(account) {
