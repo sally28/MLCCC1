@@ -30,11 +30,11 @@
         </dd>-->
         <dt><span>Status</span></dt>
         <dd>
-            <a ui-sref="class-status-detail({id:vm.mlcClass.status.id})">{{vm.mlcClass.status.status}}</a>
+            {{vm.mlcClass.status.status}}
         </dd>
         <dt><span>Class Time</span></dt>
         <dd>
-            <a ui-sref="class-time-detail({id:vm.mlcClass.classTime.id})">{{vm.mlcClass.classTime.classTime}}</a>
+            {{vm.mlcClass.classTime.classTime}}
         </dd>
         <dt><span>Teacher</span></dt>
         <dd>
@@ -42,15 +42,15 @@
         </dd>
         <dt><span>Category</span></dt>
         <dd>
-            <a ui-sref="mlc-class-category-detail({id:vm.mlcClass.mlcClassCategory.id})">{{vm.mlcClass.mlcClassCategory.name}}</a>
+            {{vm.mlcClass.mlcClassCategory.name}}
         </dd>
         <dt><span>Class Room</span></dt>
         <dd>
-            <a ui-sref="class-room-detail({id:vm.mlcClass.classRoom.id})">{{vm.mlcClass.classRoom.roomNumber}}</a>
+            {{vm.mlcClass.classRoom.roomNumber}}
         </dd>
         <dt><span>School Term</span></dt>
         <dd>
-            <a ui-sref="school-term-detail({term:vm.mlcClass.schoolTerm.term})">{{vm.mlcClass.schoolTerm.term}}</a>
+            {{vm.mlcClass.schoolTerm.term}}
         </dd>
     </dl>
 
@@ -59,7 +59,12 @@
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
-
+    <button type="submit"
+            ui-sref="registration.new.class({classId:vm.mlcClass.id})"
+            class="btn btn-primary" ng-if="vm.mlcClass.status.status == 'OPEN'">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="hidden-sm-down">Register</span>
+    </button>
     <button type="button" ui-sref="mlc-class-detail.edit({id:vm.mlcClass.id})" class="btn btn-primary" has-authority="ROLE_ADMIN">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>

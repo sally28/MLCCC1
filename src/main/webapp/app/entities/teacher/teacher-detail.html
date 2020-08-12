@@ -40,18 +40,18 @@
                     <td ng-class="{'color-red': mlcClass.status == 'CLOSED'}">Status: {{mlcClass.status}}</td>
                     <td>Tuition: {{mlcClass.tuition}}</td>
                     <td>Time: {{mlcClass.classTime}}</td>
-                    <!--
+
                     <td has-authority="ROLE_USER">
                         <div ng-if="mlcClass.status == 'OPEN'">
                             <button type="submit"
-                                    ui-sref="registration.new()"
+                                    ui-sref="registration.new.class({classId:mlcClass.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-plus"></span>
                                 <span class="hidden-sm-down">Register</span>
                             </button>
                         </div>
                     </td>
-
+                    <!--
 
                     <td has-authority="ROLE_ADMIN">
                         <button type="submit"
@@ -69,7 +69,7 @@
     </div>
 
     <button type="submit"
-            ui-sref="{{ vm.previousState }}"
+            ui-sref="teacher()"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>

@@ -23,14 +23,25 @@
         if($stateParams.studentId){
             vm.students = [Student.get({id : $stateParams.studentId})];
             vm.registration.student = vm.students[0];
-
         } else {
             vm.students = Student.query({}, function(data){
                 vm.registration.student = data[0];
             });
         }
-
+        if($stateParams.classId){
+            MlcClass.get({id : $stateParams.classId}, onGetClass);
+        } else {
         vm.mlcClassCategories = MlcClassCategory.query({}, onSuccess);
+        }
+
+        function onGetClass(data){
+            vm.mlcclasses = [];
+            vm.mlcClassCategories = [];
+            vm.mlcclasses.push(data);
+            vm.registration.mlcClass = vm.mlcclasses[0];
+            vm.mlcClassCategories.push(vm.registration.mlcClass.mlcClassCategory);
+            vm.mlcClassCategory = vm.mlcClassCategories[0];
+        }
 
         function onSuccess(data) {
             if(vm.mlcClassCategory == null){

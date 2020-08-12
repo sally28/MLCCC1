@@ -160,6 +160,38 @@
                 });
             }]
         })
+        .state('registration.new.class', {
+            parent: 'registration',
+            url: '/new/{classId}',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/registration/registration-dialog.html',
+                    controller: 'RegistrationDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: function () {
+                            return {
+                                createDate: null,
+                                modifyDate: null,
+                                id: null
+                            };
+                        },
+                        classId: function(){
+                            return $stateParams.classId;
+                        }
+                    }
+                }).result.then(function() {
+                    $state.go('registration', null, { reload: 'registration' });
+                }, function() {
+                    $state.go('registration');
+                });
+            }]
+        })
         .state('registration.edit', {
             parent: 'registration',
             url: '/{id}/edit',

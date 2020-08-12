@@ -95,6 +95,7 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setImageUrl(imageUrl);
         newUser.setLangKey(langKey);
+        newUser.setPrimaryContact(true);
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
