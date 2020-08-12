@@ -3,8 +3,9 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-            <h1>Welcome To MLCCC Administration Page!</h1>
-
+            <h1 style="color:#ff0000;">Welcome To MLCCC !</h1>
+            <img src="content/images/section-bk-img3.png" width="723px"/>
+            <br><br>
             <div ng-switch="vm.isAuthenticated()">
                 <div class="alert alert-success" ng-switch-when="true">
                     You are logged in as user "{{vm.account.login}}".
@@ -18,7 +19,7 @@
                     You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
                 </div>
             </div>
-
+<!--
             <div id="paypal-button"></div>
             <script>
                 paypal.Button.render({
@@ -43,7 +44,7 @@
                             });
                     }
                 }, '#paypal-button');
-            </script>
+            </script> -->
         </div>
         <div class="col-md-2">
     </div>
