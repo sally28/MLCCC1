@@ -1,6 +1,7 @@
 package org.mlccc.cm.service;
 
 import org.mlccc.cm.domain.Authority;
+import org.mlccc.cm.domain.SchoolDistrict;
 import org.mlccc.cm.domain.User;
 import org.mlccc.cm.repository.AuthorityRepository;
 import org.mlccc.cm.config.Constants;
@@ -170,6 +171,24 @@ public class UserService {
             user.setState(state);
             user.setZip(zip);
             user.setPhone(phone);
+            log.debug("Changed Information for User: {}", user);
+        });
+    }
+
+    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl, String address,
+                           String city, String state, String zip, String phone, SchoolDistrict schoolDistrict) {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setLangKey(langKey);
+            user.setImageUrl(imageUrl);
+            user.setAddress(address);
+            user.setCity(city);
+            user.setState(state);
+            user.setZip(zip);
+            user.setPhone(phone);
+            user.setSchoolDistrict(schoolDistrict);
             log.debug("Changed Information for User: {}", user);
         });
     }

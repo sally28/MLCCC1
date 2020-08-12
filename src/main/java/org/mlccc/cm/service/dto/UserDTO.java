@@ -64,7 +64,7 @@ public class UserDTO {
 
     private Set<String> authorities;
 
-    private String schoolDistrict;
+    private SchoolDistrict schoolDistrict;
 
     private Double credit;
 
@@ -179,7 +179,7 @@ public class UserDTO {
         this.phone = phone;
         this.authorities = authorities;
         if(schoolDistrict != null){
-            this.schoolDistrict = schoolDistrict.getName();
+            this.schoolDistrict = schoolDistrict;
         }
         this.credit = credit;
         this.primaryContact = primaryContact;
@@ -270,14 +270,6 @@ public class UserDTO {
         return authorities;
     }
 
-    public String getSchoolDistrict() {
-        return schoolDistrict;
-    }
-
-    public void setSchoolDistrict(String schoolDistrict) {
-        this.schoolDistrict = schoolDistrict;
-    }
-
     public void setCredit(Double credit) {this.credit = credit; }
 
     public Double getCredit() {
@@ -298,6 +290,14 @@ public class UserDTO {
 
     public void setMustChangePassword(Boolean mustChangePassword) {
         this.mustChangePassword = mustChangePassword;
+    }
+
+    public SchoolDistrict getSchoolDistrict() {
+        return schoolDistrict;
+    }
+
+    public void setSchoolDistrict(SchoolDistrict schoolDistrict) {
+        this.schoolDistrict = schoolDistrict;
     }
 
     @Override
