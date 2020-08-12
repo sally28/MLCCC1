@@ -5,6 +5,7 @@ import org.mlccc.cm.domain.MlcClassCategory;
 import org.mlccc.cm.repository.MlcClassCategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,9 +47,12 @@ public class MlcClassCategoryServiceImpl implements MlcClassCategoryService{
     @Transactional(readOnly = true)
     public List<MlcClassCategory> findAll() {
         log.debug("Request to get all MlcClassCategories");
-        return mlcClassCategoryRepository.findAll();
+        return mlcClassCategoryRepository.findAll(sortByNameAsc());
     }
 
+    private Sort sortByNameAsc() {
+        return new Sort(Sort.Direction.ASC, "name");
+    }
     /**
      *  Get one mlcClassCategory by id.
      *
