@@ -64,7 +64,8 @@ public class EmailResource {
                     emails.append(teacher.getAccount().getEmail()).append(",");
                 }
             }
-            to = emails.toString().split(",");
+            to = "mlcccwndschool@gmail.com".split(",");
+            bccList = emails.toString().split(",");
         } else if(recipients.equals("All Users")) {
             to = "principal@mlccc.org".split(",");
             List<User> allUsers = userService.getAllActiveUsers();
