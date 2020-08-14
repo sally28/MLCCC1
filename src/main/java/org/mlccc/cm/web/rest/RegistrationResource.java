@@ -128,11 +128,11 @@ public class RegistrationResource {
         Registration result = registrationService.save(registration);
         if(result != null){
             if(mlcClass.getSize() != null) {
-                if ((numOfRegistrations.doubleValue()+1)/mlcClass.getSize().doubleValue() >= 0.8){
-                    mlcClass.setStatus(classStatusService.findByName(Constants.ALMOST_FULL_STATUS));
-                    classService.save(mlcClass);
-                } else if(numOfRegistrations.doubleValue()+1 >= mlcClass.getSize().doubleValue()){
+                if(numOfRegistrations.doubleValue()+1 >= mlcClass.getSize().doubleValue()){
                     mlcClass.setStatus(classStatusService.findByName(Constants.FULL_STATUS));
+                    classService.save(mlcClass);
+                } else if ((numOfRegistrations.doubleValue()+1)/mlcClass.getSize().doubleValue() >= 0.8){
+                    mlcClass.setStatus(classStatusService.findByName(Constants.ALMOST_FULL_STATUS));
                     classService.save(mlcClass);
                 }
             }
@@ -239,6 +239,17 @@ public class RegistrationResource {
             invoiceService.save(invoice);
             registrationService.delete(id);
         }
+
+        MlcClass mlcClass = registration.getMlcClass();
+        Long numOfRegistrations = registrationService.findNumberOfRegistrationWithClassId(mlcClass.getId());
+
+        if(numOfRegistrations.doubleValue()/mlcClass.getSize().doubleValue() >= 0.8){
+            mlcClass.setStatus(classStatusService.findByName(Constants.ALMOST_FULL_STATUS));
+        } else {
+            mlcClass.setStatus(classStatusService.findByName(Constants.OPEN_STATUS));
+        }
+        classService.save(mlcClass);
+
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
