@@ -3,6 +3,8 @@ package org.mlccc.cm.service;
 import org.mlccc.cm.domain.Payment;
 import org.mlccc.cm.service.dto.CCTransactionDTO;
 import org.mlccc.cm.service.dto.CreditCardPayment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public interface PaymentService {
      *
      *  @return the list of entities
      */
-    List<Payment> findAll();
+    Page<Payment> findAll(Pageable pageable);
 
     /**
      *  Get the "id" payment.
@@ -41,7 +43,7 @@ public interface PaymentService {
      */
     void delete(Long id);
 
-    List<Payment> findByUserId(Long userId);
+    Page<Payment> findByUserId(Pageable pageable, Long userId);
 
     CCTransactionDTO processCCPayment(CreditCardPayment payment);
 }

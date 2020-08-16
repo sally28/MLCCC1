@@ -9,6 +9,8 @@ import org.mlccc.cm.service.dto.CreditCardPayment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,9 +60,9 @@ public class PaymentServiceImpl implements PaymentService{
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Payment> findAll() {
+    public Page<Payment> findAll(Pageable pageable) {
         log.debug("Request to get all Payments");
-        return paymentRepository.findAll();
+        return paymentRepository.findAll(pageable);
     }
 
     /**
@@ -89,9 +91,9 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<Payment> findByUserId(Long userId) {
+    public Page<Payment> findByUserId(Pageable pageable, Long userId) {
         log.debug("Request to get Payments with user id");
-        return paymentRepository.findByUserId(userId);
+        return paymentRepository.findByUserId(pageable, userId);
     }
 
     @Override

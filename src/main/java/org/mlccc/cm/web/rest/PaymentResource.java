@@ -1,6 +1,7 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.swagger.annotations.ApiParam;
 import net.authorize.api.contract.v1.ANetApiResponse;
 import org.mlccc.cm.config.Constants;
 import org.mlccc.cm.domain.*;
@@ -15,8 +16,13 @@ import org.mlccc.cm.service.dto.PaymentDTO;
 import org.mlccc.cm.service.dto.RegistrationDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.mlccc.cm.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +30,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -149,7 +156,7 @@ public class PaymentResource {
      */
     @GetMapping("/payments")
     @Timed
-    public List<Payment> getAllPayments() {
+    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
         log.debug("REST request to get all Payments");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -159,11 +166,14 @@ public class PaymentResource {
                 allPayments = true;
             }
         }
+        Page<Payment> page = null;
         if(allPayments){
-            return paymentService.findAll();
+            page= paymentService.findAll(pageable);
         } else {
-            return paymentService.findByUserId(loginUser.getId());
+            page = paymentService.findByUserId(pageable, loginUser.getId());
         }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
