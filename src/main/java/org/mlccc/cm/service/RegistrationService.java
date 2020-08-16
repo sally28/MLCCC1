@@ -40,7 +40,7 @@ public interface RegistrationService {
 
     List<Registration> findAllWithStudentId(Long studentId);
 
-    List<Registration> findAllWithClassId(Long mlcClassId);
+    Page<Registration> findAllWithClassId(Pageable pageable, Long mlcClassId);
 
     Page<Registration> findAllWithAssociatedUserId(Pageable pageable, Long userId);
 

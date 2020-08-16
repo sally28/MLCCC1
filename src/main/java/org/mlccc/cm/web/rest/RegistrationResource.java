@@ -176,15 +176,19 @@ public class RegistrationResource {
      */
     @GetMapping("/registrations")
     @Timed
-    public ResponseEntity<List<Registration>> getAllRegistrations(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
+    public ResponseEntity<List<Registration>> getAllRegistrations(@ApiParam Pageable pageable, @RequestParam String searchTerm) {
         log.debug("REST request to get a page of Registrations with searchTerm: {}", searchTerm);
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
         Boolean allRegistration = false;
         Boolean isTeacher = false;
+        Boolean isAdmin = false;
         for(Authority auth : authorities){
             if(auth.getName().equals(AuthoritiesConstants.ADMIN)){
-                allRegistration = true;
+                isAdmin = true;
+                if(searchTerm == null || searchTerm.isEmpty()){
+                    allRegistration = true;
+                }
             } else if(auth.getName().equals(AuthoritiesConstants.TEACHER)){
                 isTeacher = true;
             }
@@ -196,6 +200,9 @@ public class RegistrationResource {
         } else {
             if(searchTerm.equalsIgnoreCase("studentsInClass") && isTeacher){
                 page = registrationService.findAllWithTeacherUserId(pageable, loginUser.getId());
+            } else if (searchTerm.startsWith("registrationsForClass") && isAdmin){
+                Long classId = Long.parseLong(searchTerm.substring(searchTerm.indexOf(":")+1));
+                page = registrationService.findAllWithClassId(pageable, classId);
             } else {
                 page = registrationService.findAllWithAssociatedUserId(pageable, loginUser.getId());
             }

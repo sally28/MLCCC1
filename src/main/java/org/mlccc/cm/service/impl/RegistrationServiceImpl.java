@@ -91,9 +91,9 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
-    public List<Registration> findAllWithClassId(Long mlcClassId){
+    public Page<Registration> findAllWithClassId(Pageable pageable, Long mlcClassId){
         log.debug("Request to findAllWithClassId: {}", mlcClassId);
-        return registrationRepository.findAllWithClassId(mlcClassId);
+        return registrationRepository.findAllWithClassId(pageable, mlcClassId);
     }
 
     @Override

@@ -75,6 +75,12 @@
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
+                                    ui-sref="mlc-class.registrations({id:mlcClass.id})"
+                                    class="btn btn-primary btn-sm" has-authority="ROLE_ADMIN">
+                                <span class="glyphicon glyphicon-list-alt"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
                                     ui-sref="mlc-class.edit({id:mlcClass.id})"
                                     class="btn btn-primary btn-sm" has-authority="ROLE_ADMIN">
                                 <span class="glyphicon glyphicon-pencil"></span>

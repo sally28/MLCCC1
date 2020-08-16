@@ -202,6 +202,31 @@
                 });
             }]
         })
+        .state('mlc-class.registrations', {
+            parent: 'mlc-class',
+            url: '/{id}/registrations',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/mlc-class/mlc-class-registrations.html',
+                    controller: 'MlcClassRegistrationsController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: ['Registration', function(Registration) {
+                            return Registration.query({param : "registrationsForClass:"+$stateParams.id}).$promise;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('mlc-class', null, { reload: 'mlc-class' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
         .state('mlc-class.delete', {
             parent: 'mlc-class',
             url: '/{id}/delete',
