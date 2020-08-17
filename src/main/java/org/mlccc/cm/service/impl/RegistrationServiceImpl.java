@@ -1,12 +1,12 @@
 package org.mlccc.cm.service.impl;
 
 import org.mlccc.cm.config.Constants;
-import org.mlccc.cm.domain.Invoice;
-import org.mlccc.cm.domain.User;
+import org.mlccc.cm.domain.*;
 import org.mlccc.cm.repository.UserRepository;
+import org.mlccc.cm.service.ClassStatusService;
 import org.mlccc.cm.service.InvoiceService;
+import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.RegistrationService;
-import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.repository.RegistrationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +33,18 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     private final InvoiceService invoiceService;
 
-    public RegistrationServiceImpl(RegistrationRepository registrationRepository, UserRepository userRepository, InvoiceService invoiceService) {
+    private final ClassStatusService classStatusService;
+
+    private final MlcClassService classService;
+
+    public RegistrationServiceImpl(RegistrationRepository registrationRepository, UserRepository userRepository,
+                                   InvoiceService invoiceService, ClassStatusService classStatusService,
+                                   MlcClassService classService) {
         this.registrationRepository = registrationRepository;
         this.userRepository = userRepository;
         this.invoiceService = invoiceService;
+        this.classStatusService = classStatusService;
+        this.classService = classService;
     }
 
     /**
@@ -57,6 +65,17 @@ public class RegistrationServiceImpl implements RegistrationService{
             user.setCredit(credit);
             userRepository.save(user);
         }
+        // update mlcClass status if needed
+        MlcClass mlcClass = registration.getMlcClass();
+        Long numOfRegistrations = registrationRepository.findNumberOfRegistrationWithClassId(mlcClass.getId());
+
+        if(numOfRegistrations.doubleValue()/mlcClass.getSize().doubleValue() >= 0.8){
+            mlcClass.setStatus(classStatusService.findByName(Constants.ALMOST_FULL_STATUS));
+        } else {
+            mlcClass.setStatus(classStatusService.findByName(Constants.OPEN_STATUS));
+        }
+        classService.save(mlcClass);
+
         return registrationRepository.save(registration);
     }
 

@@ -17,7 +17,6 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.confirm = confirm;
-        vm.withdraw = withdraw;
 
         loadAll();
 
@@ -61,11 +60,6 @@
 
         function confirm(data){
             data.status = 'CONFIRMED';
-            Registration.update(data, onSaveSuccess, onSaveError);
-        }
-
-        function withdraw(data){
-            data.status = 'WITHDRAWAL';
             Registration.update(data, onSaveSuccess, onSaveError);
         }
 

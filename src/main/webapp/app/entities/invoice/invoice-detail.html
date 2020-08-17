@@ -68,8 +68,25 @@
                             <td>{{registration.studentName}}</td>
                             <td>Class: {{registration.mlcClassName}}</td>
                             <td>Time: {{registration.classTime}}</td>
-                            <td>Status: {{registration.status}}</td>
+                            <td>Status:
+                                <span ng-class="{'color-red': registration.status === 'WITHDRAWAL',
+                                'color-green': registration.status === 'CONFIRMED',
+                                'color-orange': registration.status === 'PENDING'}">
+                                    {{registration.status}}
+                                </span>
+                            </td>
                             <td>Tuition: {{registration.tuition | currency:"$"}}</td>
+                            <td>
+                                <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
+                                    <span ng-switch-when="CONFIRMED">
+                                        <button class="btn btn-danger btn-sm"
+                                                ui-sref="registration.withdraw({id:registration.id})">
+                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                                <span class="hidden-sm-down">Withdraw</span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

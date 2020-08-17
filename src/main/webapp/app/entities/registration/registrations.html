@@ -74,18 +74,6 @@
                         </div>
                     </td>
                     <td>
-                        <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
-                            <span ng-switch-when="CONFIRMED">
-                                <form name="confirmForm" role="form" novalidate ng-submit="vm.withdraw(registration)">
-                                    <button class="btn btn-danger btn-sm">
-                                        <span class="glyphicon"></span>
-                                        <span class="hidden-sm-down">Withdraw</span>
-                                    </button>
-                                </form>
-                            </span>
-                        </div>
-                    </td>
-                    <td>
                         <button class="btn btn-info" ui-sref="invoice-detail({id:registration.invoice.id})" >
                             <span class="glyphicon glyphicon-eye-open"></span>
                             <span>Invoice</span>
