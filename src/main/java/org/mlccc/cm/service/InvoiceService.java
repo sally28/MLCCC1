@@ -122,17 +122,19 @@ public class InvoiceService {
         // step 1: first step needs to apply teacher benefits to each class;
         Double teacherBenefits = 0.00;
         for(Registration registration : invoice.getRegistrations()){
-            Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
-            Set<User> parents = student.getAssociatedAccounts();
-            for(User parent : parents){
-                // one of student's parent is the teacher of the class registered
-                User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
-                if(teacherAccount != null && parent.equals(teacherAccount)){
-                    teacherBenefits += registration.getMlcClass().getTuition();
-                    registration.setTuition(0.00);
-                    break;
-                } else {
-                    registration.setTuition(registration.getMlcClass().getTuition());
+            if(!registration.getStatus().equals(Constants.WITHDRAWAL_STATUS)){
+                Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
+                Set<User> parents = student.getAssociatedAccounts();
+                for(User parent : parents){
+                    // one of student's parent is the teacher of the class registered
+                    User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
+                    if(teacherAccount != null && parent.equals(teacherAccount)){
+                        teacherBenefits += registration.getMlcClass().getTuition();
+                        registration.setTuition(0.00);
+                        break;
+                    } else {
+                        registration.setTuition(registration.getMlcClass().getTuition());
+                    }
                 }
             }
         }
@@ -216,6 +218,23 @@ public class InvoiceService {
             dto.setAdjustment(invoice.getAdjustment());
             dto.setTotal(dto.getTotal() - dto.getAdjustment());
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Double calculateRefundAmount(Invoice invoice, Registration registration) {
+        InvoiceDTO dto = new InvoiceDTO();
+        for(Registration reg : invoice.getRegistrations()){
+            if (reg.getId().equals(registration.getId())){
+                reg.setStatus(registration.getStatus());
+                break;
+            }
+        }
+        calculateTotalAmount(invoice, dto);
+        Double refund = invoice.getTotal() - dto.getTotal();
+        if(refund <=0 ){
+            refund = 0.00;
+        }
+        return refund;
     }
 
     public Long getSchoolTermId(Invoice invoice){

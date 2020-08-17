@@ -1,5 +1,10 @@
 package org.mlccc.cm.service.impl;
 
+import org.mlccc.cm.config.Constants;
+import org.mlccc.cm.domain.Invoice;
+import org.mlccc.cm.domain.User;
+import org.mlccc.cm.repository.UserRepository;
+import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.RegistrationService;
 import org.mlccc.cm.domain.Registration;
 import org.mlccc.cm.repository.RegistrationRepository;
@@ -24,8 +29,14 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     private final RegistrationRepository registrationRepository;
 
-    public RegistrationServiceImpl(RegistrationRepository registrationRepository) {
+    private final UserRepository userRepository;
+
+    private final InvoiceService invoiceService;
+
+    public RegistrationServiceImpl(RegistrationRepository registrationRepository, UserRepository userRepository, InvoiceService invoiceService) {
         this.registrationRepository = registrationRepository;
+        this.userRepository = userRepository;
+        this.invoiceService = invoiceService;
     }
 
     /**
@@ -37,6 +48,15 @@ public class RegistrationServiceImpl implements RegistrationService{
     @Override
     public Registration save(Registration registration) {
         log.debug("Request to save Registration : {}", registration);
+        if(registration.getStatus().equals(Constants.WITHDRAWAL_STATUS)){
+            // get payment from this registration's invoice, credit the user.
+            Invoice invoice = invoiceService.findOne(registration.getInvoice().getId());
+            // recalculate invoice amount,
+            Double credit = invoiceService.calculateRefundAmount(invoice, registration);
+            User user = invoice.getUser();
+            user.setCredit(credit);
+            userRepository.save(user);
+        }
         return registrationRepository.save(registration);
     }
 

@@ -16,6 +16,7 @@ public final class Constants {
     public static final String PENDING_STATUS = "PENDING";
     public static final String CONFIRMED_STATUS = "CONFIRMED";
     public static final String CANCELLED_STATUS = "CANCELLED";
+    public static final String WITHDRAWAL_STATUS = "WITHDRAWAL";
     public static final String CANCELLED_NEED_REFUND_STATUS = "CANCELLED_NEED_REFUND_STATUS";
     public static final String CANCELLED_REFUNDED_STATUS = "CANCELLED_REFUNDED_STATUS";
     public static final String OPEN_STATUS = "OPEN";

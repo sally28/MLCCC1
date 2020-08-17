@@ -39,7 +39,7 @@
                         <a ui-sref="teacher-detail({id:registration.mlcClass.teacher.id})">{{registration.mlcClass.teacher.firstName}} {{registration.mlcClass.teacher.lastName}}</a>
                     </td>
                     <td>
-                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                        <span ng-class="{'color-red': registration.status === 'WITHDRAWAL', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
                         {{registration.status}}
                         </span>
                     </td>
@@ -68,6 +68,18 @@
                                     <button class="btn btn-primary btn-sm">
                                         <span class="glyphicon"></span>
                                         <span class="hidden-sm-down">Confirm</span>
+                                    </button>
+                                </form>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
+                            <span ng-switch-when="CONFIRMED">
+                                <form name="confirmForm" role="form" novalidate ng-submit="vm.withdraw(registration)">
+                                    <button class="btn btn-danger btn-sm">
+                                        <span class="glyphicon"></span>
+                                        <span class="hidden-sm-down">Withdraw</span>
                                     </button>
                                 </form>
                             </span>
