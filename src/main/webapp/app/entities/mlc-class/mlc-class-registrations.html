@@ -4,6 +4,7 @@
                 ng-click="vm.clear()">&times;</button>
         <h4 class="modal-title" id="myMlcClassLabel">Registrations</h4>
         <br>
+        <label>{{vm.registrations[0].mlcClass.className}}</label>
     </div>
     <div class="modal-body">
         <div ng-if="vm.registrations.length == 0">
