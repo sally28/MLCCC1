@@ -15,7 +15,12 @@
                 <tr ng-repeat="registration in vm.registrations track by registration.id">
                     <td><a ui-sref="registration-detail({id:registration.id})">{{registration.id}}</a></td>
                     <td>Student: {{registration.student.firstName}} {{registration.student.lastName}}</td>
-                    <td>Status: {{registration.status}}</td>
+                    <td>Status:
+                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green':
+                            registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                            {{registration.status}}
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
