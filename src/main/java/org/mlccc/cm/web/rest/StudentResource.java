@@ -93,7 +93,7 @@ public class StudentResource {
     /**
      * PUT  /students : Updates an existing student.
      *
-     * @param student the student to update
+     * @param studentDTO the student to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated student,
      * or with status 400 (Bad Request) if the student is not valid,
      * or with status 500 (Internal Server Error) if the student couldn't be updated
@@ -188,8 +188,23 @@ public class StudentResource {
     @Timed
     public ResponseEntity<StudentDTO> getStudent(@PathVariable Long id) {
         log.debug("REST request to get Student : {}", id);
+        User loginUser = userService.getUserWithAuthorities();
+        Set<Authority> authorities = loginUser.getAuthorities();
+        Boolean isAdmin = false;
+        for(Authority auth : authorities){
+            if(auth.getName().equals(AuthoritiesConstants.ADMIN)){
+                isAdmin = true;
+            }
+        }
         Student student = studentService.findByIdAndFetchEager(id);
-        return new ResponseEntity<>(new StudentDTO(student, student.getAssociatedAccounts()), null, HttpStatus.OK);
+        StudentDTO dto = new StudentDTO(student, student.getAssociatedAccounts());
+        if(isAdmin){
+            List<Registration> registrations =  registrationService.findAllWithStudentId(student.getId());
+            student.setRegistrations(new HashSet<>(registrations));
+            dto = new StudentDTO(student, student.getRegistrations(), student.getAssociatedAccounts());
+        }
+
+        return new ResponseEntity<>(dto, null, HttpStatus.OK);
     }
 
     /**
