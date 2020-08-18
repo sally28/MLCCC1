@@ -30,13 +30,23 @@
                         <a ui-sref="student-detail({id:student.id})">
                             <h3><span>{{student.firstName}}</span> <span>{{student.lastName}}</span></h3>
                         </a>
-                        <div>
-                            <button type="button"
-                                    ui-sref="registration.new.student({studentId:student.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                <span class="hidden-sm-down">Register A Class</span>
-                            </button>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button type="button"
+                                        ui-sref="registration.new.student({studentId:student.id})"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span class="hidden-sm-down">Register A Class</span>
+                                </button>
+                            </div>
+                            <div class="col-sm-2" ng-if="student.registrations.length == 0">
+                                <button type="button"
+                                        ui-sref="student.delete({id:student.id})"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                    <span class="hidden-sm-down">Delete Student</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
