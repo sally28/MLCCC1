@@ -180,6 +180,28 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('user-management.emailUser', {
+            parent: 'user-management',
+            url: '{email}/email',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/components/email/email.html',
+                    controller: 'EmailController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: {to: $stateParams.email}
+                    }
+                }).result.then(function() {
+                    $state.go('user-management', null, { reload: 'user-management' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 })();

@@ -59,6 +59,9 @@
                 <td>{{user.lastLoginDate | date:'dd/MM/yy HH:mm'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
+                        <button class="btn btn-primary" ui-sref="user-management.emailUser({email: user.email})" >
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </button>
                         <button type="submit"
                                 ui-sref="user-management.edit({login:user.login})"
                                 class="btn btn-primary btn-sm">
