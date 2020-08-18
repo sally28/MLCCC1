@@ -26,6 +26,7 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.transition = transition;
         vm.searchUser = searchUser;
+        vm.searchTerm = pagingParams.search;
 
         vm.loadAll();
         Principal.identity().then(function(account) {
@@ -44,7 +45,8 @@
             User.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                search: pagingParams.search
             }, onSuccess, onError);
         }
 
@@ -86,7 +88,7 @@
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
+                search: vm.searchTerm
             });
         }
 
