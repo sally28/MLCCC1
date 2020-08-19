@@ -2,6 +2,7 @@ package org.mlccc.cm.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,8 +20,11 @@ public class Registration implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(generator = "seq_generator")
+    @GenericGenerator(name="seq_generator", strategy = "native", parameters = {
+            @org.hibernate.annotations.Parameter(name="sequence",value="reg_id_sequence"),
+            @org.hibernate.annotations.Parameter(name="sequence_name",value="reg_id_sequence")
+    })
     private Long id;
 
     @Column(name = "status")

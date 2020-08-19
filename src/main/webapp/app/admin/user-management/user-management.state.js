@@ -31,7 +31,8 @@
                 sort: {
                     value: 'id,asc',
                     squash: true
-                }
+                },
+                search: null,
             },
             resolve: {
                 pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
@@ -39,7 +40,8 @@
                         page: PaginationUtil.parsePage($stateParams.page),
                         sort: $stateParams.sort,
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
-                        ascending: PaginationUtil.parseAscending($stateParams.sort)
+                        ascending: PaginationUtil.parseAscending($stateParams.sort),
+                        search: $stateParams.search,
                     };
                 }]
             }        })
@@ -171,6 +173,28 @@
                     size: 'md',
                     resolve: {
                         entity: {to: 'All Users'}
+                    }
+                }).result.then(function() {
+                    $state.go('user-management', null, { reload: 'user-management' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
+        .state('user-management.emailUser', {
+            parent: 'user-management',
+            url: '{email}/email',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/components/email/email.html',
+                    controller: 'EmailController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: {to: $stateParams.email}
                     }
                 }).result.then(function() {
                     $state.go('user-management', null, { reload: 'user-management' });
