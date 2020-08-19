@@ -4,18 +4,37 @@
                 ng-click="vm.clear()">&times;</button>
         <h4 class="modal-title" id="myMlcClassLabel">Registrations</h4>
         <br>
+        <div class="row">
+            <div class="col-sm-10">
+                <label>{{vm.registrations[0].mlcClass.className}}</label>
+            </div>
+            <div class="col-sm-1" ng-if="vm.registrations.length > 0">
+                <button type="submit"
+                        ng-click="vm.print(vm.registrations[0].mlcClass.className)"
+                        class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-print"></span>
+                    <span class="hidden-sm-down">Print</span>
+                </button>
+            </div>
+        </div>
+
     </div>
     <div class="modal-body">
         <div ng-if="vm.registrations.length == 0">
             <label>No registrations yet.</label>
         </div>
-        <div ng-if="vm.registrations.length > 0">
+        <div id="print-section {{vm.registrations[0].mlcClass.className}}" ng-if="vm.registrations.length > 0">
             <table class="jh-table table table-striped" style="margin-bottom: 5px;">
                 <tbody>
                 <tr ng-repeat="registration in vm.registrations track by registration.id">
                     <td><a ui-sref="registration-detail({id:registration.id})">{{registration.id}}</a></td>
                     <td>Student: {{registration.student.firstName}} {{registration.student.lastName}}</td>
-                    <td>Status: {{registration.status}}</td>
+                    <td>Status:
+                        <span ng-class="{'color-red': registration.status === 'Error', 'color-green':
+                            registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                            {{registration.status}}
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -23,7 +42,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Close</span>
         </button>
     </div>
 </div>

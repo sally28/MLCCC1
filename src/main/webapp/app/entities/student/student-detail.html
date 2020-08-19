@@ -62,6 +62,31 @@
                 </div>
             </dd>
         </div>
+        <div has-authority="ROLE_ADMIN" ng-switch="vm.student.registrations.length > 0">
+            <div ng-switch-when="true">
+            <dt><span>Registrations</span></dt>
+            <dd>
+                <table class="jh-table table table-striped">
+                    <tbody>
+                    <tr ng-repeat="registration in vm.student.registrations track by registration.id">
+                        <td><a ui-sref="registration-detail({id:registration.id})">{{registration.id}}</a></td>
+                        <td>{{registration.mlcClassName}}</td>
+                        <td>Teacher: {{registration.teacher}}</td>
+                        <td>
+                                <span ng-class="{'color-red': registration.status === 'Error',
+                                'color-green': registration.status === 'CONFIRMED',
+                                'color-orange': registration.status === 'PENDING'}">
+                                {{registration.status}}
+                                </span>
+                        </td>
+                        <td>Tuition: {{registration.tuition | currency:"$"}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </dd>
+            </dt>
+            </div>
+        </div>
     </dl>
 
     <button type="submit"

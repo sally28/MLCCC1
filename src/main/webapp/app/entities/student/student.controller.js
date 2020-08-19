@@ -18,6 +18,7 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.showRegistrations = true;
         vm.searchStudent = searchStudent;
+        vm.searchTerm = pagingParams.search;
 
         if(loginUser.authorities && loginUser.authorities.indexOf('ROLE_ADMIN') !== -1){
             vm.showRegistrations = false;
@@ -29,7 +30,8 @@
             Student.query( {
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                param: pagingParams.search
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -50,7 +52,7 @@
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
+                search: vm.searchTerm
             });
         }
         function onSuccess(data, headers) {
