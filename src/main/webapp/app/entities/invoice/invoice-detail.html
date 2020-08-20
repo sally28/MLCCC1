@@ -80,7 +80,7 @@
                                 <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
                                     <span ng-switch-when="CONFIRMED">
                                         <button class="btn btn-danger btn-sm"
-                                                ui-sref="registration.withdraw({id:registration.id})">
+                                                ui-sref="invoice.withdrawRegistration({id: vm.invoice.id, regId:registration.id})">
                                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                                 <span class="hidden-sm-down">Withdraw</span>
                                         </button>

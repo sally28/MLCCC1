@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('RegistrationWithdrawController',RegistrationWithdrawController);
 
-    RegistrationWithdrawController.$inject = ['$uibModalInstance', 'entity', 'Registration'];
+    RegistrationWithdrawController.$inject = ['$state', '$uibModalInstance', 'entity', 'Registration'];
 
-    function RegistrationWithdrawController($uibModalInstance, entity, Registration) {
+    function RegistrationWithdrawController($state, $uibModalInstance, entity, Registration) {
         var vm = this;
 
         vm.registration = entity;

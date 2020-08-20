@@ -13,8 +13,9 @@
             <a ui-sref="mlc-class-detail({id:vm.registration.mlcClass.id})">{{vm.registration.mlcClass.className}}</a>
         </dd>
         <dt><span>Status</span></dt>
-        <dd>
-            <a ui-sref="registration-status-detail({id:vm.registration.status.id})">{{vm.registration.status.status}}</a>
+        <dd><span ng-class="{'color-red': vm.registration.status === 'WITHDRAWAL',
+            'color-green': vm.registration.status === 'CONFIRMED',
+            'color-orange': vm.registration.status === 'PENDING'}">{{vm.registration.status}}</span>
         </dd>
         <dt><span>Create Date</span></dt>
         <dd>

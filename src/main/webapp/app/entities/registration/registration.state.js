@@ -48,7 +48,7 @@
         })
         .state('registration-detail', {
             parent: 'registration',
-            url: '/registration/{id}',
+            url: '/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Registration'
@@ -241,9 +241,10 @@
                 });
             }]
         })
+            /*
         .state('registration.withdraw', {
-            parent: 'registration',
-            url: '/{id}/withdraw',
+            parent: 'registration-detail',
+            url: '/withdraw',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -264,7 +265,7 @@
                     $state.go('^');
                 });
             }]
-        });
+        })*/;
     }
 
 })();

@@ -157,6 +157,31 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('invoice.withdrawRegistration', {
+            parent: 'invoice-detail',
+            url: '/withdraw/{regId}',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            regId: 0,
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/registration/registration-withdraw-dialog.html',
+                    controller: 'RegistrationWithdrawController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: ['Registration', function(Registration) {
+                            return Registration.get({id : $stateParams.regId}).$promise;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('registration', null, { reload: 'registration' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 
