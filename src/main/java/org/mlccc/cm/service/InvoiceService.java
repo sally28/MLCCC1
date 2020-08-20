@@ -122,7 +122,7 @@ public class InvoiceService {
         // step 1: first step needs to apply teacher benefits to each class;
         Double teacherBenefits = 0.00;
         for(Registration registration : invoice.getRegistrations()){
-            if(!registration.getStatus().equals(Constants.WITHDRAWAL_STATUS)){
+            if(registration.getStatus().equals(Constants.PENDING_STATUS) || registration.getStatus().equals(Constants.CONFIRMED_STATUS)){
                 Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
                 Set<User> parents = student.getAssociatedAccounts();
                 for(User parent : parents){

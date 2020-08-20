@@ -17,8 +17,8 @@ public final class Constants {
     public static final String CONFIRMED_STATUS = "CONFIRMED";
     public static final String CANCELLED_STATUS = "CANCELLED";
     public static final String WITHDRAWAL_STATUS = "WITHDRAWAL";
-    public static final String CANCELLED_NEED_REFUND_STATUS = "CANCELLED_NEED_REFUND_STATUS";
-    public static final String CANCELLED_REFUNDED_STATUS = "CANCELLED_REFUNDED_STATUS";
+    public static final String WITHDREW_NEED_REFUND_STATUS = "WITHDREW_NEED_REFUND";
+    public static final String WITHDREW_REFUNDED_STATUS = "WITHDREW_REFUNDED";
     public static final String OPEN_STATUS = "OPEN";
     public static final String FULL_STATUS = "FULL";
     public static final String CLOSED_STATUS = "CLOSED";

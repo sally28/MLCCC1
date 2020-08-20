@@ -20,8 +20,8 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="student.id"><span>Student</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="mlcClass.id"><span>Class</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="teacher.id"><span>Teacher</span> <span class="glyphicon"></span></th>
-                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Teacher</span></th>
+                    <th><span>Status</span></th>
                     <th><span>Tuition</span></th>
                     <th><span>Modified Date</span></th>
                     <th></th>
@@ -39,7 +39,7 @@
                         <a ui-sref="teacher-detail({id:registration.mlcClass.teacher.id})">{{registration.mlcClass.teacher.firstName}} {{registration.mlcClass.teacher.lastName}}</a>
                     </td>
                     <td>
-                        <span ng-class="{'color-red': registration.status === 'WITHDRAWAL', 'color-green': registration.status === 'CONFIRMED', 'color-orange': registration.status === 'PENDING'}">
+                        <span ng-class="{'color-red': registration.status === 'WITHDREW_NEED_REFUND','color-green': registration.status === 'CONFIRMED','color-orange': registration.status === 'PENDING'}">
                         {{registration.status}}
                         </span>
                     </td>

@@ -12,6 +12,13 @@
 
         vm.invoice = entity;
         vm.previousState = previousState.name;
+        vm.needRefund = false;
+
+        vm.invoice.registrations.forEach(function(registration){
+            if(registration.status == 'WITHDREW_NEED_REFUND'){
+                vm.needRefund = true;
+            }
+        })
 
         var unsubscribe = $rootScope.$on('mlcccApp:invoiceUpdate', function(event, result) {
             vm.invoice = result;
