@@ -76,7 +76,7 @@ public class PaymentResource {
         if (paymentDto.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new payment cannot already have an ID")).body(null);
         }
-        if(paymentDto.getAmount() < paymentDto.getInvoiceDto().getTotal()){
+        if(paymentDto.getStatus().equals(Constants.INVOICE_PAID_STATUS) && paymentDto.getAmount() < paymentDto.getInvoiceDto().getTotal()){
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "amountNotMatch", "Payment amount does not match invoiced amount")).body(null);
         }
 
@@ -84,38 +84,60 @@ public class PaymentResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "unsupportedType", "Payment type is not supported")).body(null);
         }
 
-
         Payment payment = paymentDto.toPayment();
-
-        // post credit card transaction
-        if(payment.getType().equals(Constants.PAYMENT_TYPE_CC)){
-            CCTransactionDTO ccTransactionDTO = paymentService.processCCPayment(paymentDto.getCreditCard());
-            if(ccTransactionDTO.getResponseCode() == null){
-                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "CreditCardPayment", "Credit Card payment is not successful")).body(null);
-            } else {
-                payment.setReferenceId(ccTransactionDTO.getTransactionId());
-            }
-        }
-
         InvoiceDTO invoiceDto = paymentDto.getInvoiceDto();
         Invoice invoice = invoiceService.findOne(invoiceDto.getId());
-        invoice.setEarlyBirdDiscount(invoiceDto.getEarlyBirdDiscount());
-        invoice.setMultiClassDiscount(invoiceDto.getMultiClassDiscount());
-        invoice.setRegistrationFee(invoiceDto.getRegistrationFee());
-        invoice.setTeacherBenefits(invoiceDto.getBenefits());
-        invoice.setUserCredit(invoiceDto.getCredit());
-        invoice.setTotal(invoiceDto.getTotal());
-        invoice.setModifyDate(LocalDate.now());
-        invoice.setStatus(Constants.INVOICE_PAID_STATUS);
 
-        for(RegistrationDTO regdto : invoiceDto.getRegistrations()){
-            Registration reg = registrationService.findOne(regdto.getId());
-            reg.setStatus(Constants.CONFIRMED_STATUS);
-            reg.setModifyDate(LocalDate.now());
-            registrationService.save(reg);
+        if(payment.getStatus().equals(Constants.PAYMENT_REFUND_STATUS)){
+            // refund
+            StringBuilder comments = new StringBuilder("Refund for registrations with id: ");
+            for(RegistrationDTO regdto : invoiceDto.getRegistrations()){
+                Registration reg = registrationService.findOne(regdto.getId());
+                if(reg.getStatus().equals(Constants.WITHDREW_NEED_REFUND_STATUS)){
+                    reg.setStatus(Constants.WITHDREW_REFUNDED_STATUS);
+                    comments.append(reg.getId()).append(" ");
+                }
+                reg.setModifyDate(LocalDate.now());
+                registrationService.save(reg);
+            }
+            invoice.setComments(comments.toString());
+            invoiceService.save(invoice);
+            if(payment.getType().equals(Constants.PAYMENT_REFUND_CREDIT)){
+                User billToUser = userService.getUserWithAuthorities(invoice.getUser().getId());
+                // Refund amount is a negative number in payment
+                billToUser.setCredit(billToUser.getCredit() - payment.getAmount());
+                userService.update(billToUser);
+            }
+        } else {
+            // payment
+            // post credit card transaction
+            if(payment.getType().equals(Constants.PAYMENT_TYPE_CC)){
+                CCTransactionDTO ccTransactionDTO = paymentService.processCCPayment(paymentDto.getCreditCard());
+                if(ccTransactionDTO.getResponseCode() == null){
+                    return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "CreditCardPayment", "Credit Card payment is not successful")).body(null);
+                } else {
+                    payment.setReferenceId(ccTransactionDTO.getTransactionId());
+                }
+            }
+
+            invoice.setEarlyBirdDiscount(invoiceDto.getEarlyBirdDiscount());
+            invoice.setMultiClassDiscount(invoiceDto.getMultiClassDiscount());
+            invoice.setRegistrationFee(invoiceDto.getRegistrationFee());
+            invoice.setTeacherBenefits(invoiceDto.getBenefits());
+            invoice.setUserCredit(invoiceDto.getCredit());
+            invoice.setTotal(invoiceDto.getTotal());
+            invoice.setModifyDate(LocalDate.now());
+            invoice.setStatus(Constants.INVOICE_PAID_STATUS);
+
+            for(RegistrationDTO regdto : invoiceDto.getRegistrations()){
+                Registration reg = registrationService.findOne(regdto.getId());
+                reg.setStatus(Constants.CONFIRMED_STATUS);
+                reg.setModifyDate(LocalDate.now());
+                registrationService.save(reg);
+            }
+
+            invoiceService.save(invoice);
         }
-
-        invoiceService.save(invoice);
 
         payment.setInvoice(invoice);
         payment.setCreateDate(LocalDate.now());

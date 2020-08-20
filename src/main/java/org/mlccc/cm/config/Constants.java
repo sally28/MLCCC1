@@ -35,6 +35,8 @@ public final class Constants {
     public static final String PAYMENT_TYPE_CHECK = "Check";
     public static final String PAYMENT_TYPE_CC = "Credit Card";
     public static final String PAYMENT_TYPE_PAYPAL = "Paypal";
+    public static final String PAYMENT_REFUND_STATUS = "REFUND";
+    public static final String PAYMENT_REFUND_CREDIT = "Credit";
 
     private Constants() {
     }

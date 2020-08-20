@@ -221,14 +221,8 @@ public class InvoiceService {
     }
 
     @Transactional(readOnly = true)
-    public Double calculateRefundAmount(Invoice invoice, Registration registration) {
+    public Double calculateRefundAmount(Invoice invoice) {
         InvoiceDTO dto = new InvoiceDTO();
-        for(Registration reg : invoice.getRegistrations()){
-            if (reg.getId().equals(registration.getId())){
-                reg.setStatus(registration.getStatus());
-                break;
-            }
-        }
         calculateTotalAmount(invoice, dto);
         Double refund = invoice.getTotal() - dto.getTotal();
         if(refund <=0 ){

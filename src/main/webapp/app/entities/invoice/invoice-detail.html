@@ -12,7 +12,7 @@
         </div>
         <div ng-if="vm.needRefund == true" has-authority="ROLE_ADMIN">
             <button class="btn btn-primary"
-                    ui-sref="invoice.withdrawRegistration({id: vm.invoice.id, regId:registration.id})">
+                    ui-sref="payment.refund({invoiceId:vm.invoice.id})">
                 <span class="glyphicon glyphicon-usd"></span>
                 <span class="hidden-sm-down">Refund</span>
             </button>

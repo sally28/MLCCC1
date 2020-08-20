@@ -56,15 +56,6 @@ public class RegistrationServiceImpl implements RegistrationService{
     @Override
     public Registration save(Registration registration) {
         log.debug("Request to save Registration : {}", registration);
-        /*if(registration.getStatus().equals(Constants.WITHDREW_NEED_REFUND_STATUS)){
-            // get payment from this registration's invoice, credit the user.
-            Invoice invoice = invoiceService.findOne(registration.getInvoice().getId());
-            // recalculate invoice amount,
-            Double credit = invoiceService.calculateRefundAmount(invoice, registration);
-            User user = invoice.getUser();
-            user.setCredit(credit);
-            userRepository.save(user);
-        } */
         // update mlcClass status if needed
         MlcClass mlcClass = registration.getMlcClass();
         Long numOfRegistrations = registrationRepository.findNumberOfRegistrationWithClassId(mlcClass.getId());
