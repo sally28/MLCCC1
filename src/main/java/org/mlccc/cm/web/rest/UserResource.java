@@ -170,7 +170,7 @@ public class UserResource {
         if(allUsers){
             Page<UserDTO> page = null;
             if(!StringUtils.isEmpty(search)){
-                page = userService.searchUsers(pageable, ("%"+search+"%").toLowerCase());
+                page = userService.searchUsers(pageable, search.toLowerCase());
             } else {
                 page = userService.getAllManagedUsers(pageable);
             }

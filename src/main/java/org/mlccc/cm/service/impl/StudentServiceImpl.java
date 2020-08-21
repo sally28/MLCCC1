@@ -155,7 +155,7 @@ public class StudentServiceImpl implements StudentService{
     @Transactional(readOnly = true)
     public Page<Student> findAllWithSearchTerm(Pageable pageable, String searchTerm) {
         log.debug("Request to get all Students with searchTerm: {}", searchTerm);
-        return studentRepository.findAllWithSearchTerm(pageable, searchTerm.toLowerCase()+"%");
+        return studentRepository.findAllWithSearchTerm(pageable, searchTerm.toLowerCase());
     }
 
 

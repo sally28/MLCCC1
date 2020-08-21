@@ -12,20 +12,19 @@ import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * REST controller for managing Registration.
@@ -203,6 +202,19 @@ public class RegistrationResource {
             } else if (searchTerm.startsWith("registrationsForClass") && isAdmin){
                 Long classId = Long.parseLong(searchTerm.substring(searchTerm.indexOf(":")+1));
                 page = registrationService.findAllWithClassId(pageable, classId);
+            } else if (searchTerm.startsWith("registrationsForStudent") && isAdmin){
+                String studentName = searchTerm.substring(searchTerm.indexOf(":")+1);
+                if(!StringUtils.isEmpty(studentName)){
+                    Pageable p = new PageRequest(0, 1000, Sort.Direction.ASC, "id");
+                    Page<Student> students = studentService.findAllWithSearchTerm(p, studentName);
+                    List<Registration> registrations = new ArrayList<>();
+                    for(Student student : students) {
+                        registrations.addAll(registrationService.findAllWithStudentId(student.getId()));
+                    }
+                    page = new PageImpl<Registration>(registrations, pageable, registrations.size());
+                } else {
+                    page = registrationService.findAll(pageable);
+                }
             } else {
                 page = registrationService.findAllWithAssociatedUserId(pageable, loginUser.getId());
             }

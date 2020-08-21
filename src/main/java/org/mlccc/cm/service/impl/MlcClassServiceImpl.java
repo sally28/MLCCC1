@@ -95,7 +95,11 @@ public class MlcClassServiceImpl implements MlcClassService{
         log.debug("Request to findAllWithSearchTerm: {}, {}, {}, {}, {}", searchTerm, categoryId, teacherId, newRegistration);
         if(!StringUtils.isEmpty(searchTerm)){
             searchTerm = "%"+searchTerm.toLowerCase()+"%";
-            return mlcClassRepository.findAllWithSearchTerm(pageable, searchTerm);
+            if(schoolTermId != null){
+                return mlcClassRepository.findAllWithSearchTermAndSchoolTerm(pageable, searchTerm, schoolTermId);
+            } else {
+                return mlcClassRepository.findAllWithSearchTerm(pageable, searchTerm);
+            }
         } else if(newRegistration) {
             return mlcClassRepository.findAllActiveWithCategory(pageable, categoryId);
         } else if (teacherId != null){
