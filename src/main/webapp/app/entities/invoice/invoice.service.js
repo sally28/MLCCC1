@@ -7,9 +7,9 @@
     Invoice.$inject = ['$resource', 'DateUtils'];
 
     function Invoice ($resource, DateUtils) {
-        var resourceUrl =  'api/invoices/:id';
+        var resourceUrl =  'api/invoices/:id?searchTerm=:param';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {param: '@param'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

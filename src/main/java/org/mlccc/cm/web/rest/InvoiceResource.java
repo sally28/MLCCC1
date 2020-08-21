@@ -8,12 +8,17 @@ import org.mlccc.cm.service.DiscountService;
 import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.service.dto.InvoiceDTO;
+import org.mlccc.cm.service.dto.UserDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -101,7 +106,7 @@ public class InvoiceResource {
      */
     @GetMapping("/invoices")
     @Timed
-    public List<InvoiceDTO> getAllInvoices() {
+    public List<InvoiceDTO> getAllInvoices(@RequestParam String searchTerm) {
         log.debug("REST request to get all Invoices");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -113,9 +118,17 @@ public class InvoiceResource {
             }
         }
 
-        List<Invoice> invoices;
+        List<Invoice> invoices = new ArrayList<>();
         if(allInvoices) {
-            invoices = invoiceService.findAllInvoices();
+            if(StringUtils.isEmpty(searchTerm)) {
+                invoices = invoiceService.findAllInvoices();
+            } else {
+                Pageable pageable = new PageRequest(0, 1000);
+                Page<UserDTO> users = userService.searchUsers(pageable, searchTerm.toLowerCase());
+                for(UserDTO userDTO: users.getContent()){
+                    invoices.addAll(invoiceService.findUnpaidByUserId(userDTO.getId()));
+                }
+            }
         } else {
             invoices = invoiceService.findUnpaidByUserId(loginUser.getId());
         }
