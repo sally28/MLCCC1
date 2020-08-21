@@ -3,7 +3,7 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4"  has-authority="ROLE_ADMIN" >
+            <div class="col-sm-6"  has-authority="ROLE_ADMIN" >
                 <button class="btn btn-primary" ui-sref="mlc-class.new">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
@@ -21,7 +21,7 @@
                 </form>
             </div>
         </div>
-        <div>
+        <div class="row">
             <div class="col-sm-2">
                 <!--<label for="field_status">School Term</label>-->
                 <select class="form-control" id="field_school_term" name="school_term" ng-model="vm.schoolTerm"
@@ -45,14 +45,15 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="className"><span>Class Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="mlcClassCategory"><span>Category</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="minAge"><span>Min Age</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="classTime.id"><span>Class Time</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="teacher.id"><span>Teacher</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="classRoom.id"><span>Class Room</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Class Name</span></th>
+                    <th><span>Category</span></th>
+                    <th><span>Min Age</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>Class Time</span></th>
+                    <th><span>Teacher</span></th>
+                    <th><span>Class Room</span></th>
                     <th><span>Tuition</span></th>
+                    <th><span>Registrations</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -72,6 +73,7 @@
                         {{mlcClass.classRoom.roomNumber}}
                     </td>
                     <td>{{mlcClass.tuition | currency:"$"}}</td>
+                    <td class="text-center"><span class="color-green">{{mlcClass.confirmed}}</span> : <span class="color-orange">{{mlcClass.pending}}</span></td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

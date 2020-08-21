@@ -17,6 +17,7 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.confirm = confirm;
+        vm.searchRegistration = searchRegistration;
 
         loadAll();
 
@@ -33,16 +34,17 @@
                 }
                 return result;
             }
-            function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.registrations = data;
-                vm.page = pagingParams.page;
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
+        }
+
+        function onSuccess(data, headers) {
+            vm.links = ParseLinks.parse(headers('link'));
+            vm.totalItems = headers('X-Total-Count');
+            vm.queryCount = vm.totalItems;
+            vm.registrations = data;
+            vm.page = pagingParams.page;
+        }
+        function onError(error) {
+            AlertService.error(error.data.message);
         }
 
         function loadPage(page) {
@@ -70,6 +72,10 @@
 
         function onSaveError () {
             vm.isSaving = false;
+        }
+
+        function searchRegistration(searchTerm){
+            Registration.query({param: 'registrationsForStudent:' + vm.searchTerm}, onSuccess, onError);
         }
     }
 })();

@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('MlcClassController', MlcClassController);
 
-    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory', 'SchoolTerm'];
+    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory', 'SchoolTerm', 'Registration'];
 
-    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory, SchoolTerm) {
+    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory, SchoolTerm, Registration) {
 
         var vm = this;
 
@@ -67,7 +67,22 @@
             vm.queryCount = vm.totalItems;
             vm.mlcClasses = data;
            // vm.page = pagingParams.page;
+
+            vm.mlcClasses.forEach(function(mlcClass){
+                mlcClass.confirmed = 0;
+                mlcClass.pending = 0;
+                Registration.query({param : "registrationsForClass:"+mlcClass.id}, function (registrations){
+                    registrations.forEach(function(reg){
+                       if(reg.status == 'CONFIRMED'){
+                           mlcClass.confirmed += 1;
+                       } else if(reg.status == 'PENDING'){
+                           mlcClass.pending +=1;
+                       }
+                    });
+                });
+            });
         }
+
         function onError(error) {
             AlertService.error(error.data.message);
         }
@@ -102,7 +117,9 @@
         }
 
         function searchClass(){
+            vm.category = null;
             MlcClass.query({search: vm.searchTerm,
+                schoolTerm: vm.schoolTerm.id,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
@@ -151,6 +168,7 @@
         }
 
         function filterClasses () {
+            vm.searchTerm = null;
             var categoryId  = vm.category? vm.category.id : null;
             var schoolTermId = vm.schoolTerm? vm.schoolTerm.id : null;
             MlcClass.query({schoolTerm: schoolTermId, category: categoryId,

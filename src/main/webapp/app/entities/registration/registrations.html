@@ -3,13 +3,22 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-xs-8 no-padding-left">
                 <button class="btn btn-primary" ui-sref="registration.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
                         Register New Class
                     </span>
                 </button>
+            </div>
+            <div class="col-sm-4">
+                <form name="searchForm" role="form" novalidate ng-submit="vm.searchRegistration()" has-authority="ROLE_ADMIN">
+                    <div class="form-group mx-sm-3 has-feedback">
+                        <input type="search" class="form-control" placeholder="Search Registration by Student Name" name="searchTerm" id="searchTerm"
+                               ng-model="vm.searchTerm"/>
+                        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -20,8 +29,8 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="student.id"><span>Student</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="mlcClass.id"><span>Class</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="teacher.id"><span>Teacher</span> <span class="glyphicon"></span></th>
-                    <th jh-sort-by="status.id"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Teacher</span></th>
+                    <th><span>Status</span></th>
                     <th><span>Tuition</span></th>
                     <th><span>Modified Date</span></th>
                     <th></th>

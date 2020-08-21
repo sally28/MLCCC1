@@ -23,6 +23,9 @@ public interface MlcClassRepository extends JpaRepository<MlcClass,Long> {
     @Query("SELECT c FROM MlcClass c WHERE lower(c.className) like (:searchTerm) ")
     Page<MlcClass> findAllWithSearchTerm(Pageable var1, @Param("searchTerm") String searchTerm);
 
+    @Query("SELECT c FROM MlcClass c WHERE lower(c.className) like (:searchTerm) AND c.schoolTerm.id = (:schoolTermId)")
+    Page<MlcClass> findAllWithSearchTermAndSchoolTerm(Pageable var1, @Param("searchTerm") String searchTerm, @Param("schoolTermId") Long schoolTermId);
+
     @Query("SELECT c FROM MlcClass c WHERE c.mlcClassCategory.id = (:categoryId) ")
     Page<MlcClass> findAllWithCategory(Pageable var1, @Param("categoryId") Long categoryId);
 

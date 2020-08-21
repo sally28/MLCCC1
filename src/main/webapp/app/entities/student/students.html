@@ -12,15 +12,15 @@
                 </button>
             </div>
             <div class="col-sm-4">
-            <form name="searchForm" role="form" novalidate ng-submit="vm.searchStudent()" has-authority="ROLE_ADMIN">
+                <form name="searchForm" role="form" novalidate ng-submit="vm.searchStudent()" has-authority="ROLE_ADMIN">
                     <div class="form-group mx-sm-3 has-feedback">
                         <input type="search" class="form-control" placeholder="Search Student by Name" name="searchTerm" id="searchTerm"
                                ng-model="vm.searchTerm"/>
                         <i class="glyphicon glyphicon-search form-control-feedback"></i>
-                        </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
     <br/>
     <div class="table-responsive">
         <div ng-switch="vm.showRegistrations">
