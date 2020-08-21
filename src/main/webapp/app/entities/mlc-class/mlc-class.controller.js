@@ -117,7 +117,9 @@
         }
 
         function searchClass(){
+            vm.category = null;
             MlcClass.query({search: vm.searchTerm,
+                schoolTerm: vm.schoolTerm.id,
                 page: 0,
                 size: vm.itemsPerPage,
                 sort: 'className'
@@ -166,6 +168,7 @@
         }
 
         function filterClasses () {
+            vm.searchTerm = null;
             var categoryId  = vm.category? vm.category.id : null;
             var schoolTermId = vm.schoolTerm? vm.schoolTerm.id : null;
             MlcClass.query({schoolTerm: schoolTermId, category: categoryId,
