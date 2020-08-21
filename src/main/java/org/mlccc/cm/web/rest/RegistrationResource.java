@@ -208,10 +208,10 @@ public class RegistrationResource {
                     Pageable p = new PageRequest(0, 1000, Sort.Direction.ASC, "id");
                     Page<Student> students = studentService.findAllWithSearchTerm(p, studentName);
                     List<Registration> registrations = new ArrayList<>();
-                    for(Student student : students){
+                    for(Student student : students) {
                         registrations.addAll(registrationService.findAllWithStudentId(student.getId()));
-                        page = new PageImpl<Registration>(registrations, pageable, registrations.size());
                     }
+                    page = new PageImpl<Registration>(registrations, pageable, registrations.size());
                 } else {
                     page = registrationService.findAll(pageable);
                 }
