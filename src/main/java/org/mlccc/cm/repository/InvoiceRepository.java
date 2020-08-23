@@ -1,6 +1,8 @@
 package org.mlccc.cm.repository;
 
 import org.mlccc.cm.domain.Invoice;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -23,8 +25,16 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
     List<Invoice> findUnpaidByUserId(@Param("userId") Long userId);
 
     @EntityGraph(attributePaths = "registrations")
+    @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.user.id = (:userId) and invoice.status = 'UNPAID' ")
+    Page<Invoice> findUnpaidByUserId(Pageable var1, @Param("userId") Long userId);
+
+    @EntityGraph(attributePaths = "registrations")
     @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.status = 'UNPAID' ")
     List<Invoice> findAllInvoices();
+
+    @EntityGraph(attributePaths = "registrations")
+    @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.status = 'UNPAID' ")
+    Page<Invoice> findAllInvoices(Pageable var1);
 
     @EntityGraph(attributePaths = "registrations")
     @Query("SELECT invoice FROM Invoice invoice WHERE invoice.id = (:invoiceId) ")
