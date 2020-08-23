@@ -11,6 +11,8 @@ import org.mlccc.cm.security.DomainUserDetailsService;
 import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,11 +98,22 @@ public class InvoiceService {
         return invoiceRepository.findUnpaidByUserId(userId);
     }
 
+    @Transactional(readOnly = true)
+    public Page<Invoice> findUnpaidByUserId(Pageable pageable, Long userId) {
+        log.debug("Request to get unpaid Invoices for user : {} ", userId);
+        return invoiceRepository.findUnpaidByUserId(pageable, userId);
+    }
 
     @Transactional(readOnly = true)
     public List<Invoice> findAllInvoices() {
         log.debug("Request to get unpaid all invoices.");
         return invoiceRepository.findAllInvoices();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Invoice> findAllInvoices(Pageable pageable) {
+        log.debug("Request to get unpaid all invoices.");
+        return invoiceRepository.findAllInvoices(pageable);
     }
 
     @Transactional(readOnly = true)
