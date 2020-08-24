@@ -1,6 +1,7 @@
 package org.mlccc.cm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.swagger.annotations.ApiParam;
 import org.mlccc.cm.config.Constants;
 import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
@@ -11,11 +12,15 @@ import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.mlccc.cm.service.dto.UserDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.mlccc.cm.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.StringUtils;
@@ -106,7 +111,7 @@ public class InvoiceResource {
      */
     @GetMapping("/invoices")
     @Timed
-    public List<InvoiceDTO> getAllInvoices(@RequestParam String searchTerm) {
+    public ResponseEntity<List<InvoiceDTO>> getAllInvoices(@ApiParam Pageable pageable, @RequestParam String searchTerm) {
         log.debug("REST request to get all Invoices");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -117,20 +122,26 @@ public class InvoiceResource {
                 break;
             }
         }
-
+        Page<Invoice> invoicePage = null;
         List<Invoice> invoices = new ArrayList<>();
+        long total;
         if(allInvoices) {
             if(StringUtils.isEmpty(searchTerm)) {
-                invoices = invoiceService.findAllInvoices();
+                invoicePage = invoiceService.findAllInvoices(pageable);
+                invoices = invoicePage.getContent();
+                total = invoicePage.getTotalElements();
             } else {
-                Pageable pageable = new PageRequest(0, 1000);
-                Page<UserDTO> users = userService.searchUsers(pageable, searchTerm.toLowerCase());
+                Pageable p = new PageRequest(0, 1000);
+                Page<UserDTO> users = userService.searchUsers(p, searchTerm.toLowerCase());
                 for(UserDTO userDTO: users.getContent()){
                     invoices.addAll(invoiceService.findUnpaidByUserId(userDTO.getId()));
                 }
+                total = invoices.size();
             }
         } else {
-            invoices = invoiceService.findUnpaidByUserId(loginUser.getId());
+            invoicePage = invoiceService.findUnpaidByUserId(pageable, loginUser.getId());
+            invoices = invoicePage.getContent();
+            total = invoicePage.getTotalElements();
         }
 
         List<InvoiceDTO> returnedInvoices = new ArrayList<>();
@@ -143,7 +154,11 @@ public class InvoiceResource {
             }
             returnedInvoices.add(invoiceDTO);
         }
-        return returnedInvoices;
+
+        Page<InvoiceDTO> page = new PageImpl<InvoiceDTO>(returnedInvoices, pageable, total);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

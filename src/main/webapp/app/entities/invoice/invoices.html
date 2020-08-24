@@ -3,7 +3,7 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid" has-authority="ROLE_ADMIN">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-xs-4 no-padding-left">
                 <form name="searchForm" role="form" novalidate ng-submit="vm.searchInvoice()">
                     <div class="form-group has-feedback">
                         <input type="search" class="form-control" placeholder="Search Invoice by User Name" name="searchTerm" id="searchTerm"
@@ -92,62 +92,8 @@
         </div>
     </div>
     </div>
-    <!--
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-            <thead>
-                <tr>
-                    <th><span>Description</span></th>
-                    <th><span>Status</span></th>
-                    <th><span>Invoice Date</span></th>
-                    <th><span>Multi Class Discount</span></th>
-                    <th><span>Early Bird Discount</span></th>
-                    <th><span>Registration Fee</span></th>
-                    <th><span>Total</span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="invoice in vm.invoices track by invoice.id">
-                    <td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.description}}</a></td>
-                    <td>{{invoice.status}}</td>
-                        <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
-                    <td>
-                        {{invoice.multiClassDiscount}}
-                    </td>
-                    <td>
-                        {{invoice.earlyBirdDiscount}}
-                    </td>
-                    <td>
-                        {{invoice.earlyBirdDiscount}}
-                    </td>
-                    <td>
-                        {{invoice.total}}
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="invoice-detail({id:invoice.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="invoice.edit({id:invoice.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="invoice.delete({id:invoice.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>-->
 </div>

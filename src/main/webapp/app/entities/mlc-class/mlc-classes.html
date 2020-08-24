@@ -3,7 +3,7 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6"  has-authority="ROLE_ADMIN" >
+            <div class="col-xs-6 no-padding-left"  has-authority="ROLE_ADMIN" >
                 <button class="btn btn-primary" ui-sref="mlc-class.new">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
@@ -11,7 +11,7 @@
                     </span>
                 </button>
             </div>
-            <div class="col-sm-6">
+            <div class="col-xs-6 no-padding-left">
                 <form name="searchForm" role="form" novalidate ng-submit="vm.searchClass()">
                     <div class="form-group has-feedback">
                         <input type="search" class="form-control" placeholder="Search Class by Name" name="searchTerm" id="searchTerm"
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-xs-2 no-padding-left">
                 <!--<label for="field_status">School Term</label>-->
                 <select class="form-control" id="field_school_term" name="school_term" ng-model="vm.schoolTerm"
                         ng-options="schoolTerm as schoolTerm.term for schoolTerm in vm.schoolTerms track by schoolTerm.id"
@@ -30,7 +30,7 @@
                     <option value="">Select School Term</option>
                 </select>
             </div>
-            <div class="col-sm-2">
+            <div class="col-xs-2">
                 <!--<label for="field_status">School Term</label>-->
                 <select class="form-control" id="field_category" name="category" ng-model="vm.category"
                         ng-options="category as category.name for category in vm.mlcClassCategories track by category.id"
