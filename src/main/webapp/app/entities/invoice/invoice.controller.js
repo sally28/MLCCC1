@@ -50,11 +50,11 @@
         }
 
         function onSuccess(result, headers){
-            vm.invoices = result;
-            if(vm.invoices.length == 0){
-                vm.noRecord = true;
-            }
-            vm.searchQuery = null;
+                vm.invoices = result;
+                if(vm.invoices.length == 0){
+                    vm.noRecord = true;
+                }
+                vm.searchQuery = null;
             vm.links = ParseLinks.parse(headers('link'));
             vm.totalItems = headers('X-Total-Count');
             vm.queryCount = vm.totalItems;

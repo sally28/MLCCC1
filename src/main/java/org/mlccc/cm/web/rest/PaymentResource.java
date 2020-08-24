@@ -10,20 +10,20 @@ import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.PaymentService;
 import org.mlccc.cm.service.RegistrationService;
 import org.mlccc.cm.service.UserService;
-import org.mlccc.cm.service.dto.CCTransactionDTO;
-import org.mlccc.cm.service.dto.InvoiceDTO;
-import org.mlccc.cm.service.dto.PaymentDTO;
-import org.mlccc.cm.service.dto.RegistrationDTO;
+import org.mlccc.cm.service.dto.*;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.mlccc.cm.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -178,7 +178,7 @@ public class PaymentResource {
      */
     @GetMapping("/payments")
     @Timed
-    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable, @ApiParam String searchTerm) {
+    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable, @RequestParam(required=false) String searchTerm) {
         log.debug("REST request to get all Payments");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -190,7 +190,19 @@ public class PaymentResource {
         }
         Page<Payment> page = null;
         if(allPayments){
-            page= paymentService.findAll(pageable);
+            if(StringUtils.isEmpty(searchTerm)) {
+                page= paymentService.findAll(pageable);
+            } else {
+                List<Payment> searchedPayments = new ArrayList<>();
+                Pageable p = new PageRequest(0, 1000);
+                Page<UserDTO> users = userService.searchUsers(p, searchTerm.toLowerCase());
+                for(UserDTO userDTO: users.getContent()){
+                    Page<Payment> payments = paymentService.findByUserId(pageable, userDTO.getId());
+                    searchedPayments.addAll(payments.getContent());
+                }
+                long total = searchedPayments.size();
+                page = new PageImpl<Payment>(searchedPayments, pageable, total);
+            }
         } else {
             page = paymentService.findByUserId(pageable, loginUser.getId());
         }
