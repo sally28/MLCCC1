@@ -48,7 +48,9 @@
                         <a ui-sref="teacher-detail({id:registration.mlcClass.teacher.id})">{{registration.mlcClass.teacher.firstName}} {{registration.mlcClass.teacher.lastName}}</a>
                     </td>
                     <td>
-                        <span ng-class="{'color-red': registration.status === 'WITHDREW_NEED_REFUND','color-green': registration.status === 'CONFIRMED','color-orange': registration.status === 'PENDING'}">
+                        <span ng-class="{'color-red': registration.status === 'WITHDRAWN_NEED_REFUND' || registration.status === 'WITHDRAWN_REFUNDED',
+                            'color-green': registration.status === 'CONFIRMED',
+                            'color-orange': registration.status === 'PENDING'}">
                         {{registration.status}}
                         </span>
                     </td>

@@ -12,7 +12,9 @@ import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,14 +40,17 @@ public class InvoiceService {
 
     private final SchoolTermRepository schoolTermRepository;
 
+    private final PaymentService paymentService;
+
     public InvoiceService(InvoiceRepository invoiceRepository, DiscountService discountService,
                           SchoolTermRepository schoolTermRepository, UserService userService,
-                          StudentService studentService) {
+                          StudentService studentService, PaymentService paymentService) {
         this.invoiceRepository = invoiceRepository;
         this.discountService = discountService;
         this.schoolTermRepository = schoolTermRepository;
         this.userService = userService;
         this.studentService = studentService;
+        this.paymentService = paymentService;
     }
 
     /**
@@ -201,6 +206,8 @@ public class InvoiceService {
         }
 
         // step 4: apply user credit;
+        // do not apply credit yet.
+        /*
         Double credit = billToUser.getCredit();
         if(credit != null && credit>0.00) {
             if(dto.getTotal()>=credit){
@@ -216,7 +223,7 @@ public class InvoiceService {
             }
         } else {
             dto.setCredit(0.00);
-        }
+        } */
 
         // step 5: apply registration waiver;
         if(now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(schoolTerm.getPromDate())) {
@@ -238,6 +245,16 @@ public class InvoiceService {
         InvoiceDTO dto = new InvoiceDTO();
         calculateTotalAmount(invoice, dto);
         Double refund = invoice.getTotal() - dto.getTotal();
+        Double existingRefund = 0.00;
+        Pageable pageable = new PageRequest(0, 1000, Sort.Direction.DESC, "id");
+        List<Payment> payments = paymentService.findByInvoiceId(pageable, invoice.getId()).getContent();
+        for(Payment payment : payments){
+            if(payment.getStatus().equals(Constants.PAYMENT_REFUND_STATUS)){
+                existingRefund += Math.abs(payment.getAmount());
+            }
+        }
+        refund -= existingRefund;
+
         if(refund <=0 ){
             refund = 0.00;
         }

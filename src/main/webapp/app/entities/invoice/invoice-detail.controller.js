@@ -15,7 +15,7 @@
         vm.needRefund = false;
 
         vm.invoice.registrations.forEach(function(registration){
-            if(registration.status == 'WITHDREW_NEED_REFUND'){
+            if(registration.status == 'WITHDRAWN_NEED_REFUND'){
                 vm.needRefund = true;
             }
         })

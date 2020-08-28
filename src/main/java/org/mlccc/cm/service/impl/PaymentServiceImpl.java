@@ -194,4 +194,11 @@ public class PaymentServiceImpl implements PaymentService{
 
         return transactionDTO;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Payment> findByInvoiceId(Pageable pageable, Long invoiceId) {
+        log.debug("Request to get Payments with invoice id");
+        return paymentRepository.findByInvoiceId(pageable, invoiceId);
+    }
 }

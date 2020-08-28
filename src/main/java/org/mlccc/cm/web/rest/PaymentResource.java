@@ -90,11 +90,11 @@ public class PaymentResource {
 
         if(payment.getStatus().equals(Constants.PAYMENT_REFUND_STATUS)){
             // refund
-            StringBuilder comments = new StringBuilder("Refund for registrations with id: ");
+            StringBuilder comments = new StringBuilder(invoice.getComments()).append(" Refund for registrations with id: ");
             for(RegistrationDTO regdto : invoiceDto.getRegistrations()){
                 Registration reg = registrationService.findOne(regdto.getId());
-                if(reg.getStatus().equals(Constants.WITHDREW_NEED_REFUND_STATUS)){
-                    reg.setStatus(Constants.WITHDREW_REFUNDED_STATUS);
+                if(reg.getStatus().equals(Constants.WITHDRAWN_NEED_REFUND_STATUS)){
+                    reg.setStatus(Constants.WITHDRAWN_REFUNDED_STATUS);
                     comments.append(reg.getId()).append(" ");
                 }
                 reg.setModifyDate(LocalDate.now());
@@ -178,7 +178,7 @@ public class PaymentResource {
      */
     @GetMapping("/payments")
     @Timed
-    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable, @RequestParam(required=false) String searchTerm) {
+    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable, @RequestParam(required=false) String searchTerm, @RequestParam(required=false) Long invoiceId) {
         log.debug("REST request to get all Payments");
         User loginUser = userService.getUserWithAuthorities();
         Set<Authority> authorities = loginUser.getAuthorities();
@@ -191,7 +191,11 @@ public class PaymentResource {
         Page<Payment> page = null;
         if(allPayments){
             if(StringUtils.isEmpty(searchTerm)) {
-                page= paymentService.findAll(pageable);
+                if(invoiceId != null){
+                    page = paymentService.findByInvoiceId(pageable, invoiceId);
+                } else {
+                    page = paymentService.findAll(pageable);
+                }
             } else {
                 List<Payment> searchedPayments = new ArrayList<>();
                 Pageable p = new PageRequest(0, 1000);

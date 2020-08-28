@@ -19,7 +19,7 @@
         }
 
         function confirmWithdraw (registration) {
-            registration.status = 'WITHDREW_NEED_REFUND';
+            registration.status = 'WITHDRAWN_NEED_REFUND';
             Registration.update(registration,function(){
                 $uibModalInstance.close(true);
             });

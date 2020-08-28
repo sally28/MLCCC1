@@ -7,9 +7,9 @@
     Payment.$inject = ['$resource'];
 
     function Payment ($resource) {
-        var resourceUrl =  'api/payments/:id?searchTerm=:param';
+        var resourceUrl =  'api/payments/:id?searchTerm=:param&invoiceId=:invoiceId';
 
-        return $resource(resourceUrl, {param: '@param'}, {
+        return $resource(resourceUrl, {param: '@param', invoiceId: '@invoiceId'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

@@ -10,12 +10,24 @@
                 <span class="hidden-sm-down">Pay</span>
             </button>
         </div>
-        <div ng-if="vm.needRefund == true" has-authority="ROLE_ADMIN">
-            <button class="btn btn-primary"
-                    ui-sref="payment.refund({invoiceId:vm.invoice.id})">
-                <span class="glyphicon glyphicon-usd"></span>
-                <span class="hidden-sm-down">Refund</span>
-            </button>
+        <div class="row">
+            <div class="col-sm-10">
+                <button class="btn btn-primary"
+                        ui-sref="payment.refund({invoiceId:vm.invoice.id})"
+                        ng-if="vm.needRefund == true" has-authority="ROLE_ADMIN">
+                    <span class="glyphicon glyphicon-usd"></span>
+                    <span class="hidden-sm-down">Refund</span>
+                </button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button"
+                        ui-sref="payment.invoice({invoiceId:vm.invoice.id})"
+                        class="btn btn-info"
+                        ng-switch-when="PAID">
+                    <span class="glyphicon glyphicon-usd"></span>
+                    <span class="hidden-sm-down">Payments</span>
+                </button>
+            </div>
         </div>
     </div>
     <hr>
@@ -53,6 +65,10 @@
         <dd>
             <span>{{vm.invoice.status}}</span>
         </dd>
+        <dt><span>Comments</span></dt>
+        <dd>
+            <span>{{vm.invoice.comments}}</span>
+        </dd>
         <dt><span>Invoice Date</span></dt>
         <dd>
             <span>{{vm.invoice.invoiceDate | date:'mediumDate'}}</span>
@@ -76,7 +92,8 @@
                             <td>Class: {{registration.mlcClassName}}</td>
                             <td>Time: {{registration.classTime}}</td>
                             <td>Status:
-                                <span ng-class="{'color-red': registration.status === 'WITHDREW_NEED_REFUND','color-green': registration.status === 'CONFIRMED','color-orange': registration.status === 'PENDING'}">
+                                <span ng-class="{'color-red': registration.status === 'WITHDRAWN_NEED_REFUND' || registration.status === 'WITHDRAWN_REFUNDED',
+                                        'color-green': registration.status === 'CONFIRMED','color-orange': registration.status === 'PENDING'}">
                                     {{registration.status}}
                                 </span>
                             </td>
