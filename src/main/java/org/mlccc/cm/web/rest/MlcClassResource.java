@@ -144,10 +144,12 @@ public class MlcClassResource {
         log.debug("REST request to delete MlcClass : {}", id);
         // delete a class needs to remove the association of teacher.
         MlcClass mlcClass = mlcClassService.findOne(id);
-        Teacher teacher = teacherService.getTeacherWithClasses(mlcClass.getTeacher().getId());
-        teacher.getMlcClasses().remove(mlcClass);
-        teacherService.save(teacher);
-        mlcClass.setTeacher(null);
+        if(mlcClass.getTeacher() != null){
+            Teacher teacher = teacherService.getTeacherWithClasses(mlcClass.getTeacher().getId());
+            teacher.getMlcClasses().remove(mlcClass);
+            teacherService.save(teacher);
+            mlcClass.setTeacher(null);
+        }
         mlcClassService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
