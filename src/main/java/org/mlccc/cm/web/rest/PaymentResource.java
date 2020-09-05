@@ -84,6 +84,19 @@ public class PaymentResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "unsupportedType", "Payment type is not supported")).body(null);
         }
 
+        User loginUser = userService.getUserWithAuthorities();
+        Set<Authority> authorities = loginUser.getAuthorities();
+        Boolean adminUser = false;
+        for(Authority auth : authorities){
+            if(auth.getName().equals(AuthoritiesConstants.ADMIN)){
+                adminUser = true;
+                break;
+            }
+        }
+
+        if(!adminUser && !paymentDto.getType().equals(Constants.PAYMENT_TYPE_CC)){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "unsupportedType", "Payment type is not supported")).body(null);
+        }
 
         Payment payment = paymentDto.toPayment();
 

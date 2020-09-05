@@ -29,8 +29,8 @@
                     ng-model="vm.payment.type" ng-change="vm.getPaymentMethod()">
                 <option value="">Select Payment Type</option>
                 <option value="Credit Card">Credit Card (Visa Only)</option>
-                <!--<option value="Cash" has-authority="ROLE_ADMIN">Cash</option>
-                <option value="Check" has-authority="ROLE_ADMIN">Check</option>-->
+                <option value="Cash" has-authority="ROLE_ADMIN">Cash</option>
+                <option value="Check" has-authority="ROLE_ADMIN">Check</option>
             </select>
         </div>
         <div class="form-group" ng-switch="vm.payment.type">
