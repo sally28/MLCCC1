@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="control-label" for="field_type">Payment Type</label>
             <select type="text" class="form-control" name="type" id="field_type"
-                    ng-model="vm.payment.type" ng-change="vm.getPaymentMethod()">
+                    ng-model="vm.payment.type" ng-change="vm.getPaymentMethod()" required>
                 <option value="">Select Payment Type</option>
                 <option value="Credit Card">Credit Card (Visa Only)</option>
                 <option value="Cash" has-authority="ROLE_ADMIN">Cash</option>
