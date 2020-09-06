@@ -33,7 +33,7 @@
                 <tr ng-repeat="payment in vm.payments track by payment.id">
                     <td><a ui-sref="payment-detail({id:payment.id})">{{payment.id}}</a></td>
                     <td>{{payment.amount | currency:"$"}}</td>
-                    <td>{{payment.status}}</td>
+                    <td ng-class="{'color-red': payment.status === 'REFUND','color-green': payment.status === 'PAID'}">{{payment.status}}</td>
                     <td>{{payment.type}}</td>
                     <td>{{payment.createDate | date:'mediumDate'}}</td>
                     <td has-authority="ROLE_ADMIN" >

@@ -173,6 +173,70 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('payment.refund', {
+            parent: 'payment',
+            url: '/refund',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            params: {
+                invoiceId: null
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/payment/payment-refund.html',
+                    controller: 'PaymentRefundController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: ['Invoice', function(Invoice) {
+                            return Invoice.get({id : $stateParams.invoiceId}).$promise;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('payment', null, { reload: 'payment' });
+                }, function() {
+                    $state.go('payment');
+                });
+            }]
+        })
+        .state('payment.invoice', {
+            parent: 'entity',
+            url: '/payment/invoice/{invoiceId}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'Payments'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/payment/payments.html',
+                    controller: 'PaymentController',
+                    controllerAs: 'vm'
+                }
+            },
+            params: {
+                page: {
+                    value: '1',
+                    squash: true
+                },
+                sort: {
+                    value: 'id,desc',
+                    squash: true
+                }
+            },
+            invoiceId: 0,
+            resolve: {
+                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    return {
+                        page: PaginationUtil.parsePage($stateParams.page),
+                        sort: $stateParams.sort,
+                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
+                        ascending: PaginationUtil.parseAscending($stateParams.sort)
+                    };
+                }]
+            }
         });
     }
 

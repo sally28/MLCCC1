@@ -24,7 +24,8 @@ public interface RegistrationRepository extends JpaRepository<Registration,Long>
     @Query("SELECT r FROM Registration r WHERE r.mlcClass.id = (:mlcClassId) ORDER BY r.id")
     Page<Registration> findAllWithClassId(Pageable var1, @Param("mlcClassId") Long mlcClassId);
 
-    @Query("SELECT r FROM Registration r WHERE r.student.id = (:studentId) AND r.mlcClass.id = (:mlcClassId) AND r.mlcClass.status.status != 'CLOSED'")
+    @Query("SELECT r FROM Registration r WHERE r.student.id = (:studentId) AND r.mlcClass.id = (:mlcClassId) AND r.mlcClass.status.status != 'CLOSED'" +
+            " AND r.status != 'WITHDRAWN'")
     List<Registration> findAllWithStudentIdClassId(@Param("studentId") Long studentId, @Param("mlcClassId") Long mlcClassId);
 
     @Query("SELECT r FROM Registration r join r.student.associatedAccounts sa WHERE sa.id = (:userId)")
@@ -33,7 +34,7 @@ public interface RegistrationRepository extends JpaRepository<Registration,Long>
     @Query("SELECT r FROM Registration r join r.mlcClass c join c.teacher t join t.account cta WHERE cta.id = (:userId)")
     Page<Registration> findAllWithTeacherUserId(Pageable var1, @Param("userId") Long userId);
 
-    @Query("SELECT count(r.id) FROM Registration r WHERE r.mlcClass.id = (:mlcClassId)")
+    @Query("SELECT count(r.id) FROM Registration r WHERE r.mlcClass.id = (:mlcClassId) AND r.status != 'WITHDRAWN'")
     Long findNumberOfRegistrationWithClassId(@Param("mlcClassId") Long mlcClassId);
 
 }

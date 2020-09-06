@@ -12,7 +12,9 @@ import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,14 +40,17 @@ public class InvoiceService {
 
     private final SchoolTermRepository schoolTermRepository;
 
+    private final PaymentService paymentService;
+
     public InvoiceService(InvoiceRepository invoiceRepository, DiscountService discountService,
                           SchoolTermRepository schoolTermRepository, UserService userService,
-                          StudentService studentService) {
+                          StudentService studentService, PaymentService paymentService) {
         this.invoiceRepository = invoiceRepository;
         this.discountService = discountService;
         this.schoolTermRepository = schoolTermRepository;
         this.userService = userService;
         this.studentService = studentService;
+        this.paymentService = paymentService;
     }
 
     /**
@@ -135,17 +140,19 @@ public class InvoiceService {
         // step 1: first step needs to apply teacher benefits to each class;
         Double teacherBenefits = 0.00;
         for(Registration registration : invoice.getRegistrations()){
-            Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
-            Set<User> parents = student.getAssociatedAccounts();
-            for(User parent : parents){
-                // one of student's parent is the teacher of the class registered
-                User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
-                if(teacherAccount != null && parent.equals(teacherAccount)){
-                    teacherBenefits += registration.getMlcClass().getTuition();
-                    registration.setTuition(0.00);
-                    break;
-                } else {
-                    registration.setTuition(registration.getMlcClass().getTuition());
+            if(registration.getStatus().equals(Constants.PENDING_STATUS) || registration.getStatus().equals(Constants.CONFIRMED_STATUS)){
+                Student student = studentService.findByIdAndFetchEager(registration.getStudent().getId());
+                Set<User> parents = student.getAssociatedAccounts();
+                for(User parent : parents){
+                    // one of student's parent is the teacher of the class registered
+                    User teacherAccount = registration.getMlcClass().getTeacher().getAccount();
+                    if(teacherAccount != null && parent.equals(teacherAccount)){
+                        teacherBenefits += registration.getMlcClass().getTuition();
+                        registration.setTuition(0.00);
+                        break;
+                    } else {
+                        registration.setTuition(registration.getMlcClass().getTuition());
+                    }
                 }
             }
         }
@@ -199,6 +206,8 @@ public class InvoiceService {
         }
 
         // step 4: apply user credit;
+        // do not apply credit yet.
+        /*
         Double credit = billToUser.getCredit();
         if(credit != null && credit>0.00) {
             if(dto.getTotal()>=credit){
@@ -214,7 +223,7 @@ public class InvoiceService {
             }
         } else {
             dto.setCredit(0.00);
-        }
+        } */
 
         // step 5: apply registration waiver;
         if(now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(schoolTerm.getPromDate())) {
@@ -229,6 +238,27 @@ public class InvoiceService {
             dto.setAdjustment(invoice.getAdjustment());
             dto.setTotal(dto.getTotal() - dto.getAdjustment());
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Double calculateRefundAmount(Invoice invoice) {
+        InvoiceDTO dto = new InvoiceDTO();
+        calculateTotalAmount(invoice, dto);
+        Double refund = invoice.getTotal() - dto.getTotal();
+        Double existingRefund = 0.00;
+        Pageable pageable = new PageRequest(0, 1000, Sort.Direction.DESC, "id");
+        List<Payment> payments = paymentService.findByInvoiceId(pageable, invoice.getId()).getContent();
+        for(Payment payment : payments){
+            if(payment.getStatus().equals(Constants.PAYMENT_REFUND_STATUS)){
+                existingRefund += Math.abs(payment.getAmount());
+            }
+        }
+        refund -= existingRefund;
+
+        if(refund <=0 ){
+            refund = 0.00;
+        }
+        return refund;
     }
 
     public Long getSchoolTermId(Invoice invoice){

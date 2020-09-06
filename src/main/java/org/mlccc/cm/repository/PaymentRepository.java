@@ -19,4 +19,7 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<Payment,Long> {
     @Query("SELECT p FROM Payment p WHERE p.account.id = (:userId) ")
     Page<Payment> findByUserId(Pageable var1, @Param("userId") Long userId);
+
+    @Query("SELECT p FROM Payment p WHERE p.invoice.id = (:invoiceId) ")
+    Page<Payment> findByInvoiceId(Pageable var1, @Param("invoiceId") Long invoiceId);
 }

@@ -176,6 +176,10 @@ public class InvoiceResource {
         // calculate total amount if invoice is unpaid
         if(invoice.getStatus().equals(Constants.INVOICE_UNPAID_STATUS)){
             invoiceService.calculateTotalAmount(invoice, invoiceDTO);
+        } else if(invoice.getStatus().equals(Constants.INVOICE_PAID_STATUS)){
+            // calculate refund amount if applicable,
+            Double refund = invoiceService.calculateRefundAmount(invoice);
+            invoiceDTO.setRefund(refund);
         }
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(invoiceDTO));
     }

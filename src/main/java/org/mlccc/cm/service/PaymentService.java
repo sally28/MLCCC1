@@ -46,4 +46,6 @@ public interface PaymentService {
     Page<Payment> findByUserId(Pageable pageable, Long userId);
 
     CCTransactionDTO processCCPayment(CreditCardPayment payment);
+
+    Page<Payment> findByInvoiceId(Pageable pageable, Long invoiceId);
 }

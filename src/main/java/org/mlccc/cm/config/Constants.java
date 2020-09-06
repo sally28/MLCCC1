@@ -16,8 +16,9 @@ public final class Constants {
     public static final String PENDING_STATUS = "PENDING";
     public static final String CONFIRMED_STATUS = "CONFIRMED";
     public static final String CANCELLED_STATUS = "CANCELLED";
-    public static final String CANCELLED_NEED_REFUND_STATUS = "CANCELLED_NEED_REFUND_STATUS";
-    public static final String CANCELLED_REFUNDED_STATUS = "CANCELLED_REFUNDED_STATUS";
+    public static final String WITHDRAWN_STATUS = "WITHDRAWN";
+    public static final String WITHDRAWN_NEED_REFUND_STATUS = "WITHDRAWN_NEED_REFUND";
+    public static final String WITHDRAWN_REFUNDED_STATUS = "WITHDRAWN_REFUNDED";
     public static final String OPEN_STATUS = "OPEN";
     public static final String FULL_STATUS = "FULL";
     public static final String CLOSED_STATUS = "CLOSED";
@@ -34,6 +35,8 @@ public final class Constants {
     public static final String PAYMENT_TYPE_CHECK = "Check";
     public static final String PAYMENT_TYPE_CC = "Credit Card";
     public static final String PAYMENT_TYPE_PAYPAL = "Paypal";
+    public static final String PAYMENT_REFUND_STATUS = "REFUND";
+    public static final String PAYMENT_REFUND_CREDIT = "Credit";
 
     private Constants() {
     }

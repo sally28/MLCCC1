@@ -1,0 +1,63 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPaymentLabel">Create a Refund</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.payment.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.payment.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="field_account">Account</label>
+            <lable>{{vm.invoice.billToUser.firstName}} {{vm.invoice.billToUser.lastName}}</lable>
+        </div>
+        <div class="form-group">
+            <label for="field_invoiced_amount">Refund Amount</label>
+            <label class="control-label" for="invoiced_amount">{{vm.invoice.refund | currency:"$"}}</label>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="field_type">Refund Type</label>
+            <select type="text" class="form-control" name="type" id="field_type"
+                    ng-model="vm.payment.type" ng-change="vm.getPaymentMethod()">
+                <option value="">Select Refund Type</option>
+                <option value="Credit Card">Refund Credit Card</option>
+                <option value="Cash" has-authority="ROLE_ADMIN">Refund Cash</option>
+                <option value="Check" has-authority="ROLE_ADMIN">Refund Check</option>
+                <option value="Credit" has-authority="ROLE_ADMIN">Refund Credit</option>
+            </select>
+        </div>
+        <div class="form-group" ng-switch="vm.payment.type">
+            <div ng-switch-when="Check">
+                <label class="control-label" for="field_reference_id">Type in your check number</label>
+                <input type="text" class="form-control" name="reference_ID" id="field_reference_id"
+                       ng-model="vm.payment.referenceId" required>
+                </input>
+            </div>
+            <div ng-switch-when="Credit Card">
+                <label class="control-label" for="field_reference_id">Type in credit card transaction id</label>
+                <input type="text" class="form-control" name="reference_ID" id="field_reference_id"
+                       ng-model="vm.payment.referenceId" required>
+                </input>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button id="submit-button" type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Submit</span>
+        </button>
+    </div>
+</form>

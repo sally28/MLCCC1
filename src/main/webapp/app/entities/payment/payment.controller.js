@@ -17,7 +17,11 @@
         vm.payments = [];
         vm.searchPayment = searchPayment;
 
-        loadAll();
+        if($state.params.invoiceId){
+            getPaymentsByInvoiceId($state.params.invoiceId);
+        } else {
+            loadAll();
+        }
 
         function loadAll() {
             Payment.query({
@@ -49,6 +53,10 @@
 
         function searchPayment(searchTerm){
             Payment.query({param: vm.searchTerm}, onSuccess);
+        }
+
+        function getPaymentsByInvoiceId(invoiceId){
+            Payment.query({invoiceId: invoiceId}, onSuccess);
         }
     }
 })();

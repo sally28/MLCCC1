@@ -280,6 +280,9 @@ public class Invoice implements Serializable {
     }
 
     public String getComments() {
+        if(comments == null){
+            comments = "";
+        }
         return comments;
     }
 

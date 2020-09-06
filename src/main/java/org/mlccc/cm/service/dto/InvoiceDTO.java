@@ -52,6 +52,8 @@ public class InvoiceDTO {
 
     private String comments;
 
+    private Double refund = 0.00;
+
     public InvoiceDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -203,6 +205,14 @@ public class InvoiceDTO {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public Double getRefund() {
+        return refund;
+    }
+
+    public void setRefund(Double refund) {
+        this.refund = refund;
     }
 
     @Override

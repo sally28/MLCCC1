@@ -277,6 +277,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
 
     public Double getCredit() {
+        if(credit == null){
+            credit = 0.00;
+        }
         return credit;
     }
 
