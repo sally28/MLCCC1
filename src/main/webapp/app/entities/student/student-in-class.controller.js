@@ -102,7 +102,7 @@
                 }
             })
 
-            $state.params.to = 'principal@mlccc.org';
+            $state.params.to = 'principals@mlccc.org';
             $state.params.subject = className;
             $state.params.cc = vm.account.email;
             $state.params.bcc = parents;

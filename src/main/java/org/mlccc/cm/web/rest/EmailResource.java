@@ -54,6 +54,7 @@ public class EmailResource {
         String[] to;
         String[] ccList;
         String[] bccList;
+        String replyTo = null;
         StringBuffer emails = new StringBuffer();
         ccList = (cc != null)? cc.split(",") : null;
         bccList = (bcc != null)? bcc.split(",") : null;
@@ -67,7 +68,7 @@ public class EmailResource {
             to = "mlcccwndschool@gmail.com".split(",");
             bccList = emails.toString().split(",");
         } else if(recipients.equals("All Users")) {
-            to = "principal@mlccc.org".split(",");
+            to = "mlcccwndschool@gmail.com".split(",");
             List<User> allUsers = userService.getAllActiveUsers();
             for(User user : allUsers){
                 if(!user.getEmail().isEmpty()){
@@ -77,9 +78,11 @@ public class EmailResource {
             bccList = emails.toString().split(",");
         } else {
             to = recipients.split(",");
+            User loginUser = userService.getUserWithAuthorities();
+            replyTo = loginUser.getEmail();
         }
 
-        mailService.sendEmail(to, subject, content, ccList, bccList, false, false);
+        mailService.sendEmail(to, subject, content, ccList, bccList, replyTo, false, false);
 
         return ResponseEntity.created(new URI("/api/account-email/"))
                 .headers(HeaderUtil.emailSentAlert(recipients))

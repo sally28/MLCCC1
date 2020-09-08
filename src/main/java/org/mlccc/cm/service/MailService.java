@@ -1,5 +1,6 @@
 package org.mlccc.cm.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mlccc.cm.domain.User;
 
 import io.github.jhipster.config.JHipsterProperties;
@@ -106,7 +107,7 @@ public class MailService {
     }
 
     @Async
-    public void sendEmail(String[] to, String subject, String content, String[] cc, String bcc[], boolean isMultipart, boolean isHtml) {
+    public void sendEmail(String[] to, String subject, String content, String[] cc, String bcc[], String replyTo, boolean isMultipart, boolean isHtml) {
         log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
                 isMultipart, isHtml, to, subject, content);
 
@@ -116,11 +117,15 @@ public class MailService {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
             message.setTo(to);
             message.setFrom(jHipsterProperties.getMail().getFrom());
-            if(cc != null) {
+
+            if(StringUtils.isNoneEmpty(cc)) {
                 message.setCc(cc);
             }
-            if( bcc != null) {
+            if(StringUtils.isNoneEmpty(bcc)) {
                 message.setBcc(bcc);
+            }
+            if(StringUtils.isNotEmpty(replyTo)) {
+                message.setReplyTo(replyTo);
             }
             message.setSubject(subject);
             message.setText(content, isHtml);
