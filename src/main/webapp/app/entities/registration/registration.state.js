@@ -101,7 +101,7 @@
         })
         .state('registration.new', {
             parent: 'registration',
-            url: '/new',
+            url: '/new/',
             data: {
                 authorities: ['ROLE_USER']
             },
