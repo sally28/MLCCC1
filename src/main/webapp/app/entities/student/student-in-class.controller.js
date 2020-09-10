@@ -60,18 +60,20 @@
             vm.page = pagingParams.page;
             vm.students.forEach(function(student){
                 student.registrations.forEach(function(registration){
-                    var data = vm.mlcClasses.find( function( ele ) {
-                        return ele.name === registration.mlcClassName;
-                    } );
-                    if(data == null){
-                        var classItem = {
-                            name: registration.mlcClassName,
-                            students: []
+                    if(registration.status == 'CONFIRMED' || registration.status == "PENDING" ){
+                        var data = vm.mlcClasses.find( function( ele ) {
+                            return ele.name === registration.mlcClassName;
+                        } );
+                        if(data == null){
+                            var classItem = {
+                                name: registration.mlcClassName,
+                                students: []
+                            }
+                            classItem.students.push(student);
+                            vm.mlcClasses.push(classItem);
+                        } else {
+                            data.students.push(student);
                         }
-                        classItem.students.push(student);
-                        vm.mlcClasses.push(classItem);
-                    } else {
-                        data.students.push(student);
                     }
                 });
             });

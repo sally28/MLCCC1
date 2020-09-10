@@ -44,9 +44,9 @@
         <dd>
             {{vm.mlcClass.mlcClassCategory.name}}
         </dd>
-        <dt><span>Class Room</span></dt>
-        <dd>
-            {{vm.mlcClass.classRoom.roomNumber}}
+        <dt has-authority="ROLE_ADMIN"><span>Class Room</span></dt>
+        <dd has-authority="ROLE_ADMIN">
+            {{vm.mlcClass.classRoom.description}}
         </dd>
         <dt><span>School Term</span></dt>
         <dd>
