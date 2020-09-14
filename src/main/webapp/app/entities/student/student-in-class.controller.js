@@ -15,7 +15,7 @@
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
-        vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.itemsPerPage = 30;
         vm.showRegistrations = true;
         vm.searchStudent = searchStudent;
         vm.account = loginUser;
