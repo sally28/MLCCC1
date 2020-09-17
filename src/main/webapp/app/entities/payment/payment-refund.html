@@ -41,19 +41,11 @@
                 <option value="Credit" has-authority="ROLE_ADMIN">Refund Credit</option>
             </select>
         </div>
-        <div class="form-group" ng-switch="vm.payment.type">
-            <div ng-switch-when="Check">
-                <label class="control-label" for="field_reference_id">Type in your check number</label>
-                <input type="text" class="form-control" name="reference_ID" id="field_reference_id"
-                       ng-model="vm.payment.referenceId" required>
-                </input>
-            </div>
-            <div ng-switch-when="Credit Card">
-                <label class="control-label" for="field_reference_id">Type in credit card transaction id</label>
-                <input type="text" class="form-control" name="reference_ID" id="field_reference_id"
-                       ng-model="vm.payment.referenceId" required>
-                </input>
-            </div>
+        <div class="form-group">
+            <label class="control-label" for="field_reference_id">Comments</label>
+            <input type="text" class="form-control" name="reference_ID" id="field_reference_id" placeholder="Type in refund check number, credit card transaction id or any comments."
+                   ng-model="vm.payment.referenceId" required>
+            </input>
         </div>
     </div>
     </div>

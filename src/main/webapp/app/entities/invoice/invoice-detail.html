@@ -14,7 +14,7 @@
             <div class="col-sm-10">
                 <button class="btn btn-primary"
                         ui-sref="payment.refund({invoiceId:vm.invoice.id})"
-                        ng-if="vm.needRefund == true" has-authority="ROLE_ADMIN">
+                        has-authority="ROLE_ADMIN">
                     <span class="glyphicon glyphicon-usd"></span>
                     <span class="hidden-sm-down">Refund</span>
                 </button>
