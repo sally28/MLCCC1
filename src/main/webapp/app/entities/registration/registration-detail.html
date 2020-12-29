@@ -27,8 +27,8 @@
         </dd>
     </dl>
 
-    <button type="submit"
-            ui-sref="{{ vm.previousState }}"
+    <button type="button"
+            ui-sref="student-detail({id:vm.registration.student.id})"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
