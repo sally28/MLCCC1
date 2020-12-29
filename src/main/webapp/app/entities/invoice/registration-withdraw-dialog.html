@@ -6,8 +6,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p>Are you sure you want to withdraw this registration?</p>
-        <p>{{vm.registration.mlcClass.className}}?</p>
+        <p>Are you sure you want to withdraw {{vm.registration.student.firstName}} {{vm.registration.student.lastName}} from {{vm.registration.mlcClass.className}}?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

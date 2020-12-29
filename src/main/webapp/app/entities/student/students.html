@@ -93,7 +93,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="student in vm.students track by student.id">
-                        <td><a ui-sref="student-detail({id:student.id})">{{student.lastName}},{{student.firstName}}</a></td>
+                        <td><a ui-sref="student-detail({id:student.id})">{{student.lastName}}, {{student.firstName}}</a></td>
                         <td>{{student.gender}}</td>
                         <td>{{student.birthMonth}}/{{student.birthYear}}</td>
                         <td>{{student.notes}}</td>
