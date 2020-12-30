@@ -1,5 +1,6 @@
 package org.mlccc.cm.service;
 
+import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.Registration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,6 +48,8 @@ public interface RegistrationService {
     Page<Registration> findAllWithTeacherUserId(Pageable pageable, Long userId);
 
     Long findNumberOfRegistrationWithClassId(Long classId);
+
+    Registration switchClass(Registration registration, MlcClass newMlcClass);
     /**
      *  Delete the "id" registration.
      *

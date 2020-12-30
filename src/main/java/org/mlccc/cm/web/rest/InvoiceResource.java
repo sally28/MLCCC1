@@ -174,7 +174,7 @@ public class InvoiceResource {
         Invoice invoice = invoiceService.findOneWithRegistrations(id);
         InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
         // calculate total amount if invoice is unpaid
-        if(invoice.getStatus().equals(Constants.INVOICE_UNPAID_STATUS)){
+        if(invoice.getStatus().equals(Constants.INVOICE_UNPAID_STATUS) || invoice.getStatus().equals(Constants.INVOICE_PARTIALLY_PAID_STATUS)){
             invoiceService.calculateTotalAmount(invoice, invoiceDTO);
         } else if(invoice.getStatus().equals(Constants.INVOICE_PAID_STATUS)){
             // calculate refund amount if applicable,

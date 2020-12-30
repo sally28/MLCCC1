@@ -244,16 +244,14 @@ public class InvoiceService {
     public Double calculateRefundAmount(Invoice invoice) {
         InvoiceDTO dto = new InvoiceDTO();
         calculateTotalAmount(invoice, dto);
-        Double refund = invoice.getTotal() - dto.getTotal();
-        Double existingRefund = 0.00;
+        Double refund;
+        Double totalPayment = 0.00;
         Pageable pageable = new PageRequest(0, 1000, Sort.Direction.DESC, "id");
         List<Payment> payments = paymentService.findByInvoiceId(pageable, invoice.getId()).getContent();
         for(Payment payment : payments){
-            if(payment.getStatus().equals(Constants.PAYMENT_REFUND_STATUS)){
-                existingRefund += Math.abs(payment.getAmount());
-            }
+            totalPayment += payment.getAmount();
         }
-        refund -= existingRefund;
+        refund = totalPayment - dto.getTotal();
 
         if(refund <=0 ){
             refund = 0.00;

@@ -8,6 +8,7 @@ import org.mlccc.cm.service.InvoiceService;
 import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.RegistrationService;
 import org.mlccc.cm.repository.RegistrationRepository;
+import org.mlccc.cm.service.dto.InvoiceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -144,5 +146,62 @@ public class RegistrationServiceImpl implements RegistrationService{
         return registrationRepository.findNumberOfRegistrationWithClassId(classId);
     }
 
+    @Override
+    public Registration switchClass(Registration registration, MlcClass newMlcClass) {
+        log.debug("Request to switch class for Registration : {}", registration);
+        MlcClass existingClass = registration.getMlcClass();
+        registration.setMlcClass(newMlcClass);
 
+        Invoice invoice = invoiceService.findOne(registration.getInvoice().getId());
+        for(Registration reg : invoice.getRegistrations()){
+            if (reg.getId().equals(registration.getId())){
+                reg.setMlcClass(newMlcClass);
+            }
+        }
+
+        if(newMlcClass.getTuition() > existingClass.getTuition()){
+            // if new class costs more than existing class
+            registration.setStatus(Constants.PENDING_STATUS);
+            invoice.setStatus(Constants.INVOICE_PARTIALLY_PAID_STATUS);
+        } else if(newMlcClass.getTuition() < existingClass.getTuition()){
+            // if new class costs less than existing class, need  refund
+            InvoiceDTO dto = new InvoiceDTO();
+            invoiceService.calculateTotalAmount(invoice, dto);
+            invoice.setTeacherBenefits(dto.getBenefits());
+            invoice.setRegistrationFee(dto.getRegistrationFee());
+            invoice.setMultiClassDiscount(dto.getMultiClassDiscount());
+            invoice.setEarlyBirdDiscount(dto.getEarlyBirdDiscount());
+            invoice.setUserCredit(dto.getCredit());
+            invoice.setAdjustment(dto.getAdjustment());
+            invoice.setTotal(dto.getTotal());
+        }
+
+        invoice.setComments(invoice.getComments()+" Switch class from " + registration.getMlcClass().getClassName() + " to " + newMlcClass.getClassName());
+        invoice.setModifyDate(LocalDate.now());
+
+        Registration result = registrationRepository.save(registration);
+
+        if(result != null){
+            Long numOfRegistrations = registrationRepository.findNumberOfRegistrationWithClassId(newMlcClass.getId());
+
+            if((numOfRegistrations.doubleValue()+1)/newMlcClass.getSize().doubleValue() >= 0.8){
+                newMlcClass.setStatus(classStatusService.findByName(Constants.ALMOST_FULL_STATUS));
+            } else {
+                newMlcClass.setStatus(classStatusService.findByName(Constants.OPEN_STATUS));
+            }
+
+            Long numOfRegsExisting = registrationRepository.findNumberOfRegistrationWithClassId(existingClass.getId());
+
+            if((numOfRegsExisting.doubleValue()-1)/existingClass.getSize().doubleValue() >= 0.8){
+                existingClass.setStatus(classStatusService.findByName(Constants.ALMOST_FULL_STATUS));
+            } else {
+                existingClass.setStatus(classStatusService.findByName(Constants.OPEN_STATUS));
+            }
+            classService.save(newMlcClass);
+            classService.save(existingClass);
+            invoiceService.save(invoice);
+        }
+
+        return result;
+    }
 }

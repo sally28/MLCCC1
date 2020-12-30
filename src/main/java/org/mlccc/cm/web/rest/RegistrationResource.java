@@ -160,8 +160,19 @@ public class RegistrationResource {
             registration.setCreateDate(LocalDate.now());
             return createRegistration(registration);
         }
+
         registration.setModifyDate(LocalDate.now());
-        Registration result = registrationService.save(registration);
+
+        Registration result = null;
+        // check if the registration update is for switching a class
+        Registration existingReg = registrationService.findOne(registration.getId());
+        MlcClass existingClass = existingReg.getMlcClass();
+        if(!existingClass.getId().equals(registration.getMlcClass().getId())){
+            result = registrationService.switchClass(existingReg, registration.getMlcClass());
+        } else {
+            result = registrationService.save(registration);
+        }
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, registration.getId().toString()))
             .body(result);

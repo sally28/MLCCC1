@@ -220,7 +220,7 @@ public class InvoiceDTO {
         return "InvoiceDTO{" +
             "id='" + id + '\'' +
             ", description='" + description + '\'' +
-            ", billTo='" + billToUser.getLastName() + ", " + billToUser.getFirstName() +
+            ", billTo='" + (billToUser==null?"":billToUser.getLastName() + ", " + billToUser.getFirstName()) +
             "}";
     }
 }

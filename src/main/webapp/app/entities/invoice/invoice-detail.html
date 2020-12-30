@@ -109,6 +109,17 @@
                                     </span>
                                 </div>
                             </td>
+                            <td>
+                                <div ng-switch="registration.status" has-authority="ROLE_ADMIN">
+                                    <span ng-switch-when="CONFIRMED">
+                                        <button class="btn btn-warning btn-sm"
+                                                ui-sref="invoice.switchClass({id: vm.invoice.id, regId:registration.id})">
+                                            <span class="glyphicon glyphicon-adjust"></span>
+                                            <span class="hidden-sm-down">Switch Class</span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
