@@ -64,6 +64,7 @@
                         var data = vm.mlcClasses.find( function( ele ) {
                             return ele.name === registration.mlcClassName;
                         } );
+                        student.status = registration.status;
                         if(data == null){
                             var classItem = {
                                 name: registration.mlcClassName,

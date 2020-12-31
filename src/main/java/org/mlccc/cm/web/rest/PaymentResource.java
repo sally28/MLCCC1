@@ -76,7 +76,9 @@ public class PaymentResource {
         if (paymentDto.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new payment cannot already have an ID")).body(null);
         }
-        if(!paymentDto.getStatus().equals(Constants.PAYMENT_REFUND_STATUS) && paymentDto.getAmount() < paymentDto.getInvoiceDto().getTotal()){
+        if(!paymentDto.getStatus().equals(Constants.PAYMENT_REFUND_STATUS)
+                && !paymentDto.getInvoiceDto().getStatus().equals(Constants.INVOICE_PARTIALLY_PAID_STATUS)
+                && paymentDto.getAmount() < paymentDto.getInvoiceDto().getTotal()){
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "amountNotMatch", "Payment amount does not match invoiced amount")).body(null);
         }
 

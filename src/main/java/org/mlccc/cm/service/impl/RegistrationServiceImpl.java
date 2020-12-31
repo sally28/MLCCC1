@@ -159,12 +159,13 @@ public class RegistrationServiceImpl implements RegistrationService{
             }
         }
 
-        if(newMlcClass.getTuition() > existingClass.getTuition()){
-            // if new class costs more than existing class
-            registration.setStatus(Constants.PENDING_STATUS);
-            invoice.setStatus(Constants.INVOICE_PARTIALLY_PAID_STATUS);
-        } else if(newMlcClass.getTuition() < existingClass.getTuition()){
-            // if new class costs less than existing class, need  refund
+        if(!newMlcClass.getTuition().equals(existingClass.getTuition())){
+            if(newMlcClass.getTuition() > existingClass.getTuition()){
+                // if new class costs more than existing class
+                registration.setStatus(Constants.PENDING_STATUS);
+                invoice.setStatus(Constants.INVOICE_PARTIALLY_PAID_STATUS);
+            }
+
             InvoiceDTO dto = new InvoiceDTO();
             invoiceService.calculateTotalAmount(invoice, dto);
             invoice.setTeacherBenefits(dto.getBenefits());

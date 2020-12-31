@@ -30,7 +30,7 @@ public final class Constants {
     public static final String DISCOUNT_CODE_REGWAIVER = "REGWAIVER";
     public static final String INVOICE_PAID_STATUS = "PAID";
     public static final String INVOICE_UNPAID_STATUS = "UNPAID";
-    public static final String INVOICE_PARTIALLY_PAID_STATUS = "PARTIALLY_UNPAID";
+    public static final String INVOICE_PARTIALLY_PAID_STATUS = "PARTIALLY_PAID";
     public static final String PAYMENT_TYPES = "Cash,Check,Credit Card,Paypal";
     public static final String PAYMENT_TYPE_CASH = "Cash";
     public static final String PAYMENT_TYPE_CHECK = "Check";

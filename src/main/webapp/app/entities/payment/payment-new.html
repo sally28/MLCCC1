@@ -19,8 +19,18 @@
             <lable>{{vm.invoice.billToUser.firstName}} {{vm.invoice.billToUser.lastName}}</lable>
         </div>
         <div class="form-group">
-            <label for="field_invoiced_amount">Invoiced Amount</label>
+            <label for="field_invoiced_amount">Invoiced Amount: </label>
             <label class="control-label" for="invoiced_amount">{{vm.invoice.total | currency:"$"}}</label>
+        </div>
+
+        <div class="form-group" ng-if="vm.paidAmount > 0">
+            <label for="field_paid_amount">Paid Amount: </label>
+            <label class="control-label" for="paid_amount">{{vm.paidAmount | currency:"$"}}</label>
+        </div>
+
+        <div class="form-group">
+            <label for="field_payment_amount">Total Payment: </label>
+            <label class="control-label" for="payment_amount">{{vm.paymentAmount | currency:"$"}}</label>
         </div>
 
         <div class="form-group">

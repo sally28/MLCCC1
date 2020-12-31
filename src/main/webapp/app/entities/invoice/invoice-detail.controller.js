@@ -13,6 +13,8 @@
         vm.invoice = entity;
         vm.previousState = previousState.name;
         vm.needRefund = false;
+        vm.paymentNeeded = vm.invoice.status !== 'PAID';
+        vm.paymentMade = vm.invoice.status === 'PAID' || vm.invoice.status === 'PARTIALLY_PAID';
 
         vm.invoice.registrations.forEach(function(registration){
             if(registration.status == 'WITHDRAWN_NEED_REFUND'){

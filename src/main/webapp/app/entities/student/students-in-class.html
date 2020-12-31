@@ -38,6 +38,7 @@
                             <th><span>Birth Year/Month</span></th>
                             <th><span>Parent 1</span></th>
                             <th><span>Parent 2</span></th>
+                            <th><span>Status</span></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -48,6 +49,7 @@
                             <td>{{student.birthYear}}/{{student.birthMonth}}</td>
                             <td>{{student.parent1}}</td>
                             <td>{{student.parent2}}</td>
+                            <td><span ng-class="{'color-green': student.status === 'CONFIRMED', 'color-orange': student.status === 'PENDING'}">{{student.status}}</span></td>
                         </tr>
                         </tbody>
                     </table>

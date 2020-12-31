@@ -18,9 +18,19 @@
             cardCode: null,
             email: null
         };
+        vm.paidAmount = 0.00;
+        vm.paymentAmount = 0.00;
+
         vm.getPaymentMethod = getPaymentMethod;
         vm.clear = clear;
         vm.save = save;
+
+        Payment.query({invoiceId: vm.invoice.id}, function(data){
+            data.forEach(function(payment){
+                vm.paidAmount += payment.amount;
+            })
+            vm.paymentAmount = vm.invoice.total - vm.paidAmount;
+        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -35,7 +45,7 @@
             vm.payment.invoiceDto = vm.invoice;
             vm.payment.account = vm.invoice.billToUser;
             vm.payment.status = 'PAID';
-            vm.payment.amount = vm.invoice.total;
+            vm.payment.amount = vm.paymentAmount;
             if(vm.payment.type == 'Credit Card'){
                 vm.payment.creditCard = vm.creditCardPayment;
             }
@@ -58,5 +68,6 @@
                 vm.creditCardPayment.email = vm.invoice.billToUser.email;
             }
         }
+
     }
 })();

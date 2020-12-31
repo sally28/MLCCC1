@@ -1,8 +1,8 @@
 
 <div>
     <h2><span>Invoice</span> {{vm.invoice.id}}</h2>
-    <div ng-switch="vm.invoice.status">
-        <div ng-switch-when="UNPAID">
+    <div>
+        <div ng-if="vm.paymentNeeded">
             <button type="button"
                     ui-sref="payment.new({invoiceId:vm.invoice.id})"
                     class="btn btn-primary">
@@ -23,7 +23,7 @@
                 <button type="button"
                         ui-sref="payment.invoice({invoiceId:vm.invoice.id})"
                         class="btn btn-info"
-                        ng-switch-when="PAID">
+                        ng-if="vm.paymentMade">
                     <span class="glyphicon glyphicon-usd"></span>
                     <span class="hidden-sm-down">Payments</span>
                 </button>
