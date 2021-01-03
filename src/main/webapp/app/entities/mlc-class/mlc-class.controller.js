@@ -5,9 +5,9 @@
         .module('mlcccApp')
         .controller('MlcClassController', MlcClassController);
 
-    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory', 'SchoolTerm', 'Registration'];
+    MlcClassController.$inject = ['$state', 'MlcClass', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'MlcClassCategory', 'SchoolTerm', 'Registration', 'ClassTime'];
 
-    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory, SchoolTerm, Registration) {
+    function MlcClassController($state, MlcClass, ParseLinks, AlertService, paginationConstants, pagingParams, MlcClassCategory, SchoolTerm, Registration, ClassTime) {
 
         var vm = this;
 
@@ -22,13 +22,16 @@
         vm.getNonLangClasses = getNonLangClasses;
         vm.getAllClasses = loadAll;
         vm.mlcClassCategories = [];
+        vm.classTimes = [];
         vm.CHLCategoryId;
         vm.CSLCategoryId;
         vm.NonLangCategoryId;
+        vm.classTime;
         vm.schoolTerms = loadSchoolTerms;
         vm.getClassesBySchoolTerm = getClassesBySchoolTerm;
         vm.filterClasses = filterClasses;
 
+        /*
         MlcClassCategory.query(null,function(data){
             vm.mlcClassCategories = data;
             vm.mlcClassCategories.forEach(function(cat){
@@ -38,6 +41,21 @@
                     vm.CHLCategoryId = cat.id;
                 } else if(cat.name == 'NonLanguage'){
                     vm.NonLangCategoryId = cat.id;
+                }
+            });
+        }); */
+        /* Temp code for summer camp */
+        MlcClassCategory.query(null,function(data){
+            data.forEach(function(cat){
+                if(cat.description === 'SUMMER CAMP'){
+                    vm.mlcClassCategories.push(cat);
+                }
+            });
+        });
+        ClassTime.query(null, function(data){
+            data.forEach(function (classTime){
+                if(classTime.classTime === 'FULL DAY' || classTime.classTime === 'HALF DAY' || classTime.classTime === '3/4 DAY'){
+                    vm.classTimes.push(classTime);
                 }
             });
         });
@@ -67,17 +85,22 @@
             vm.queryCount = vm.totalItems;
             vm.mlcClasses = data;
            // vm.page = pagingParams.page;
-
+            /* temp code for summer camp */
+            if(vm.classTime){
+                vm.mlcClasses = vm.mlcClasses.filter(function(item){
+                    return item.classTime.classTime == vm.classTime.classTime;
+                });
+            }
             vm.mlcClasses.forEach(function(mlcClass){
                 mlcClass.confirmed = 0;
                 mlcClass.pending = 0;
                 Registration.query({param : "registrationsForClass:"+mlcClass.id}, function (registrations){
                     registrations.forEach(function(reg){
-                       if(reg.status == 'CONFIRMED'){
-                           mlcClass.confirmed += 1;
-                       } else if(reg.status == 'PENDING'){
-                           mlcClass.pending +=1;
-                       }
+                        if(reg.status == 'CONFIRMED'){
+                            mlcClass.confirmed += 1;
+                        } else if(reg.status == 'PENDING'){
+                            mlcClass.pending +=1;
+                        }
                     });
                 });
             });

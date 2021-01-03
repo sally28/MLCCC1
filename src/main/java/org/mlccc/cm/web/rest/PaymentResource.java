@@ -6,10 +6,7 @@ import net.authorize.api.contract.v1.ANetApiResponse;
 import org.mlccc.cm.config.Constants;
 import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
-import org.mlccc.cm.service.InvoiceService;
-import org.mlccc.cm.service.PaymentService;
-import org.mlccc.cm.service.RegistrationService;
-import org.mlccc.cm.service.UserService;
+import org.mlccc.cm.service.*;
 import org.mlccc.cm.service.dto.*;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -52,13 +49,16 @@ public class PaymentResource {
 
     private final RegistrationService registrationService;
 
+    private final MailService mailService;
+
     private final UserService userService;
 
     public PaymentResource(PaymentService paymentService, InvoiceService invoiceService, RegistrationService registrationService,
-                           UserService userService) {
+                           MailService mailService, UserService userService) {
         this.paymentService = paymentService;
         this.invoiceService = invoiceService;
         this.registrationService = registrationService;
+        this.mailService = mailService;
         this.userService = userService;
     }
 
@@ -133,6 +133,8 @@ public class PaymentResource {
                     return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "CreditCardPayment", "Credit Card payment is not successful")).body(null);
                 } else {
                     payment.setReferenceId(ccTransactionDTO.getTransactionId());
+                    String[] to = paymentDto.getCreditCard().getEmail().split(",");
+                    mailService.sendEmail(to, "MLCCC Credit Card Payment", "Your credit card payment to MLCCC has been processed. This is your transaction id: "+ccTransactionDTO.getTransactionId(), false, false);
                 }
             }
 

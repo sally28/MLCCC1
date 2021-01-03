@@ -23,7 +23,6 @@
         </div>
         <div class="row">
             <div class="col-xs-2 no-padding-left">
-                <!--<label for="field_status">School Term</label>-->
                 <select class="form-control" id="field_school_term" name="school_term" ng-model="vm.schoolTerm"
                         ng-options="schoolTerm as schoolTerm.term for schoolTerm in vm.schoolTerms track by schoolTerm.id"
                         ng-change="vm.filterClasses()">
@@ -31,11 +30,18 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <!--<label for="field_status">School Term</label>-->
                 <select class="form-control" id="field_category" name="category" ng-model="vm.category"
                         ng-options="category as category.name for category in vm.mlcClassCategories track by category.id"
                         ng-change="vm.filterClasses()">
                     <option value="">Select Category</option>
+                </select>
+            </div>
+            <!-- temp code for summer camp -->
+            <div class="col-xs-2">
+                <select class="form-control" id="field_class_time" name="classTime" ng-model="vm.classTime"
+                        ng-options="classTime as classTime.classTime for classTime in vm.classTimes track by classTime.id"
+                        ng-change="vm.filterClasses()">
+                    <option value="">Select Class Time</option>
                 </select>
             </div>
         </div>
