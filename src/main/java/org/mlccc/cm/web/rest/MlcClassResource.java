@@ -4,8 +4,10 @@ import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import org.mlccc.cm.domain.MlcClass;
 import org.mlccc.cm.domain.Registration;
+import org.mlccc.cm.domain.Teacher;
 import org.mlccc.cm.service.MlcClassService;
 import org.mlccc.cm.service.RegistrationService;
+import org.mlccc.cm.service.TeacherService;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import org.mlccc.cm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -26,6 +28,7 @@ import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing MlcClass.
@@ -42,9 +45,12 @@ public class MlcClassResource {
 
     private final RegistrationService registrationService;
 
-    public MlcClassResource(MlcClassService mlcClassService, RegistrationService registrationService) {
+    private final TeacherService teacherService;
+
+    public MlcClassResource(MlcClassService mlcClassService, RegistrationService registrationService, TeacherService teacherService) {
         this.mlcClassService = mlcClassService;
         this.registrationService = registrationService;
+        this.teacherService = teacherService;
     }
 
     /**
@@ -136,6 +142,12 @@ public class MlcClassResource {
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteMlcClass(@PathVariable Long id) {
         log.debug("REST request to delete MlcClass : {}", id);
+        // delete a class needs to remove the association of teacher.
+        MlcClass mlcClass = mlcClassService.findOne(id);
+        Teacher teacher = teacherService.getTeacherWithClasses(mlcClass.getTeacher().getId());
+        teacher.getMlcClasses().remove(mlcClass);
+        teacherService.save(teacher);
+        mlcClass.setTeacher(null);
         mlcClassService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
