@@ -24,7 +24,8 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     @Query("SELECT s FROM Student s LEFT JOIN FETCH s.associatedAccounts WHERE s.id = (:id)")
     public Student findByIdAndFetchEager(@Param("id") Long id);
 
-    @Query("select s from Student s where lower(firstName) like (:searchTerm) or lower(lastName) like (:searchTerm) ")
+    @Query("select s from Student s where lower(firstName) like (:searchTerm) or lower(lastName) like (:searchTerm) or lower(firstName || ' ' || lastName) like (:searchTerm) " +
+            "or lower(lastName ||','||firstName) like (:searchTerm)")
     Page<Student> findAllWithSearchTerm(Pageable var1, @Param("searchTerm")String searchTerm);
 
     @EntityGraph(attributePaths = "associatedAccounts")

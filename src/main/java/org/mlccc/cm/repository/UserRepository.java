@@ -36,7 +36,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-    @Query("SELECT u FROM User u WHERE lower(u.login) like (:search) or lower(u.firstName) like (:search) or lower(u.lastName) like (:search)")
+    @Query("SELECT u FROM User u WHERE lower(u.login) like (:search) or lower(u.firstName) like (:search) or lower(u.lastName) like (:search) or lower(firstName || ' ' || lastName) like (:search) " +
+            "or lower(lastName ||','||firstName) like (:search)")
     Page<User> findAllWithSearch(Pageable pageable, @Param("search") String search);
 
     List<User> findAllByActivatedIsTrue();

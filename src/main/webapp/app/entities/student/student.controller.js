@@ -66,7 +66,7 @@
             AlertService.error(error.data.message);
         }
         function searchStudent(){
-            Student.query({param: vm.searchTerm}, onSuccess, onError);
+            Student.query({param: vm.searchTerm+'%'}, onSuccess, onError);
         }
     }
 })();
