@@ -26,12 +26,15 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://ec2-50-16-197-244.compute-1.amazonaws.com:5432/d61nsjv88u08d4?sslmode=require
-        username: negtfxydeqxgab
-        password: 7abe7b01fcb3b9dff4034a48c41fa646d7455cdc12be06d6a9e5a1dc68f4e18d
+        #url: jdbc:postgresql://ec2-50-16-197-244.compute-1.amazonaws.com:5432/d61nsjv88u08d4?sslmode=require
+        #username: negtfxydeqxgab
+        #password: 7abe7b01fcb3b9dff4034a48c41fa646d7455cdc12be06d6a9e5a1dc68f4e18d
         #url: jdbc:postgresql://localhost:5432/mlccc
         #username: postgres
         #password: Scala350!
+        url: jdbc:postgresql://ec2-18-232-232-96.compute-1.amazonaws.com:5432/d420lat3l0g61d?sslmode=require
+        username: aauplrvhcmscfa
+        password: 8f86c273482a8876335dd98ac5d7720400f042cc35496f29061e110bb6f0f836
         #type: ${datasource.type}
         #url: ${datasource.url}
         #username: ${datasource.username}
@@ -152,12 +155,12 @@ application:
     uploadedFileDir: /Temp/MLCCC/upload/
     keyFilePath: /Temp/security/secret.key
     ivFilePath: /Temp/security/ivParameter.txt
-    #anEnvironment: sandbox
-    #anLoginId: 793qNYs9
-    #anTransactionKey: 274ALe6Pzv8h3pn4
-    #anKey: Simon
-    anEnvironment: production
-    anLoginId: 7Qu2Rz7z
-    anTransactionKey: 5Qmr56whM55Yw48Z
+    anEnvironment: sandbox
+    anLoginId: 793qNYs9
+    anTransactionKey: 274ALe6Pzv8h3pn4
     anKey: Simon
+    #anEnvironment: production
+    #anLoginId: 7Qu2Rz7z
+    #anTransactionKey: 5Qmr56whM55Yw48Z
+    #anKey: Simon
 
