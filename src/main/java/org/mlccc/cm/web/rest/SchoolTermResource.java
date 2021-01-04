@@ -64,13 +64,15 @@ public class SchoolTermResource {
         SchoolTerm result = schoolTermService.save(schoolTerm);
 
         // copy all classes of current active school term to new school term.
-        List<MlcClass> activeClasses = mlcClassService.findAllActive();
-        ClassStatus openStatus = classStatusService.findByName("OPEN");
-        for(MlcClass mlcClass : activeClasses){
-            MlcClass newClass = new MlcClass(mlcClass);
-            newClass.setStatus(openStatus);
-            newClass.setSchoolTerm(schoolTerm);
-            mlcClassService.save(newClass);
+        if(!schoolTerm.getTerm().endsWith("Summer Camp")){
+            List<MlcClass> activeClasses = mlcClassService.findAllActive();
+            ClassStatus openStatus = classStatusService.findByName("OPEN");
+            for(MlcClass mlcClass : activeClasses){
+                MlcClass newClass = new MlcClass(mlcClass);
+                newClass.setStatus(openStatus);
+                newClass.setSchoolTerm(schoolTerm);
+                mlcClassService.save(newClass);
+            }
         }
 
         return ResponseEntity.created(new URI("/api/school-terms/" + result.getId()))
