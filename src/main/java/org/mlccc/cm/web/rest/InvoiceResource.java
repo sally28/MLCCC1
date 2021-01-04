@@ -7,8 +7,10 @@ import org.mlccc.cm.domain.*;
 import org.mlccc.cm.security.AuthoritiesConstants;
 import org.mlccc.cm.service.DiscountService;
 import org.mlccc.cm.service.InvoiceService;
+import org.mlccc.cm.service.StudentService;
 import org.mlccc.cm.service.UserService;
 import org.mlccc.cm.service.dto.InvoiceDTO;
+import org.mlccc.cm.service.dto.StudentDTO;
 import org.mlccc.cm.service.dto.UserDTO;
 import org.mlccc.cm.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -46,11 +48,14 @@ public class InvoiceResource {
 
     private final UserService userService;
 
+    private final StudentService studentService;
+
     private final DiscountService discountService;
 
-    public InvoiceResource(InvoiceService invoiceService, UserService userService, DiscountService discountService) {
+    public InvoiceResource(InvoiceService invoiceService, UserService userService, StudentService studentService, DiscountService discountService) {
         this.invoiceService = invoiceService;
         this.userService = userService;
+        this.studentService = studentService;
         this.discountService = discountService;
     }
 
@@ -132,10 +137,23 @@ public class InvoiceResource {
                 total = invoicePage.getTotalElements();
             } else {
                 Pageable p = new PageRequest(0, 1000);
+                Page<Student> students = studentService.findAllWithSearchTerm(p, searchTerm.toLowerCase());
+                for(Student student : students.getContent()){
+                    Set<User> users = studentService.findByIdAndFetchEager(student.getId()).getAssociatedAccounts();
+                    for(User user : users){
+                        List<Invoice> invoicesByUser = invoiceService.findUnpaidByUserId(user.getId());
+                        for(Invoice invoice: invoicesByUser){
+                            if(!invoices.contains(invoice)){
+                                invoices.add(invoice);
+                            }
+                        }
+                    }
+                }
+                /*
                 Page<UserDTO> users = userService.searchUsers(p, searchTerm.toLowerCase());
                 for(UserDTO userDTO: users.getContent()){
                     invoices.addAll(invoiceService.findUnpaidByUserId(userDTO.getId()));
-                }
+                } */
                 total = invoices.size();
             }
         } else {
