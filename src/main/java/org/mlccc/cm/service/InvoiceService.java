@@ -267,4 +267,26 @@ public class InvoiceService {
             return null;
         }
     }
+
+    @Transactional(readOnly = true)
+    public void calculateTotalAmountSummerCamp(Invoice invoice, InvoiceDTO dto) {
+        log.debug("Request to calculateTotalAmountSummerCamp: {}", invoice.getId());
+
+        /* Step 1: Discount:
+        1. mlccc weekend student 10%
+        or
+        2. siblings: 10% of lowest tutution
+        */
+        /* Step 2: Additional discount
+        3. whole summer discount: 7%
+            1). 9 weeks Chinese courses
+            or
+            2). Every day has non-Chinese courses
+        */
+        // step 6: apply adjustment;
+        if(invoice.getAdjustment() != null){
+            dto.setAdjustment(invoice.getAdjustment());
+            dto.setTotal(dto.getTotal() - dto.getAdjustment());
+        }
+    }
 }

@@ -65,6 +65,8 @@
 
     <include file="config/liquibase/changelog/20200704102659_modified_entity_Invoice.xml" relativeToChangelogFile="false"/>
 
+    <include file="config/liquibase/changelog/20210306103559_modified_entity_Invoice.xml" relativeToChangelogFile="false"/>
+
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 
 
