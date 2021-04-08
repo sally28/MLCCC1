@@ -25,6 +25,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
     List<Invoice> findUnpaidByUserId(@Param("userId") Long userId);
 
     @EntityGraph(attributePaths = "registrations")
+    @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.user.id = (:userId) and invoice.schoolTerm.id = (:schoolTermId) and invoice.status = 'UNPAID' ")
+    List<Invoice> findUnpaidByUserIdSchoolTermId(@Param("userId") Long userId, @Param("schoolTermId") Long schoolTermId);
+
+    @EntityGraph(attributePaths = "registrations")
     @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE invoice.user.id = (:userId) and invoice.status = 'UNPAID' ")
     Page<Invoice> findUnpaidByUserId(Pageable var1, @Param("userId") Long userId);
 

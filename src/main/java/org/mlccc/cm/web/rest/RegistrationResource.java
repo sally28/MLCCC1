@@ -108,8 +108,9 @@ public class RegistrationResource {
             associatedAccounts.iterator().next();
         }
 
-        List<Invoice> invoices = invoiceService.findUnpaidByUserId(invoicedUser.getId());
+        List<Invoice> invoices = invoiceService.findUnpaidByUserIdSchoolTermId(invoicedUser.getId(), mlcClass.getSchoolTerm().getId());
         Invoice invoice = new Invoice();
+        invoice.setSchoolTerm(mlcClass.getSchoolTerm());
         if(invoices == null || invoices.isEmpty()){
             invoice.setDescription("new registration invoice");
             invoice.setInvoiceDate(LocalDate.now());

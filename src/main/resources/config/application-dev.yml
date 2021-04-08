@@ -26,7 +26,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/mlccc
+        url: jdbc:postgresql://localhost:5433/mlccc
         username: postgres
         password: Scala350!
     jpa:

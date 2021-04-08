@@ -65,6 +65,9 @@ public class Invoice implements Serializable {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private SchoolTerm schoolTerm;
+
     @OneToMany(mappedBy = "invoice")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -138,6 +141,14 @@ public class Invoice implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public SchoolTerm getSchoolTerm() {
+        return schoolTerm;
+    }
+
+    public void setSchoolTerm(SchoolTerm schoolTerm) {
+        this.schoolTerm = schoolTerm;
     }
 
     public Set<Registration> getRegistrations() {

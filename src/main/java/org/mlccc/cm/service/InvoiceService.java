@@ -104,6 +104,12 @@ public class InvoiceService {
     }
 
     @Transactional(readOnly = true)
+    public List<Invoice> findUnpaidByUserIdSchoolTermId(Long userId, Long schoolTermId) {
+        log.debug("Request to get unpaid Invoices for user : {} school term: {}", userId, schoolTermId);
+        return invoiceRepository.findUnpaidByUserIdSchoolTermId(userId, schoolTermId);
+    }
+
+    @Transactional(readOnly = true)
     public Page<Invoice> findUnpaidByUserId(Pageable pageable, Long userId) {
         log.debug("Request to get unpaid Invoices for user : {} ", userId);
         return invoiceRepository.findUnpaidByUserId(pageable, userId);
@@ -132,9 +138,13 @@ public class InvoiceService {
         log.debug("Request to calculateTotalAmount: {}", invoice.getId());
         Date now = Calendar.getInstance().getTime();
 
-        Long schoolTermId = getSchoolTermId(invoice);
-        SchoolTerm schoolTerm = schoolTermRepository.findOne(schoolTermId);
-        User billToUser = userService.getUserWithAuthorities(invoice.getUser().getId());
+        SchoolTerm schoolTerm = invoice.getSchoolTerm();
+        // Summer Camp calculation process
+        if(schoolTerm.getTerm().endsWith("Summer Camp")){
+            calculateTotalAmountSummerCamp(invoice, dto);
+            return;
+        }
+        // Weekend calculation process
         dto.setTotal(0.00);
         dto.setMultiClassDiscount(0.00);
         // step 1: first step needs to apply teacher benefits to each class;
@@ -159,7 +169,7 @@ public class InvoiceService {
         dto.setBenefits(teacherBenefits);
 
         // step 2: apply multi-class discount;
-        Map<String, Discount> discountMap = discountService.findAllBySchoolTerm(schoolTermId);
+        Map<String, Discount> discountMap = discountService.findAllBySchoolTerm(schoolTerm.getId());
         if(invoice.getRegistrations().size() > 1 && discountMap.get(Constants.DISCOUNT_CODE_MULTICLASS) != null){
             Double highestTuition = 0.00;
             Double totalTuition = 0.00;
@@ -275,7 +285,7 @@ public class InvoiceService {
         /* Step 1: Discount:
         1. mlccc weekend student 10%
         or
-        2. siblings: 10% of lowest tutution
+        2. siblings: 10% of lowest tuition
         */
         /* Step 2: Additional discount
         3. whole summer discount: 7%
